@@ -240,20 +240,20 @@ void main() {
       const body = '''
       {
         "tag_name": "v2.3.0",
-        "name": "GPS Mock 2.3.0",
+        "name": "Elsewhere 2.3.0",
         "body": "Adds offline maps.",
         "html_url": "https://github.com/Sriharan-S/gps-mock/releases/tag/v2.3.0",
         "published_at": "2026-08-30T04:00:00Z",
         "assets": [
           {"name": "notes.txt", "browser_download_url": "https://x/notes.txt", "size": 10},
-          {"name": "gps-mock-2.3.0.apk", "browser_download_url": "https://x/app.apk", "size": 20971520}
+          {"name": "Elsewhere.apk", "browser_download_url": "https://x/app.apk", "size": 20971520}
         ]
       }
       ''';
       final release = UpdateService.parseRelease(body)!;
       expect(release.tag, 'v2.3.0');
       expect(release.version, '2.3.0');
-      expect(release.name, 'GPS Mock 2.3.0');
+      expect(release.name, 'Elsewhere 2.3.0');
       expect(release.apkUrl, 'https://x/app.apk');
       expect(release.hasApk, isTrue);
       expect(release.sizeLabel, '20.0 MB');

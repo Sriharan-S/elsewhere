@@ -18,7 +18,7 @@
         android:layout_height="match_parent"
         android:gravity="center"
         android:padding="16dp"
-        android:text="No active mock route\nTap to open GPS Mock"
+        android:text="No active mock route\nTap to open Elsewhere"
         android:textColor="#B3FFFFFF"
         android:textSize="13sp" />
 

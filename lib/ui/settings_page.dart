@@ -164,8 +164,10 @@ class _SettingsPageState extends State<SettingsPage> {
                 _Section(title: 'About'),
                 _Tile(
                   icon: Icons.info_outline,
-                  title: 'About GPS Mock',
-                  subtitle: _version.isEmpty ? 'Licences and credits' : 'Version $_version',
+                  title: 'About Elsewhere',
+                  subtitle: _version.isEmpty
+                      ? 'Licences and credits · formerly GPS Mock'
+                      : 'Version $_version · formerly GPS Mock',
                   onTap: () => _showAbout(context),
                 ),
                 const SizedBox(height: 32),
@@ -293,14 +295,14 @@ class _SettingsPageState extends State<SettingsPage> {
   void _showAbout(BuildContext context) {
     showAboutDialog(
       context: context,
-      applicationName: 'GPS Mock',
+      applicationName: 'Elsewhere',
       applicationVersion: _version.isEmpty ? null : 'Version $_version',
       applicationIcon: const Icon(Icons.location_pin, size: 40),
       children: const [
         Text(
-          'GPS Mock spoofs your device location and simulates trips along '
-          'real roads. It is the testing companion for My Globe, a maps & '
-          'navigation project.\n\n'
+          'Elsewhere spoofs your device location and simulates trips along '
+          'real roads. It is the testing companion for '
+          'My Globe, a maps & navigation project.\n\n'
           'Maps by OpenStreetMap contributors and other free providers, '
           'search by Photon, routing by OSRM — all free and keyless.\n\n'
           'Built by ${AppConstants.developerName}.\n'
@@ -359,7 +361,7 @@ class _DeveloperCard extends StatelessWidget {
                       ),
                       const SizedBox(height: 2),
                       Text(
-                        'Developer · GPS Mock'
+                        'Developer · Elsewhere'
                         '${version.isEmpty ? '' : ' $version'}',
                         style: theme.textTheme.bodySmall?.copyWith(
                           color: scheme.onSurfaceVariant,
@@ -446,8 +448,8 @@ class _SetupCard extends StatelessWidget {
                       const SizedBox(height: 2),
                       Text(
                         ready
-                            ? 'GPS Mock is selected as the mock location app.'
-                            : 'Select GPS Mock as the mock location app in '
+                            ? 'Elsewhere is selected as the mock location app.'
+                            : 'Select Elsewhere as the mock location app in '
                                 'Developer Options.',
                         style: theme.textTheme.bodySmall?.copyWith(
                           color: ready

@@ -15,18 +15,18 @@ class OnboardingDialog extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           const Text(
-            "To spoof your GPS position, Android requires GPS Mock to be "
+            "To spoof your GPS position, Android requires Elsewhere to be "
             "selected as the mock location app:",
           ),
           const SizedBox(height: 12),
           const Text(
             "1. Tap 'Open Settings' below.\n"
             "2. Find 'Select mock location app'.\n"
-            "3. Choose 'GPS Mock'.",
+            "3. Choose 'Elsewhere' (formerly GPS Mock).",
           ),
           const SizedBox(height: 16),
           Text(
-            "GPS Mock is a testing companion for My Globe, a maps & "
+            "Elsewhere is a testing companion for My Globe, a maps & "
             "navigation app — use it to simulate positions and routes "
             "while developing location features.",
             style: textTheme.bodySmall,

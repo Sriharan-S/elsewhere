@@ -81,7 +81,7 @@ class _UpdateDialogState extends State<UpdateDialog> {
     if (!await widget.service.platform.canInstallPackages()) {
       if (!mounted) return;
       setState(() {
-        _error = 'Android needs permission to install apps from GPS Mock. '
+        _error = 'Android needs your permission for Elsewhere to install updates. '
             'Grant it, then tap Update again.';
       });
       await widget.service.platform.requestInstallPermission();
@@ -298,7 +298,7 @@ Future<void> checkForUpdatesInteractively(
         content: Text(
           installed.isEmpty
               ? 'You are on the latest version.'
-              : 'GPS Mock $installed is the latest version.',
+              : 'Elsewhere $installed is the latest version.',
         ),
       ),
     );

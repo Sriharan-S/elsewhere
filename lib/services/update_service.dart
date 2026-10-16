@@ -282,7 +282,7 @@ class UpdateService {
     final updates = Directory('${directory.path}/updates');
     if (!updates.existsSync()) updates.createSync(recursive: true);
     // One file per version, so a retry reuses the same slot.
-    final file = File('${updates.path}/gps-mock-${release.version}.apk');
+    final file = File('${updates.path}/elsewhere-${release.version}.apk');
 
     final request = http.Request('GET', Uri.parse(url));
     request.headers['User-Agent'] = AppConstants.userAgent;

@@ -27,7 +27,7 @@ abstract class BaseFavoriteTileService : TileService() {
         val favorite = MockStateStore.tileFavorite(this, slotIndex)
         if (favorite == null) {
             tile.state = Tile.STATE_UNAVAILABLE
-            tile.label = "GPS Mock"
+            tile.label = "Elsewhere"
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
                 tile.subtitle = "No favorite assigned"
             }

@@ -1,10 +1,10 @@
-# 📍 GPS Mock
+# 📍 Elsewhere
 
-A Flutter-based Android app for mocking/spoofing GPS locations on your device. Select any location on the map — or simulate an entire trip between two places — and your device will report that position to all other apps. 🗺️
+**Elsewhere** (formerly GPS Mock) is a Flutter-based Android app for mocking/spoofing GPS locations on your device. Select any location on the map — or simulate an entire trip between two places — and your device will report that position to all other apps. 🗺️
 
 **100% free stack**: maps by OpenStreetMap, search by Photon, routing by OSRM — no API keys, no accounts, no credit card required for anything. Clone, build, run. 🆓
 
-> **🌐 Built for testing "My Globe"** — GPS Mock is the official testing companion for [My Globe](https://github.com/Sriharan-S), a maps & navigation project (think Google Maps, built from scratch). Simulating positions, movement, speed and bearing with GPS Mock makes it possible to develop and test My Globe's navigation features from a desk — no driving required. It works just as well for testing any other location-based app.
+> **🌐 Built for testing "My Globe"** — Elsewhere is the official testing companion for [My Globe](https://github.com/Sriharan-S), a maps & navigation project (think Google Maps, built from scratch). Simulating positions, movement, speed and bearing with Elsewhere makes it possible to develop and test My Globe's navigation features from a desk — no driving required. It works just as well for testing any other location-based app.
 
 ## ✨ Features
 
@@ -21,17 +21,17 @@ A Flutter-based Android app for mocking/spoofing GPS locations on your device. S
 - **⭐ Favorites**: Save frequently used locations; selecting one jumps the map straight to it. Delete with undo
 - **🕑 History**: Every mock session is logged — fixed spots and routes (from → to, distance, planned vs. actual duration, when started/arrived/ended) — including sessions started from tiles and widgets
 - **⚡ Real-time Mocking**: Start/stop GPS mocking with a single tap; survives closing the app (foreground service with a Stop action in the notification)
-- **🚨 Honest failure reporting**: if Android rejects the mock (e.g. GPS Mock isn't selected as the mock location app), a heads-up notification appears immediately — the app never pretends to mock when it isn't
+- **🚨 Honest failure reporting**: if Android rejects the mock (e.g. Elsewhere isn't selected as the mock location app), a heads-up notification appears immediately — the app never pretends to mock when it isn't
 
 ### 🧭 Mock Navigation Movement
 Simulate actually *travelling* a route — perfect for testing turn-by-turn navigation in My Globe:
 
 1. Tap **Directions** in the bottom panel (or switch it to **Route**)
 2. Pick a start and destination — **tap a waypoint to place it by tapping the map, or tap it again to search** (the search also offers "choose on the map" and the current pin) — e.g. **Chennai → Salem** — and add **stops** in between if you like. The start is a **green pin**, stops are **numbered blue pins**, the destination is a **red pin**, and each can be dragged on the map. You can also **long-press the map** and choose *Set as start*, *Add a stop here* or *Set as destination*
-3. GPS Mock fetches the real driving route (free [OSRM](http://project-osrm.org/) routing, no key needed) and shows it on the map with distance and a realistic duration
-4. Choose how long the trip should take — a **duration** in minutes, an **average speed** (tap the km/h figure), or an **"arrive by"** time/date (GPS Mock works out the pace)
+3. Elsewhere fetches the real driving route (free [OSRM](http://project-osrm.org/) routing, no key needed) and shows it on the map with distance and a realistic duration
+4. Choose how long the trip should take — a **duration** in minutes, an **average speed** (tap the km/h figure), or an **"arrive by"** time/date (Elsewhere works out the pace)
 5. **START ROUTE**: your device's GPS now moves along the actual roads with correct **speed and bearing**, arriving exactly on schedule
-6. On arrival GPS Mock **hands the destination over to a fixed-spot mock**, so the device simply stays parked there until you stop it
+6. On arrival Elsewhere **hands the destination over to a fixed-spot mock**, so the device simply stays parked there until you stop it
 
 The simulation runs natively in the foreground service, so it keeps driving even if you close the app. Reopen anytime to see live progress, remaining time, and a camera-follow mode.
 
@@ -39,14 +39,14 @@ The simulation runs natively in the foreground service, so it keeps driving even
 Add up to **4 tiles** to your notification shade and choose which saved favorite each one mocks (**Library → ⋮ → Quick-settings tile…**). Toggle a tile to instantly mock that location **without opening the app** — turning one on automatically turns the others off.
 
 ### 🔗 Open locations from other apps
-Share a place from Google Maps (or any app) to **GPS Mock**, or open a map link with it, and the pin jumps straight there — a running fixed mock follows. Supported: `geo:` links, Google Maps links (including `maps.app.goo.gl` short links), OpenStreetMap, Apple Maps, Waze and Bing Maps links, and plain `lat, lng` text. Directions links set the route destination instead. Anything GPS Mock can't read gets a clear explanation (unsupported site, no location in the link, coordinates out of range, place not found, no connection for a short link) along with the link itself, so it can be copied.
+Share a place from Google Maps (or any app) to **Elsewhere**, or open a map link with it, and the pin jumps straight there — a running fixed mock follows. Supported: `geo:` links, Google Maps links (including `maps.app.goo.gl` short links), OpenStreetMap, Apple Maps, Waze and Bing Maps links, and plain `lat, lng` text. Directions links set the route destination instead. Anything Elsewhere can't read gets a clear explanation (unsupported site, no location in the link, coordinates out of range, place not found, no connection for a short link) along with the link itself, so it can be copied.
 
 ### 🧩 Home-Screen Widgets
 - **Favorite toggle widget**: bind a widget to any saved location and toggle mocking right from your home screen
 - **Route status widget**: shows the running mock route's remaining time, progress bar, and a periodically refreshed map snapshot of the simulated position
 
 ### ⬆️ In-app updates
-GPS Mock checks its own GitHub releases once per launch and offers whatever is newer:
+Elsewhere checks its own GitHub releases once per launch and offers whatever is newer:
 
 - **Update / Later** prompt on open, with **"Don't remind me again today"** to keep it quiet until tomorrow
 - Downloads the release APK with live progress and hands it to the Android installer (you still confirm the install; the app asks for the "install unknown apps" permission the first time)
@@ -67,16 +67,16 @@ GPS Mock checks its own GitHub releases once per launch and offers whatever is n
 
 ## 📋 Prerequisites
 
-Before using GPS Mock, you need to:
+Before using Elsewhere, you need to:
 
 1. **🔧 Enable Developer Options** on your Android device:
    - Go to **Settings > About Phone**
    - Tap **Build Number** 7 times to enable Developer Options
 
-2. **📱 Set GPS Mock as the Mock Location App**:
+2. **📱 Set Elsewhere as the Mock Location App**:
    - Go to **Settings > Developer Options**
    - Find **Select mock location app**
-   - Select **GPS Mock**
+   - Select **Elsewhere** (formerly GPS Mock)
 
 The app detects this automatically and only shows the setup guide when it's actually needed.
 
@@ -121,7 +121,7 @@ No API keys of any kind — the map, search, and routing all use free OpenStreet
 
 ## 🚀 Usage
 
-GPS Mock has three tabs on the bottom navigation bar: **Map**, **Saved**, and **History**.
+Elsewhere has three tabs on the bottom navigation bar: **Map**, **Saved**, and **History**.
 
 ### Fixed location
 1. **📱 Launch the app** and grant location permissions when prompted
@@ -130,7 +130,7 @@ GPS Mock has three tabs on the bottom navigation bar: **Map**, **Saved**, and **
 4. **▶️ Tap START MOCKING** to begin mocking your GPS location
 5. **⏹️ Tap STOP MOCKING** (in the app or the notification) to return to your real GPS location
 
-If Android ever refuses the mock (e.g. GPS Mock got deselected as the mock location app), you'll get an immediate notification telling you what's wrong and a button to fix it — the app never pretends to be mocking when it isn't.
+If Android ever refuses the mock (e.g. Elsewhere got deselected as the mock location app), you'll get an immediate notification telling you what's wrong and a button to fix it — the app never pretends to be mocking when it isn't.
 
 ### Mock navigation (route simulation)
 1. Tap the **Directions** button, or switch the bottom panel to **Route**
@@ -154,18 +154,18 @@ The **History** tab logs every mock session — fixed locations and simulated ro
 
 ### 📟 Quick settings tiles
 1. Save at least one favorite
-2. Open the notification shade → tap the ✏️ edit button → drag the **GPS Mock favorite 1–4** tiles into your quick settings
+2. Open the notification shade → tap the ✏️ edit button → drag the **Elsewhere favorite 1–4** tiles into your quick settings
 3. Choose which favorite each tile mocks from **Library → ⋮ → Quick-settings tile…** (until you do, tiles show your first four favorites); assigned favorites carry a **Tile N** badge
 4. Tap to mock / tap again to stop — no need to open the app
 
 ### 🧩 Widgets
-Long-press your home screen → **Widgets** → **GPS Mock**:
+Long-press your home screen → **Widgets** → **Elsewhere**:
 - **Favorite toggle** — pick which saved location it controls when placing it
 - **Mock route status** — shows live progress whenever a route simulation is running
 
 ## 🌟 Open Source
 
-GPS Mock is open source software released under the MIT License. You are free to use, modify, and distribute this software. ✨
+Elsewhere is open source software released under the MIT License. You are free to use, modify, and distribute this software. ✨
 
 ## 🤝 Contributing
 

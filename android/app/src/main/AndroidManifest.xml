@@ -23,7 +23,7 @@
         </intent>
     </queries>
     <application
-        android:label="GPS Mock"
+        android:label="Elsewhere"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <provider
@@ -121,7 +121,7 @@
             android:name=".tiles.FavoriteTileService1"
             android:exported="true"
             android:icon="@drawable/ic_qs_pin"
-            android:label="GPS Mock favorite 1"
+            android:label="Elsewhere favorite 1"
             android:permission="android.permission.BIND_QUICK_SETTINGS_TILE">
             <intent-filter>
                 <action android:name="android.service.quicksettings.action.QS_TILE" />
@@ -131,7 +131,7 @@
             android:name=".tiles.FavoriteTileService2"
             android:exported="true"
             android:icon="@drawable/ic_qs_pin"
-            android:label="GPS Mock favorite 2"
+            android:label="Elsewhere favorite 2"
             android:permission="android.permission.BIND_QUICK_SETTINGS_TILE">
             <intent-filter>
                 <action android:name="android.service.quicksettings.action.QS_TILE" />
@@ -141,7 +141,7 @@
             android:name=".tiles.FavoriteTileService3"
             android:exported="true"
             android:icon="@drawable/ic_qs_pin"
-            android:label="GPS Mock favorite 3"
+            android:label="Elsewhere favorite 3"
             android:permission="android.permission.BIND_QUICK_SETTINGS_TILE">
             <intent-filter>
                 <action android:name="android.service.quicksettings.action.QS_TILE" />
@@ -151,7 +151,7 @@
             android:name=".tiles.FavoriteTileService4"
             android:exported="true"
             android:icon="@drawable/ic_qs_pin"
-            android:label="GPS Mock favorite 4"
+            android:label="Elsewhere favorite 4"
             android:permission="android.permission.BIND_QUICK_SETTINGS_TILE">
             <intent-filter>
                 <action android:name="android.service.quicksettings.action.QS_TILE" />

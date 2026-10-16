@@ -53,7 +53,7 @@ class FavoriteWidgetProvider : AppWidgetProvider() {
 
             if (favorite == null) {
                 views.setTextViewText(R.id.widget_name, "Favorite removed")
-                views.setTextViewText(R.id.widget_status, "Tap to open GPS Mock")
+                views.setTextViewText(R.id.widget_status, "Tap to open Elsewhere")
                 views.setInt(R.id.widget_root, "setBackgroundResource", R.drawable.widget_bg)
                 views.setOnClickPendingIntent(
                     R.id.widget_root,

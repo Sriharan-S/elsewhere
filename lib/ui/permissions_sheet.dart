@@ -3,7 +3,7 @@ import 'package:gps_mock/providers/app_state.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:provider/provider.dart';
 
-/// "Setup & permissions" checklist: everything GPS Mock needs to work
+/// "Setup & permissions" checklist: everything Elsewhere needs to work
 /// reliably, with one-tap fixes.
 class PermissionsSheet extends StatefulWidget {
   const PermissionsSheet({super.key});
@@ -92,7 +92,7 @@ class _PermissionsSheetState extends State<PermissionsSheet>
           ),
           const SizedBox(height: 4),
           Text(
-            "Everything GPS Mock needs to mock reliably — including "
+            "Everything Elsewhere needs to mock reliably — including "
             "long route simulations in the background.",
             style: Theme.of(context).textTheme.bodySmall,
           ),
@@ -100,7 +100,7 @@ class _PermissionsSheetState extends State<PermissionsSheet>
           _PermissionRow(
             icon: Icons.developer_mode,
             title: "Mock location app",
-            subtitle: "Select GPS Mock in Developer Options",
+            subtitle: "Select Elsewhere in Developer Options",
             granted: appState.isMockLocationApp,
             actionLabel: "Open settings",
             onFix: () => context.read<AppState>().openSettings(),

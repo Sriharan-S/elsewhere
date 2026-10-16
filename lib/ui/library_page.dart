@@ -588,7 +588,7 @@ class _SavedRow extends StatelessWidget {
           switch (result) {
             MockToggleResult.started => 'Mocking "${item.name}"',
             MockToggleResult.needsSetup =>
-              'Select GPS Mock as the mock location app first.',
+              'Select Elsewhere as the mock location app first.',
             _ => appState.lastError ?? 'Could not start mocking.',
           },
         ),
@@ -654,7 +654,7 @@ class _SavedRow extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.fromLTRB(24, 8, 24, 0),
             child: Text(
-              'Add the "GPS Mock favorite" tiles from the quick-settings edit '
+              'Add the "Elsewhere favorite" tiles from the quick-settings edit '
               'screen; each one mocks the favorite assigned here.',
               style: Theme.of(dialogContext).textTheme.bodySmall,
             ),

@@ -92,7 +92,7 @@ class _HomeScreenState extends State<HomeScreen> {
       case LinkPlaceQuery() || LinkShortUrl():
         await _showInvalidLink(
           raw,
-          'GPS Mock couldn\'t read a location from it.',
+          'Elsewhere couldn\'t read a location from it.',
         );
     }
   }

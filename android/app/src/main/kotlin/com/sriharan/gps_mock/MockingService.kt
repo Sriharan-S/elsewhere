@@ -128,10 +128,10 @@ class MockingService : Service() {
         return "${command.optDouble("lat")}, ${command.optDouble("lng")}"
     }
 
-    private fun buildNotification(text: String, title: String = "Mock GPS Active"): Notification {
+    private fun buildNotification(text: String, title: String = "Mock location active"): Notification {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             val channel = NotificationChannel(
-                CHANNEL_ID, "Mock GPS Service", NotificationManager.IMPORTANCE_LOW
+                CHANNEL_ID, "Elsewhere service", NotificationManager.IMPORTANCE_LOW
             )
             getSystemService(NotificationManager::class.java)?.createNotificationChannel(channel)
         }
@@ -162,7 +162,7 @@ class MockingService : Service() {
             .build()
     }
 
-    private fun updateNotification(text: String, title: String = "Mock GPS Active") {
+    private fun updateNotification(text: String, title: String = "Mock location active") {
         getSystemService(NotificationManager::class.java)
             ?.notify(NOTIFICATION_ID, buildNotification(text, title))
     }
@@ -304,7 +304,7 @@ class MockingService : Service() {
         if (points.size < 2 || durationSeconds <= 0) {
             postAlert(
                 "Mock route stopped",
-                "The route data could not be loaded. Open GPS Mock and start the route again."
+                "The route data could not be loaded. Open Elsewhere and start the route again."
             )
             stopMocking()
             return
@@ -699,7 +699,7 @@ class MockingService : Service() {
         pushFailureAlerted = true
         postAlert(
             "Mock location is NOT working",
-            "GPS Mock isn't selected as the mock location app in Developer Options. Tap to fix."
+            "Elsewhere isn't selected as the mock location app in Developer Options. Tap to fix."
         )
     }
 
@@ -804,7 +804,7 @@ class MockingService : Service() {
         private const val ALERT_CHANNEL_ID = "mock_gps_alerts"
         private const val TILE_SIZE = 256
         private const val OSM_USER_AGENT =
-            "gps-mock/2.0 (https://github.com/Sriharan-S/gps-mock; " +
+            "Elsewhere/2.0 (formerly gps-mock; https://github.com/Sriharan-S/gps-mock; " +
                 "location testing tool for the My Globe navigation app)"
 
         @Volatile

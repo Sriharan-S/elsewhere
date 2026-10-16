@@ -21,7 +21,7 @@ class MockGpsApp extends StatelessWidget {
       create: (_) => AppState(),
       child: Consumer<AppState>(
         builder: (context, appState, _) => MaterialApp(
-          title: 'GPS Mock',
+          title: 'Elsewhere',
           debugShowCheckedModeBanner: false,
           theme: AppTheme.light(),
           darkTheme: AppTheme.dark(),

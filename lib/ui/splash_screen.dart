@@ -92,7 +92,7 @@ class _SplashScreenState extends State<SplashScreen>
                   ),
                   const SizedBox(height: 24),
                   Text(
-                    'GPS Mock',
+                    'Elsewhere',
                     style: Theme.of(context).textTheme.headlineSmall?.copyWith(
                           fontWeight: FontWeight.w700,
                           color: scheme.onSurface,

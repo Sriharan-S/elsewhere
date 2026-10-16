@@ -1,10 +1,11 @@
 class AppConstants {
-  // GPS Mock is the testing companion for "My Globe", a maps & navigation
+  // Elsewhere is the testing companion for "My Globe", a maps & navigation
   // project. Every map/geo service used is free and keyless (OpenStreetMap
   // ecosystem); their usage policies require a descriptive User-Agent
   // identifying the caller.
   static const String userAgent =
-      "gps-mock/2.0 (https://github.com/Sriharan-S/gps-mock; "
+      "Elsewhere/2.0 (formerly gps-mock; "
+      "https://github.com/Sriharan-S/gps-mock; "
       "location testing tool for the My Globe navigation app)";
 
   /// Package name identifying this app when fetching raster tiles.

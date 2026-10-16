@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:http/http.dart' as http;
 import 'package:latlong2/latlong.dart';
 
-/// What an incoming link or shared text asks GPS Mock to do.
+/// What an incoming link or shared text asks Elsewhere to do.
 sealed class LinkResult {
   const LinkResult();
 }
@@ -41,7 +41,7 @@ class LinkInvalid extends LinkResult {
 
   final String reason;
 
-  /// The link is fine but comes from a site GPS Mock can't read.
+  /// The link is fine but comes from a site Elsewhere can't read.
   final bool unsupportedSite;
 }
 
@@ -451,7 +451,9 @@ class LocationLinkResolver {
   /// without redirecting. Throws when the server can't be reached.
   Future<String?> _follow(Uri url) async {
     final request = http.Request('GET', url)..followRedirects = false;
-    request.headers['User-Agent'] = 'gps-mock (location link reader)';
+    request.headers['User-Agent'] =
+        'Elsewhere/2.0 (formerly gps-mock; '
+        'https://github.com/Sriharan-S/gps-mock; location link reader)';
     final response =
         await _client.send(request).timeout(const Duration(seconds: 10));
     await response.stream.drain<void>();

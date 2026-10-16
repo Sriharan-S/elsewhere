@@ -727,7 +727,7 @@ class _FixedSpotPanel extends StatelessWidget {
                               '&mlon=${location.longitude}'
                               '#map=16/${location.latitude}/'
                               '${location.longitude}',
-                          subject: 'Location from GPS Mock',
+                          subject: 'Location shared from Elsewhere',
                         ),
                       ),
             ),
@@ -1542,7 +1542,7 @@ class _LiveRoutePanel extends StatelessWidget {
         ),
         const SizedBox(height: 16),
         Text(
-          'When the trip finishes, GPS Mock keeps holding the destination as '
+          'When the trip finishes, Elsewhere keeps holding the destination as '
           'a fixed spot until you stop it.',
           textAlign: TextAlign.center,
           style: theme.textTheme.bodySmall?.copyWith(

@@ -31,7 +31,7 @@ class FavoriteWidgetConfigActivity : Activity() {
         if (favorites.isEmpty()) {
             setContentView(TextView(this).apply {
                 text = "No saved locations yet.\n\n" +
-                    "Open GPS Mock and save a favorite first, then add this widget again."
+                    "Open Elsewhere and save a favorite first, then add this widget again."
                 textSize = 16f
                 setPadding(48, 48, 48, 48)
             })
