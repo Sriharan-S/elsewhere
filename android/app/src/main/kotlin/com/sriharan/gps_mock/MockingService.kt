@@ -804,7 +804,7 @@ class MockingService : Service() {
         private const val ALERT_CHANNEL_ID = "mock_gps_alerts"
         private const val TILE_SIZE = 256
         private const val OSM_USER_AGENT =
-            "Elsewhere/2.0 (formerly gps-mock; https://github.com/Sriharan-S/gps-mock; " +
+            "Elsewhere/2.0 (formerly gps-mock; https://github.com/Sriharan-S/elsewhere; " +
                 "location testing tool for the My Globe navigation app)"
 
         @Volatile

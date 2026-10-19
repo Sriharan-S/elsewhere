@@ -143,7 +143,7 @@ class _SettingsPageState extends State<SettingsPage> {
                 _Tile(
                   icon: Icons.code,
                   title: 'Source code',
-                  subtitle: 'github.com/Sriharan-S/gps-mock',
+                  subtitle: 'github.com/Sriharan-S/elsewhere',
                   onTap: () =>
                       openProjectLink(context, AppConstants.repositoryUrl),
                 ),

@@ -242,7 +242,7 @@ void main() {
         "tag_name": "v2.3.0",
         "name": "Elsewhere 2.3.0",
         "body": "Adds offline maps.",
-        "html_url": "https://github.com/Sriharan-S/gps-mock/releases/tag/v2.3.0",
+        "html_url": "https://github.com/Sriharan-S/elsewhere/releases/tag/v2.3.0",
         "published_at": "2026-08-30T04:00:00Z",
         "assets": [
           {"name": "notes.txt", "browser_download_url": "https://x/notes.txt", "size": 10},

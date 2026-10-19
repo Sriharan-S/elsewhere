@@ -5,7 +5,7 @@ class AppConstants {
   // identifying the caller.
   static const String userAgent =
       "Elsewhere/2.0 (formerly gps-mock; "
-      "https://github.com/Sriharan-S/gps-mock; "
+      "https://github.com/Sriharan-S/elsewhere; "
       "location testing tool for the My Globe navigation app)";
 
   /// Package name identifying this app when fetching raster tiles.
@@ -24,18 +24,18 @@ class AppConstants {
   /// in-app updater.
   static const String developerName = "Sriharan S";
   static const String developerGithub = "https://github.com/Sriharan-S";
-  static const String repositoryUrl = "https://github.com/Sriharan-S/gps-mock";
+  static const String repositoryUrl = "https://github.com/Sriharan-S/elsewhere";
   static const String issuesUrl =
-      "https://github.com/Sriharan-S/gps-mock/issues";
+      "https://github.com/Sriharan-S/elsewhere/issues";
   static const String releasesUrl =
-      "https://github.com/Sriharan-S/gps-mock/releases";
+      "https://github.com/Sriharan-S/elsewhere/releases";
   static const String companionProjectUrl = "https://github.com/Sriharan-S";
 
   /// Public, unauthenticated GitHub endpoint for the newest release. Rate
   /// limited to 60 requests an hour per IP, which one check per app start
   /// stays comfortably inside.
   static const String latestReleaseApi =
-      "https://api.github.com/repos/Sriharan-S/gps-mock/releases/latest";
+      "https://api.github.com/repos/Sriharan-S/elsewhere/releases/latest";
 
   static const String photonBaseUrl = "https://photon.komoot.io/api/";
   static const String osrmRouteBaseUrl =

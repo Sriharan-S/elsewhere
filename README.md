@@ -100,8 +100,8 @@ No API keys of any kind — the map, search, and routing all use free OpenStreet
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/Sriharan-S/gps-mock.git
-   cd gps-mock
+   git clone https://github.com/Sriharan-S/elsewhere.git
+   cd elsewhere
    ```
 
 2. Get dependencies:

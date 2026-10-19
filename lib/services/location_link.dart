@@ -453,7 +453,7 @@ class LocationLinkResolver {
     final request = http.Request('GET', url)..followRedirects = false;
     request.headers['User-Agent'] =
         'Elsewhere/2.0 (formerly gps-mock; '
-        'https://github.com/Sriharan-S/gps-mock; location link reader)';
+        'https://github.com/Sriharan-S/elsewhere; location link reader)';
     final response =
         await _client.send(request).timeout(const Duration(seconds: 10));
     await response.stream.drain<void>();
