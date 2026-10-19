@@ -1,0 +1,564 @@
+/* Scene 03: still-driving. Scoped under #scene-still-driving; the .sd-* nodes that move into the
+   drive stage (copy, device, parked) are also matched under #scene-the-drive. */
+
+/* ---------------------------------------------------------------- merged: this section is empty */
+#scene-still-driving.sd-merged {
+  height: 0;
+  overflow: hidden;
+}
+
+/* ---------------------------------------------------------------- HUD: props, numeral, readout */
+#scene-still-driving .sd-props {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+#scene-still-driving .sd-route-static {
+  fill: none;
+  stroke: var(--fg);
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: 5.4 4.4;
+}
+html:is(.motion, .reduced) #scene-still-driving .sd-route-static {
+  display: none;
+}
+#scene-still-driving .sd-dest__pin {
+  fill: var(--accent);
+  stroke: var(--accent);
+  stroke-width: 2;
+  stroke-linejoin: round;
+}
+#scene-still-driving .sd-dest__hole {
+  fill: var(--ink);
+}
+#scene-still-driving .sd-ripple {
+  fill: none;
+  stroke: var(--accent);
+  stroke-width: 1;
+  opacity: 0;
+  transform-box: fill-box;
+  transform-origin: 50% 50%;
+}
+#scene-still-driving .sd-car {
+  visibility: hidden;
+}
+#scene-still-driving .sd-car__dot {
+  fill: var(--accent);
+  stroke: var(--ink);
+  stroke-width: 2;
+}
+#scene-still-driving .sd-car__chev {
+  fill: var(--accent);
+  stroke: var(--ink);
+  stroke-width: 2;
+  stroke-linejoin: round;
+  opacity: 0;
+}
+#scene-still-driving .sd-car.is-chev .sd-car__dot {
+  opacity: 0;
+}
+#scene-still-driving .sd-car.is-chev .sd-car__chev {
+  opacity: 1;
+}
+
+#scene-still-driving .sd-speed {
+  position: absolute;
+  left: var(--margin);
+  bottom: 18svh;
+  margin: 0;
+}
+#scene-still-driving .sd-speed__n {
+  display: block;
+  -webkit-text-stroke-color: var(--fg-15);
+}
+#scene-still-driving .sd-readout {
+  position: absolute;
+  left: var(--margin);
+  bottom: calc(18svh - 28px);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25em 0.8em;
+  color: var(--muted);
+  white-space: nowrap;
+}
+#scene-still-driving .sd-kmh,
+#scene-still-driving .sd-state {
+  color: var(--fg);
+}
+
+
+/* ---------------------------------------------------------------- device */
+:is(#scene-still-driving, #scene-the-drive) .sd-device {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding: calc(var(--topbar-h) + 24px) var(--margin) 24px;
+}
+:is(#scene-still-driving, #scene-the-drive) .sd-phone {
+  flex: none;
+  max-height: calc(100% - 8px);
+  width: auto;
+  height: min(calc(var(--phone-w) * 19.5 / 9), calc(100svh - var(--topbar-h) - 48px));
+}
+
+/* status bar time follows the drive */
+:is(#scene-still-driving, #scene-the-drive) .sd-phone .phone__bar {
+  color: var(--fg);
+}
+
+/* ---- lock */
+:is(#scene-still-driving, #scene-the-drive) .sd-lock {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 18% 7% 9%;
+  background: #0d0d0c;
+}
+:is(#scene-still-driving, #scene-the-drive) .sd-clock {
+  --wdth: 62;
+  margin: 0 0 14%;
+  font-family: var(--font-display);
+  font-size: clamp(56px, calc(var(--phone-w) * 0.31), 96px);
+  font-weight: 250;
+  font-variation-settings: 'wdth' var(--wdth), 'wght' 250;
+  line-height: 0.9;
+  letter-spacing: -0.02em;
+  font-variant-numeric: tabular-nums;
+  color: var(--fg);
+}
+:is(#scene-still-driving, #scene-the-drive) .sd-pill {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  width: 100%;
+  min-height: 44px;
+  padding: 0 12px;
+  border: 1px solid var(--hair);
+  border-radius: 22px;
+  background: #181816;
+  font-family: var(--font-display);
+  font-size: clamp(11px, calc(var(--phone-w) * 0.046), 13px);
+  font-weight: 560;
+  font-variation-settings: 'wdth' 92;
+  color: var(--fg);
+  white-space: nowrap;
+}
+:is(#scene-still-driving, #scene-the-drive) .sd-pill__dot {
+  flex: none;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--accent);
+}
+:is(#scene-still-driving, #scene-the-drive) .sd-pill__txt {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  min-width: 0;
+  padding: 6px 0;
+}
+:is(#scene-still-driving, #scene-the-drive) .sd-pill__s {
+  font-family: var(--font-mono);
+  font-size: 0.78em;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  color: var(--muted);
+  white-space: nowrap;
+}
+:is(#scene-still-driving, #scene-the-drive) .sd-pill__s[hidden] {
+  display: none;
+}
+:is(#scene-still-driving, #scene-the-drive) .sd-pill__sep {
+  color: var(--muted);
+}
+:is(#scene-still-driving, #scene-the-drive) .sd-pill__a {
+  margin-left: auto;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+:is(#scene-still-driving, #scene-the-drive) .sd-lockicon {
+  margin-top: auto;
+  color: var(--fg-60);
+}
+
+/* ---- recents */
+:is(#scene-still-driving, #scene-the-drive) .sd-recents {
+  background: #050505;
+}
+:is(#scene-still-driving, #scene-the-drive) .sd-recents__card {
+  position: absolute;
+  top: 12%;
+  bottom: 12%;
+  width: 80%;
+  border-radius: 22px;
+  background: #151513;
+  border: 1px solid var(--fg-08);
+}
+:is(#scene-still-driving, #scene-the-drive) .sd-recents__card--l {
+  right: calc(100% - 6%);
+}
+:is(#scene-still-driving, #scene-the-drive) .sd-recents__card--r {
+  left: calc(100% - 6%);
+}
+:is(#scene-still-driving, #scene-the-drive) .sd-recents__app {
+  position: absolute;
+  top: 6.5%;
+  left: 0;
+  right: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  font-size: 10px;
+  color: var(--fg);
+}
+:is(#scene-still-driving, #scene-the-drive) .sd-recents__icon {
+  width: 16px;
+  height: 16px;
+}
+:is(#scene-still-driving, #scene-the-drive) .sd-recents__clear {
+  position: absolute;
+  bottom: 5%;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 7px 14px;
+  border: 1px solid var(--hair);
+  border-radius: 999px;
+  font-size: 9px;
+  color: var(--fg-60);
+}
+
+/* ---- app: dark mini-map, search pill, bottom sheet */
+:is(#scene-still-driving, #scene-the-drive) .sd-app {
+  overflow: clip;
+  border-radius: 22px;
+  background: var(--bg);
+  transform-origin: 50% 50%;
+}
+:is(#scene-still-driving, #scene-the-drive) .sd-mini {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+:is(#scene-still-driving, #scene-the-drive) .sd-mini__plan,
+:is(#scene-still-driving, #scene-the-drive) .sd-mini__driven {
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+/* widths and dashes are set in map units by JS (attributes), since the map group scales */
+:is(#scene-still-driving, #scene-the-drive) .sd-mini__plan {
+  stroke: var(--fg-60);
+}
+:is(#scene-still-driving, #scene-the-drive) .sd-mini__driven {
+  stroke: var(--fg);
+}
+:is(#scene-still-driving, #scene-the-drive) .sd-mini__halo {
+  fill: var(--accent-15);
+  stroke: var(--accent);
+  stroke-opacity: 0.4;
+  stroke-width: 1;
+}
+:is(#scene-still-driving, #scene-the-drive) .sd-mini__chev {
+  fill: var(--accent);
+  stroke: var(--ink);
+  stroke-width: 2.5;
+  stroke-linejoin: round;
+}
+:is(#scene-still-driving, #scene-the-drive) .sd-search {
+  position: absolute;
+  top: 44px;
+  left: 12px;
+  right: 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  height: 38px;
+  padding: 0 14px;
+  border-radius: 19px;
+  background: #1c1c1a;
+  font-family: var(--font-display);
+  font-size: 12px;
+  color: var(--fg-60);
+}
+:is(#scene-still-driving, #scene-the-drive) .sd-sheet {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 8px 16px 18px;
+  border-radius: 22px 22px 0 0;
+  background: #171715;
+  border-top: 1px solid var(--fg-08);
+  color: var(--fg);
+}
+:is(#scene-still-driving, #scene-the-drive) .sd-sheet__handle {
+  display: block;
+  width: 32px;
+  height: 4px;
+  margin: 0 auto 12px;
+  border-radius: 2px;
+  background: var(--fg-30);
+}
+:is(#scene-still-driving, #scene-the-drive) .sd-sheet__row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+:is(#scene-still-driving, #scene-the-drive) .sd-sheet__k {
+  margin: 0 0 5px;
+  font-size: 10.5px;
+  color: var(--muted);
+}
+:is(#scene-still-driving, #scene-the-drive) .sd-sheet__eta {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: 24px;
+  font-weight: 760;
+  font-variation-settings: 'wdth' 80;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
+:is(#scene-still-driving, #scene-the-drive) .sd-stop {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  background: var(--fg);
+}
+:is(#scene-still-driving, #scene-the-drive) .sd-stop i {
+  width: 14px;
+  height: 14px;
+  border-radius: 3px;
+  background: var(--ink);
+}
+:is(#scene-still-driving, #scene-the-drive) .sd-sheet__bar {
+  position: relative;
+  display: block;
+  height: 3px;
+  margin: 14px 0 10px;
+  border-radius: 2px;
+  background: var(--fg-15);
+  overflow: hidden;
+}
+:is(#scene-still-driving, #scene-the-drive) .sd-sheet__bar i {
+  position: absolute;
+  inset: 0;
+  background: var(--fg);
+  transform-origin: 0 50%;
+  transform: scaleX(0.7);
+}
+:is(#scene-still-driving, #scene-the-drive) .sd-sheet__meta {
+  margin: 0;
+  font-size: 10.5px;
+  letter-spacing: 0.04em;
+  color: var(--muted);
+}
+
+/* ---------------------------------------------------------------- PARKED */
+:is(#scene-still-driving, #scene-the-drive) .sd-parked {
+  --wdth: 125;
+  position: absolute;
+  left: var(--margin);
+  right: var(--margin);
+  bottom: 3svh;
+  z-index: 5;
+  margin: 0;
+  pointer-events: none;
+  font-family: var(--font-display);
+  font-size: var(--fit-size, 20vw);
+  font-weight: 900;
+  font-variation-settings: 'wdth' var(--wdth), 'wght' 900;
+  line-height: 0.8;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  color: var(--fg);
+  text-align: center;
+  text-shadow: var(--knockout);
+}
+:is(#scene-still-driving, #scene-the-drive) .sd-parked__w {
+  display: inline-block;
+  /* its own declaration, so the slam's --wdth (set on this span) is what it is drawn at */
+  font-variation-settings: 'wdth' var(--wdth), 'wght' 900;
+}
+
+/* ---------------------------------------------------------------- mobile: phone in the lower half */
+@media (max-width: 767px) {
+  :is(#scene-still-driving, #scene-the-drive) .sd-device {
+    align-items: flex-start;
+    padding: 0 var(--margin);
+    padding-top: 45svh;
+  }
+  :is(#scene-still-driving, #scene-the-drive) .sd-phone {
+    height: auto;
+    max-height: none;
+    width: var(--phone-w);
+  }
+  :is(#scene-still-driving, #scene-the-drive) .sd-parked {
+    bottom: auto;
+    top: 35svh;
+  }
+  #scene-still-driving .sd-speed {
+    bottom: auto;
+    top: 46svh;
+  }
+  #scene-still-driving .sd-readout {
+    bottom: auto;
+    top: calc(46svh + 40vw);
+    flex-direction: column;
+    gap: 2px;
+  }
+  #scene-still-driving .sd-sep {
+    display: none;
+  }
+}
+
+/* ---------------------------------------------------------------- merged: hidden until their moment
+   GSAP owns these (03's copy rises at close, PARKED slams at .96). The CSS start state means a refresh that
+   strips their inline styles can never show 03's end frame over the drive. */
+.motion #scene-the-drive .sd-copy,
+.motion #scene-the-drive .sd-parked__w {
+  opacity: 0;
+}
+
+/* ---------------------------------------------------------------- merged: the dot's twin under the phone glass */
+#scene-the-drive .sd-ghost {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 0;
+  height: 0;
+  visibility: hidden;
+}
+#scene-the-drive .sd-ghost.is-on {
+  visibility: visible;
+}
+#scene-the-drive .sd-ghost svg {
+  position: absolute;
+  left: -12px;
+  top: -12px;
+  overflow: visible;
+}
+#scene-the-drive .sd-ghost__dot {
+  fill: var(--accent);
+  stroke: var(--ink);
+  stroke-width: 2;
+}
+#scene-the-drive .sd-ghost__chev {
+  fill: var(--accent);
+  stroke: var(--ink);
+  stroke-width: 2;
+  stroke-linejoin: round;
+  opacity: 0;
+}
+#scene-the-drive .sd-ghost.is-chev .sd-ghost__dot {
+  opacity: 0;
+}
+#scene-the-drive .sd-ghost.is-chev .sd-ghost__chev {
+  opacity: 1;
+}
+
+/* the drive's own OSM roads, cloned into the phone: a touch brighter at phone scale */
+#scene-the-drive .sd-mini .drive__r--art {
+  stroke: #5a564d;
+  stroke-width: 2px;
+}
+#scene-the-drive .sd-mini .drive__r--col {
+  stroke: #403d37;
+  stroke-width: 1.4px;
+}
+#scene-the-drive .sd-mini .drive__r--min {
+  stroke: #2c2a26;
+  stroke-width: 1px;
+}
+#scene-the-drive .sd-mini .drive__water {
+  stroke: #1a1a18;
+}
+
+@media (max-width: 767px) {
+  #scene-still-driving .sd-parked {
+    top: 37svh;
+  }
+  /* the parked frame on a phone, top to bottom: copy, the pin (drive parks it at 40%), PARKED in the
+     clear band under it, the locked phone in the lower 45% (it leaves as PARKED lands) */
+  #scene-the-drive .sd-parked--merged {
+    top: 45.5svh;
+  }
+  #scene-the-drive .sd-device--merged {
+    padding-top: 55svh;
+  }
+  #scene-the-drive .sd-device--merged .sd-phone {
+    --phone-w: min(58vw, 250px);
+  }
+}
+
+/* final frame without motion: PARKED says it; the live readouts are a motion-only layer */
+html:not(.motion) #scene-still-driving .sd-speed,
+html:not(.motion) #scene-still-driving .sd-readout {
+  display: none;
+}
+
+/* the static final frame on wide screens: PARKED takes the width left of the docked phone, so the
+   word never runs through the device (with motion, the phone steps out before PARKED lands) */
+@media (min-width: 768px) {
+  html:not(.motion) #scene-still-driving .sd-parked {
+    right: calc(var(--margin) + min(300px, (100svh - var(--topbar-h) - 48px) * 9 / 19.5) + 32px);
+    text-align: left;
+    font-size: var(
+      --fit-size,
+      calc((100vw - 2 * var(--margin) - min(300px, (100svh - var(--topbar-h) - 48px) * 9 / 19.5) - 32px) / 5.5)
+    );
+  }
+}
+
+/* PARKED before (or without) the JS fit: at wdth 125 the word is 5.36em wide, so this always fits */
+:is(#scene-still-driving, #scene-the-drive) .sd-parked {
+  font-size: var(--fit-size, calc((100vw - 2 * var(--margin)) / 5.5));
+}
+
+/* the static final frame on phones is one column: copy, PARKED in its own row, then the locked phone,
+   so the word can never run over the sub line or the device */
+@media (max-width: 767px) {
+  html:not(.motion) #scene-still-driving .sd-stage {
+    display: flex;
+    flex-direction: column;
+    height: auto;
+    min-height: 100svh;
+  }
+  html:not(.motion) #scene-still-driving .sd-copy {
+    position: relative;
+    inset: auto;
+    order: 1;
+  }
+  html:not(.motion) #scene-still-driving .sd-parked {
+    position: relative;
+    inset: auto;
+    order: 2;
+    margin: 4px var(--margin) 28px;
+    text-align: left;
+  }
+  html:not(.motion) #scene-still-driving .sd-device {
+    position: relative;
+    inset: auto;
+    order: 3;
+    padding-top: 0;
+    padding-bottom: 40px;
+  }
+}
+
+/* whole wdth units (see type.css) */
+@supports (font-variation-settings: 'wdth' round(1.5, 1)) {
+  :is(#scene-still-driving, #scene-the-drive) .sd-parked,
+  :is(#scene-still-driving, #scene-the-drive) .sd-parked__w {
+    font-variation-settings: 'wdth' round(var(--wdth), 1), 'wght' 900;
+  }
+}

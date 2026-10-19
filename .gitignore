@@ -48,3 +48,12 @@ app.*.map.json
 /android/key.properties
 *.jks
 *.keystore
+
+# Website (Vite) build output, screenshots and scratch
+/website/node_modules/
+/website/dist/
+/website/shots/
+/website/.tmp/
+/website/.wrangler/
+/website/.deploy-dist/
+/website/wrangler.deploy.jsonc

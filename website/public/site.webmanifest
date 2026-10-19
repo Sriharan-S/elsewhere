@@ -1,0 +1,26 @@
+{
+  "name": "Elsewhere",
+  "short_name": "Elsewhere",
+  "description": "Set your Android phone's location anywhere, or drive it along a real route. For testing location apps. Free and open source.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0B0B0A",
+  "theme_color": "#0B0B0A",
+  "icons": [
+    {
+      "src": "/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    },
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    }
+  ]
+}

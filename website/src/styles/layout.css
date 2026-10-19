@@ -1,0 +1,217 @@
+/* Scene scaffolding, the 12-col grid and the shared world map. */
+
+main {
+  display: block;
+}
+
+.scene {
+  position: relative;
+}
+
+/* One viewport-tall stage per scene. Layers stack in this order:
+   .world (map + props) < .thread-layer < .hud < .copy < .device */
+.stage {
+  position: relative;
+  height: 100svh;
+  min-height: 520px;
+  overflow: clip;
+  isolation: isolate;
+}
+
+.stage > .world,
+.stage > .thread-layer,
+.stage > .hud,
+.stage > .copy,
+.stage > .device {
+  position: absolute;
+  inset: 0;
+}
+
+.world {
+  z-index: var(--z-world);
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  pointer-events: none;
+}
+.thread-layer {
+  z-index: var(--z-thread);
+  pointer-events: none;
+}
+.hud {
+  z-index: var(--z-hud);
+  pointer-events: none;
+}
+.copy {
+  z-index: var(--z-copy);
+  pointer-events: none;
+}
+.copy a,
+.copy button {
+  pointer-events: auto;
+}
+.device {
+  z-index: var(--z-device);
+  pointer-events: none;
+}
+
+/* While a stage is pinned, hint the compositor (toggled by ctx.pinTimeline). */
+.stage.is-pinned > .world {
+  will-change: transform;
+}
+
+/* ---- grid */
+.wrap {
+  padding-inline: var(--margin);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(var(--cols), minmax(0, 1fr));
+  column-gap: var(--gutter);
+  padding-inline: var(--margin);
+}
+
+.span-12 { grid-column: 1 / -1; }
+.span-8 { grid-column: span 8; }
+.span-7 { grid-column: span 7; }
+.span-6 { grid-column: span 6; }
+.span-5 { grid-column: span 5; }
+.span-4 { grid-column: span 4; }
+.span-3 { grid-column: span 3; }
+.start-1 { grid-column-start: 1; }
+.start-7 { grid-column-start: 7; }
+.start-8 { grid-column-start: 8; }
+.start-9 { grid-column-start: 9; }
+
+@media (max-width: 767px) {
+  .grid > [class*='span-'] {
+    grid-column: 1 / -1;
+  }
+}
+
+/* The default copy block: folio, h2, one sub line, top-left on the grid below the top bar. */
+.copy {
+  padding: calc(var(--topbar-h) + clamp(24px, 6svh, 72px)) var(--margin) var(--margin);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-4);
+}
+
+.copy .folio {
+  margin-bottom: var(--space-2);
+}
+
+/* Small copy knocks the map and the thread out around its own letterforms (an ink ring of text-shadows,
+   no box), so lines pass under the words instead of through them. Headlines carry the overlap. */
+.copy .folio,
+.copy .sub {
+  width: fit-content;
+  text-shadow: var(--knockout);
+}
+
+/* SEAMS: every stage's map fades out over its bottom edge; the next stage's map continues upward
+   behind it (src/lib/seams.js clones it into .world-bleed), so scenes crossfade one world. */
+.stage > .world {
+  -webkit-mask-image: linear-gradient(to bottom, #000 calc(100% - var(--seam)), transparent);
+  mask-image: linear-gradient(to bottom, #000 calc(100% - var(--seam)), transparent);
+}
+.world-bleed {
+  position: absolute;
+  left: 0;
+  top: calc(-1 * var(--seam));
+  z-index: -1;
+  width: 100%;
+  height: var(--seam);
+  overflow: hidden;
+  pointer-events: none;
+  -webkit-mask-image: linear-gradient(to bottom, transparent, #000);
+  mask-image: linear-gradient(to bottom, transparent, #000);
+}
+
+/* A stage's HUD belongs to that stage only: it shows once the stage takes the thread (top at the 60%
+   line, toggled by main.js), so the next scene's readouts never appear inside the current one. */
+.motion .stage > .hud {
+  transition: opacity 0.3s linear, visibility 0s linear 0s;
+}
+.motion .stage:not(.is-live) > .hud {
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s linear, visibility 0s linear 0.3s;
+}
+.shots .stage > .hud {
+  transition: none !important;
+}
+
+/* ---- the shared world map (<use href="#world">). Styled via inherited custom properties,
+   because document selectors cannot reach into <use> shadow trees by ancestry. */
+.water {
+  fill: none;
+  stroke: var(--map-water);
+  stroke-width: var(--map-water-w);
+  stroke-linecap: round;
+}
+.park {
+  fill: var(--map-park);
+  stroke: var(--map-park-stroke);
+  stroke-width: 1px;
+  vector-effect: non-scaling-stroke;
+}
+.r-art,
+.r-col,
+.r-min {
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  vector-effect: non-scaling-stroke;
+}
+.r-art {
+  stroke: var(--map-art);
+  stroke-width: var(--map-art-w);
+}
+.r-col {
+  stroke: var(--map-col);
+  stroke-width: var(--map-col-w);
+}
+.r-min {
+  stroke: var(--map-min);
+  stroke-width: var(--map-min-w);
+}
+.bldg {
+  fill: var(--map-bldg);
+  stroke: var(--map-bldg-stroke);
+  stroke-width: 1px;
+  vector-effect: non-scaling-stroke;
+}
+
+/* Map style presets: set on any ancestor of a <use href="#world"> (or on the <use> itself). */
+.map--paper {
+  --map-art: #0b0b0a;
+  --map-col: #3b3934;
+  --map-min: #8a857c;
+  --map-water: #d9d4c9;
+  --map-park: #e2ddd2;
+  --map-park-stroke: #c9c3b6;
+  --map-bldg: #d6d0c4;
+  --map-bldg-stroke: #8a857c;
+}
+.map--bright {
+  --map-art: #4a4740;
+  --map-col: #37352f;
+  --map-min: #2a2925;
+}
+.map--dim {
+  --map-art: #1f1e1b;
+  --map-col: #1a1917;
+  --map-min: #151513;
+  --map-water: #0f0f0e;
+  --map-bldg: #11110f;
+  --map-bldg-stroke: #1c1b18;
+}
+.map--arterials-only {
+  --map-col: transparent;
+  --map-min: transparent;
+  --map-bldg: transparent;
+  --map-bldg-stroke: transparent;
+}

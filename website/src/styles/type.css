@@ -1,0 +1,125 @@
+/* Type roles. One display size per viewport. Kinetic width via --wdth (tween it with GSAP). */
+
+.kinetic {
+  font-variation-settings: 'wdth' var(--wdth);
+}
+
+/* Scene headline: sentence case, wght 850, enters at wdth 62 and rests at 85. */
+.h-scene {
+  --wdth: var(--wdth-display);
+  font-family: var(--font-display);
+  font-size: var(--fs-display);
+  font-weight: var(--w-display);
+  font-variation-settings: 'wdth' var(--wdth);
+  line-height: var(--lh-display);
+  letter-spacing: var(--tr-display);
+  max-width: 14ch;
+  text-wrap: balance;
+}
+
+/* The one supporting line per scene. */
+.sub {
+  font-family: var(--font-display);
+  font-size: var(--fs-sub);
+  font-weight: 400;
+  font-variation-settings: 'wdth' 100;
+  line-height: 1.35;
+  color: var(--muted);
+  max-width: 34ch;
+  text-wrap: balance;
+}
+@media (min-width: 768px) {
+  .sub {
+    max-width: 40ch;
+  }
+}
+
+/* Machine readouts: folios, lat/lng, km/h, provider names, chips. */
+.mono {
+  font-family: var(--font-mono);
+  font-size: var(--fs-mono);
+  font-weight: 500;
+  line-height: 1.3;
+  letter-spacing: var(--tr-mono);
+  text-transform: uppercase;
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: 'tnum' 1, 'zero' 0;
+}
+
+.mono--s {
+  font-size: var(--fs-mono-s);
+}
+
+.label {
+  color: var(--muted);
+}
+
+/* "02 / 09 · 13.0827 N 80.2707 E" */
+.folio {
+  font-family: var(--font-mono);
+  font-size: var(--fs-mono);
+  font-weight: 500;
+  letter-spacing: var(--tr-mono);
+  text-transform: uppercase;
+  font-variant-numeric: tabular-nums;
+  color: var(--muted);
+  white-space: nowrap;
+}
+
+.folio .folio__n {
+  color: var(--fg);
+}
+
+.tabular {
+  font-variant-numeric: tabular-nums;
+}
+
+/* Giant outline readouts (km/h numeral, coordinate digits). Never compete with the orange dot. */
+.numeral-outline {
+  font-family: var(--font-mono);
+  font-size: var(--fs-giant);
+  font-weight: 300;
+  line-height: 0.82;
+  letter-spacing: -0.04em;
+  font-variant-numeric: tabular-nums;
+  color: transparent;
+  -webkit-text-stroke: 1px var(--fg);
+  paint-order: stroke;
+  white-space: nowrap;
+  user-select: none;
+}
+
+.numeral-outline--muted {
+  -webkit-text-stroke-color: var(--fg-30);
+}
+
+.accent {
+  color: var(--accent);
+}
+.muted {
+  color: var(--muted);
+}
+
+/* SplitText (via ctx.fx.split): .splitline / .splitword / .splitchar, masks get a -mask suffix.
+   Masks get room for descenders, since display lines are set at 0.88 leading. */
+.splitline-mask,
+.splitword-mask,
+.splitchar-mask {
+  padding-bottom: 0.12em;
+  margin-bottom: -0.12em;
+}
+
+/* SplitText chars inherit --wdth, so GSAP can tween it per char. */
+.splitchar {
+  font-variation-settings: 'wdth' var(--wdth);
+}
+
+/* Animated widths snap to whole wdth units. Every distinct wdth value builds a new font instance, so
+   tweening a float made each frame of kinetic type re-shape from scratch; whole units hit the cache. */
+@supports (font-variation-settings: 'wdth' round(1.5, 1)) {
+  .kinetic,
+  .h-scene,
+  .splitchar {
+    font-variation-settings: 'wdth' round(var(--wdth), 1);
+  }
+}

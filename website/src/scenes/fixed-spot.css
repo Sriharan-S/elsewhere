@@ -1,0 +1,443 @@
+/* Scene 01: fixed-spot. Every rule is scoped under #scene-fixed-spot. */
+
+#scene-fixed-spot .fs {
+  --pin-h: 112px;
+  /* the final frame (no-JS / reduced motion): the pasted Paris fix */
+  --pin-x: 0.7;
+  --pin-y: 0.54;
+  --surface: #141413;
+}
+
+/* ------------------------------------------------------------ poster digits */
+#scene-fixed-spot .fs__giant {
+  position: absolute;
+  z-index: 0;
+  right: calc(var(--margin) - 0.04em);
+  bottom: clamp(20px, 6svh, 64px);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  pointer-events: none;
+  font-size: clamp(4rem, 9.4vw, 10rem);
+}
+#scene-fixed-spot .fs__giant .numeral-outline {
+  font-size: 1em;
+  line-height: 0.86;
+  -webkit-text-stroke: 1px var(--fg-40);
+}
+
+/* ------------------------------------------------------------ pin + touch effects */
+#scene-fixed-spot .fs__props {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+}
+
+#scene-fixed-spot .fs__pin {
+  position: absolute;
+  left: calc(var(--pin-x) * 100%);
+  top: calc(var(--pin-y) * 100%);
+  width: 0;
+  height: 0;
+}
+.motion #scene-fixed-spot .fs__pin {
+  left: 0;
+  top: 0;
+}
+
+#scene-fixed-spot .fs__body,
+#scene-fixed-spot .fs__squash,
+#scene-fixed-spot .fs__tip {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 0;
+  height: 0;
+  transform-origin: 0 0;
+}
+
+#scene-fixed-spot .fs__pin-svg {
+  position: absolute;
+  width: calc(var(--pin-h) * 176 / 242);
+  height: var(--pin-h);
+  left: calc(var(--pin-h) * -88 / 242);
+  top: calc(var(--pin-h) * -234 / 242);
+  max-width: none;
+  overflow: visible;
+}
+#scene-fixed-spot .fs__pin-path {
+  fill: var(--bg);
+  stroke: var(--fg);
+  stroke-width: 3px;
+  stroke-linejoin: round;
+  vector-effect: non-scaling-stroke;
+}
+
+/* the fix: identical to the traveler (16px, 2px ink ring), so the hand-over is invisible */
+#scene-fixed-spot .fs__fix {
+  position: absolute;
+  left: -8px;
+  top: calc(var(--pin-h) * -148 / 242 - 8px);
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: var(--accent);
+  border: 2px solid var(--ink);
+}
+
+/* a hairline ellipse on the ground under the tip: grows when the pin lifts */
+#scene-fixed-spot .fs__ground {
+  position: absolute;
+  left: -13px;
+  top: -4px;
+  width: 26px;
+  height: 8px;
+  border-radius: 50%;
+  border: 1px solid var(--fg-40);
+}
+
+/* GPS accuracy: a faint ring around the ground point */
+#scene-fixed-spot .fs__acc {
+  position: absolute;
+  left: -46px;
+  top: -46px;
+  width: 92px;
+  height: 92px;
+  border-radius: 50%;
+  border: 1px dashed var(--fg-15);
+}
+
+/* a fingertip: hollow bone disc */
+#scene-fixed-spot .fs__touch {
+  position: absolute;
+  width: 40px;
+  height: 40px;
+  margin: -20px 0 0 -20px;
+  border-radius: 50%;
+  border: 1px solid var(--fg-60);
+  background: var(--fg-08);
+}
+#scene-fixed-spot .fs__touch--drag {
+  left: 0;
+  top: calc(var(--pin-h) * -148 / 242);
+}
+
+#scene-fixed-spot .fs__ripple {
+  width: 40px;
+  height: 40px;
+  margin: -20px 0 0 -20px;
+  border-width: 1.5px;
+}
+
+#scene-fixed-spot .fs__hold {
+  position: absolute;
+  width: 80px;
+  height: 80px;
+  margin: -40px 0 0 -40px;
+  overflow: visible;
+}
+#scene-fixed-spot .fs__hold circle {
+  fill: none;
+}
+#scene-fixed-spot .fs__hold-track {
+  stroke: var(--fg-15);
+  stroke-width: 1px;
+}
+#scene-fixed-spot .fs__hold-ring {
+  stroke: var(--fg);
+  stroke-width: 2px;
+  stroke-linecap: round;
+}
+
+/* ------------------------------------------------------------ the input slot */
+/* Desktop: the slot hangs right above where the searched pin drops (POS.desktop.C = 0.72, 0.47),
+   its result row's pin icon over the pin, 24px clear of the pin head, never past the right margin. */
+#scene-fixed-spot .fs__slot {
+  --slot-h: 118px;
+  inset: auto;
+  left: min(calc(72% - 25px), calc(100% - var(--margin) - clamp(300px, 28vw, 380px)));
+  top: max(calc(var(--topbar-h) + 12px), calc(47% - var(--pin-h) * 234 / 242 - 24px - var(--slot-h)));
+  width: clamp(300px, 28vw, 380px);
+}
+
+#scene-fixed-spot .fs__search {
+  position: relative;
+}
+
+#scene-fixed-spot .fs__bar {
+  position: relative;
+  height: 52px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 0 20px;
+  border-radius: 26px;
+  background: var(--surface);
+  border: 1px solid var(--fg-40);
+}
+.motion #scene-fixed-spot .fs__bar {
+  border-color: transparent;
+}
+#scene-fixed-spot .fs__bar-outline {
+  position: absolute;
+  left: -1px;
+  top: -1px;
+  width: calc(100% + 2px);
+  height: calc(100% + 2px);
+  overflow: visible;
+  display: none;
+}
+.motion #scene-fixed-spot .fs__bar-outline {
+  display: block;
+}
+#scene-fixed-spot .fs__bar-outline path {
+  fill: none;
+  stroke: var(--fg-40);
+  stroke-width: 1px;
+}
+
+#scene-fixed-spot .fs__glass {
+  flex: none;
+  width: 20px;
+  height: 20px;
+  fill: none;
+  stroke: var(--fg);
+  stroke-width: 1.75;
+  stroke-linecap: round;
+}
+
+#scene-fixed-spot .fs__placeholder,
+#scene-fixed-spot .fs__query {
+  font-family: var(--font-display);
+  font-size: 16px;
+  font-variation-settings: 'wdth' 100;
+  line-height: 1;
+  white-space: nowrap;
+}
+#scene-fixed-spot .fs__placeholder {
+  position: absolute;
+  left: 52px;
+  color: var(--muted);
+}
+.no-js #scene-fixed-spot .fs__placeholder,
+.reduced #scene-fixed-spot .fs__placeholder {
+  display: none;
+}
+#scene-fixed-spot .fs__query {
+  display: inline-flex;
+  align-items: center;
+  font-weight: 500;
+  color: var(--fg);
+}
+.motion #scene-fixed-spot .fs__caret {
+  animation: fs-blink 1.05s steps(1) infinite;
+}
+.shots #scene-fixed-spot .fs__caret {
+  animation: none;
+}
+@keyframes fs-blink {
+  50% {
+    visibility: hidden;
+  }
+}
+#scene-fixed-spot .fs__caret {
+  display: inline-block;
+  width: 1.5px;
+  height: 20px;
+  margin-left: 2px;
+  background: var(--fg);
+}
+
+#scene-fixed-spot .fs__result {
+  margin-top: 8px;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 14px;
+  padding: 11px 18px;
+  border-radius: 18px;
+  background: var(--surface);
+  border: 1px solid var(--hair);
+}
+#scene-fixed-spot .fs__result-pin {
+  width: 14px;
+  height: 19px;
+  overflow: visible;
+}
+#scene-fixed-spot .fs__result-pin path {
+  fill: none;
+  stroke: var(--fg);
+  stroke-width: 18;
+  stroke-linejoin: round;
+}
+#scene-fixed-spot .fs__result-text {
+  display: grid;
+  gap: 3px;
+  line-height: 1.1;
+  font-variation-settings: 'wdth' 100;
+}
+#scene-fixed-spot .fs__result-text b {
+  font-size: 15px;
+  font-weight: 650;
+}
+#scene-fixed-spot .fs__result-text span {
+  font-size: 13px;
+  color: var(--muted);
+}
+#scene-fixed-spot .fs__result-ll {
+  color: var(--muted);
+  white-space: nowrap;
+}
+#scene-fixed-spot .fs__result-text span,
+#scene-fixed-spot .fs__paste-v {
+  white-space: nowrap;
+}
+
+#scene-fixed-spot .fs__paste {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 52px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 0 18px 0 22px;
+  border-radius: 26px;
+  background: var(--surface);
+  border: 1px solid var(--fg-60);
+}
+#scene-fixed-spot .fs__paste-k {
+  color: var(--muted);
+}
+#scene-fixed-spot .fs__paste-v {
+  flex: 1;
+  font-size: 15px;
+  letter-spacing: 0.04em;
+  color: var(--fg);
+}
+#scene-fixed-spot .fs__paste-ok {
+  flex: none;
+  width: 18px;
+  height: 18px;
+  fill: none;
+  stroke: var(--fg);
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* the final frame has the coordinates pasted and the search put away */
+.no-js #scene-fixed-spot .fs__search,
+.no-js #scene-fixed-spot .fs__fx,
+.reduced #scene-fixed-spot .fs__search,
+.reduced #scene-fixed-spot .fs__fx {
+  display: none;
+}
+
+/* ------------------------------------------------------------ copy + step index */
+#scene-fixed-spot .fs__copy {
+  padding-bottom: clamp(24px, 6svh, 64px);
+}
+
+#scene-fixed-spot .fs__index {
+  margin-top: auto;
+  display: grid;
+  gap: 12px;
+  color: var(--muted);
+}
+#scene-fixed-spot .fs__index li {
+  display: grid;
+  grid-template-columns: 2.6em auto;
+  align-items: center;
+  column-gap: 6px;
+  row-gap: 6px;
+  transition: color 0.2s linear;
+}
+#scene-fixed-spot .fs__index-bar {
+  grid-column: 2;
+  display: block;
+  width: 56px;
+  height: 1px;
+  background: var(--fg-15);
+  position: relative;
+  overflow: hidden;
+}
+#scene-fixed-spot .fs__index-bar::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--fg);
+  transform-origin: 0 50%;
+  transform: scaleX(var(--k, 0));
+}
+#scene-fixed-spot .fs__index li.is-on {
+  color: var(--fg);
+}
+#scene-fixed-spot .fs__index li.is-on .fs__index-bar::after,
+.no-js #scene-fixed-spot .fs__index li.is-on .fs__index-bar::after {
+  --k: 1;
+}
+.motion #scene-fixed-spot .fs__index li.is-on .fs__index-bar::after {
+  --k: var(--beat, 1);
+}
+
+/* ------------------------------------------------------------ mobile: copy on top, then digits, slot, pin */
+@media (max-width: 767px) {
+  #scene-fixed-spot .fs {
+    --pin-h: 80px;
+    --pin-x: 0.78;
+    --pin-y: 0.77;
+  }
+  #scene-fixed-spot .fs__giant {
+    left: calc(var(--margin) - 0.04em);
+    right: auto;
+    bottom: auto;
+    top: calc(var(--topbar-h) + 268px);
+    align-items: flex-start;
+    font-size: min(17.5vw, 9svh);
+  }
+  /* phones: the slot docks at the bottom like a search sheet, under the band the pins drop into */
+  #scene-fixed-spot .fs__slot {
+    left: var(--margin);
+    right: var(--margin);
+    width: auto;
+    top: auto;
+    bottom: var(--margin);
+  }
+  #scene-fixed-spot .fs__index {
+    margin-top: 2px;
+    display: flex;
+    gap: 18px;
+  }
+  #scene-fixed-spot .fs__index li {
+    grid-template-columns: auto auto;
+  }
+  #scene-fixed-spot .fs__index-n {
+    display: none;
+  }
+  #scene-fixed-spot .fs__index-bar {
+    grid-column: 1 / -1;
+    width: 100%;
+  }
+}
+
+@media (max-width: 599px) {
+  #scene-fixed-spot .fs__index {
+    gap: 14px;
+  }
+}
+
+/* the final frame has no touch on screen, so no accuracy ring either */
+html:not(.motion) #scene-fixed-spot .fs__acc {
+  display: none;
+}
+
+@media (max-width: 767px) {
+  /* the pasted chip lands where the sheet's edge is: the bottom of the slot */
+  #scene-fixed-spot .fs__paste {
+    top: auto;
+    bottom: 0;
+  }
+}

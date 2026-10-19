@@ -1,0 +1,30 @@
+<!-- Scene 04: no-flicker. The thread forks into four provider lanes (a Swiss timetable), each is held in
+     turn, and they rejoin at the orange fix. The real position (a hollow bone ring) jitters while any lane
+     is open and shatters when the last one holds. HTML/CSS default = the final frame (all four HELD). -->
+<div class="stage nf-stage">
+  <svg class="world nf-world" viewBox="820 180 1600 1000" preserveAspectRatio="xMidYMid slice" aria-hidden="true" focusable="false">
+    <g class="world__pan"><use href="#world" width="2400" height="1600" /></g>
+  </svg>
+
+  <div class="hud nf-hud" aria-hidden="true">
+    <ol class="nf-board">
+      <li class="nf-row" data-lane="0"><span class="nf-idx">01</span><span class="nf-name">GPS</span><span class="nf-tag">HELD</span></li>
+      <li class="nf-row" data-lane="1"><span class="nf-idx">02</span><span class="nf-name">Network</span><span class="nf-tag">HELD</span></li>
+      <li class="nf-row" data-lane="2"><span class="nf-idx">03</span><span class="nf-name">Fused <span class="nf-note">12+</span></span><span class="nf-tag">HELD</span></li>
+      <li class="nf-row" data-lane="3"><span class="nf-idx">04</span><span class="nf-name">Play services</span><span class="nf-tag">HELD</span></li>
+    </ol>
+    <svg class="nf-static nf-static--d" viewBox="0 0 100 100" preserveAspectRatio="none" focusable="false">
+      <path d="M38 12.5H72C79 12.5 79 50 86 50M38 37.5H72C79 37.5 79 50 86 50M38 62.5H72C79 62.5 79 50 86 50M38 87.5H72C79 87.5 79 50 86 50" />
+    </svg>
+    <svg class="nf-static nf-static--m" viewBox="0 0 100 100" preserveAspectRatio="none" focusable="false">
+      <path d="M6 50C10 50 10 20 16 20H76C83 20 83 50 90 50M6 50C10 50 10 45 16 45H76C83 45 83 50 90 50M6 50C10 50 10 70 16 70H76C83 70 83 50 90 50M6 50C10 50 10 95 16 95H76C83 95 83 50 90 50" />
+    </svg>
+    <span class="nf-static-fix"></span>
+  </div>
+
+  <div class="copy nf-copy">
+    <p class="folio" aria-hidden="true"><span class="folio__n">04 / 09</span> · <span data-scramble>12.9267 N 80.1082 E</span></p>
+    <h2 class="h-scene nf-title">No flicker.<br /> No leaks.</h2>
+    <p class="sub nf-sub">GPS, network, fused, Play services. All four held.</p>
+  </div>
+</div>

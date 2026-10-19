@@ -1,0 +1,31 @@
+{
+  "name": "gps-mock-website",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "description": "Marketing site for the app. Name, domain and links live in site.config.json.",
+  "scripts": {
+    "dev": "node scripts/sync-config.mjs && vite",
+    "build": "node scripts/sync-config.mjs && vite build && node scripts/check-name.mjs && node scripts/check-size.mjs",
+    "preview": "vite preview",
+    "shots": "npm run build && node scripts/shot.mjs --dist dist --out shots",
+    "scene": "node scripts/scene.mjs",
+    "sync": "node scripts/sync-config.mjs",
+    "assets": "node scripts/render-assets.mjs --force",
+    "gen:world": "node scripts/gen-world.mjs",
+    "check:name": "node scripts/check-name.mjs",
+    "deploy": "npm run build && npx --yes wrangler@4 deploy",
+    "test:worker": "node --test worker/index.test.mjs",
+    "deploy:check": "npm run build && npx --yes wrangler@4 deploy --dry-run",
+    "check:size": "node scripts/check-size.mjs"
+  },
+  "dependencies": {
+    "@fontsource-variable/archivo": "5.3.0",
+    "@fontsource-variable/jetbrains-mono": "5.3.0",
+    "gsap": "3.13.0"
+  },
+  "devDependencies": {
+    "playwright-core": "1.63.0",
+    "vite": "7.3.6"
+  }
+}

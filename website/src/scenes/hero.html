@@ -1,0 +1,27 @@
+<div class="stage hero__stage">
+  <svg class="world hero__world" viewBox="400 300 1600 1000" preserveAspectRatio="xMidYMid slice" aria-hidden="true" focusable="false">
+    <g class="hero__pan"><g class="hero__drift"><use href="#world" width="2400" height="1600" /></g></g>
+  </svg>
+  <div class="copy hero__copy">
+    <!-- component:logo id="hero-logo" class="hero__mark" variant="tight" fix -->
+    <div class="hero__bottom">
+      <p class="hero__formerly mono">Formerly {{formerly}}</p>
+      <h1 class="hero__name" id="hero-title" style="--name-len: {{name_len}}; --name-em: {{name_em}}"><span class="hero__ghost" aria-hidden="true">{{name}}</span><span class="hero__name-text">{{name}}</span></h1>
+      <span class="hero__name hero__measure" aria-hidden="true">{{name}}</span>
+      <div class="hero__row">
+        <div class="hero__lines">
+          <p class="hero__tagline">{{tagline}}</p>
+          <p class="hero__meta mono">Android · Mock location for testing · MIT</p>
+        </div>
+        <div class="hero__actions">
+          <a class="btn btn--primary btn--l" href="{{apk}}" data-download>
+            <!-- component:icon name="download" -->Download APK
+          </a>
+          <a class="btn btn--ghost btn--l" href="{{repo}}" rel="noopener">
+            GitHub<!-- component:icon name="arrow-up-right" -->
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

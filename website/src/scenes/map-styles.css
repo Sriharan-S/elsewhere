@@ -1,0 +1,466 @@
+/* Scene 08: map-styles. Scope every rule under #scene-map-styles.
+   Motion layout: copy top-left, one square frame on the right (centre on mobile), the thread
+   running through its centre. Without motion (no JS / reduced): a 5-up small-multiples grid. */
+
+#scene-map-styles {
+  --ms-s: min(560px, 64svh, 42vw);
+  --ms-left: calc(100% - var(--margin) - 3vw - var(--ms-s));
+  --ms-top: calc(50% - var(--ms-s) / 2 + 2.5%);
+  --ms-k: calc(var(--ms-s) / 600);
+  --ms-reveal: 1;
+  --ms-reveal-p: 1;
+}
+
+#scene-map-styles .ms-defs {
+  position: absolute;
+  width: 0;
+  height: 0;
+  overflow: hidden;
+}
+#scene-map-styles .ms-defs #ms-ht-s circle {
+  fill: rgb(138 133 124 / 0.5);
+}
+#scene-map-styles .ms-defs #ms-ht-m circle {
+  fill: rgb(238 234 226 / 0.2);
+}
+#scene-map-styles .ms-defs #ms-ht-l circle {
+  fill: rgb(238 234 226 / 0.3);
+}
+
+#scene-map-styles .ms-world {
+  --map-art: #23221f;
+  --map-col: #1c1b19;
+  --map-min: #161614;
+  --map-water: #0f0f0e;
+  --map-bldg: #0f0f0e;
+  --map-bldg-stroke: #1b1a18;
+}
+
+/* ---------------------------------------------------------------- the frame */
+#scene-map-styles .ms-frame {
+  position: absolute;
+  left: var(--ms-left);
+  top: var(--ms-top);
+  width: var(--ms-s);
+  height: var(--ms-s);
+  transform-origin: 50% 50%;
+}
+#scene-map-styles .ms-layer {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  background: var(--ms-bg);
+  outline: 1px solid var(--fg-15);
+}
+#scene-map-styles .ms-map {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+/* the route through the frame: the page thread's own dash rhythm, revealed with the draw head */
+#scene-map-styles .ms-road {
+  position: absolute;
+  left: calc(50% - 1px);
+  top: 0;
+  width: 2px;
+  height: 100%;
+  background: repeating-linear-gradient(to bottom, var(--ms-road) 0 7.4px, transparent 7.4px 9.8px);
+  clip-path: inset(0 0 calc((1 - var(--ms-reveal)) * 100%) 0);
+}
+#scene-map-styles .ms-road--plane {
+  clip-path: inset(0 0 calc((1 - var(--ms-reveal-p)) * 100%) 0);
+}
+
+/* the pin: same size, same place, every style (its head centre is the frame centre) */
+#scene-map-styles .ms-pin {
+  position: absolute;
+  left: calc(50% - 17.2px);
+  top: calc(50% - 17.2px);
+  width: 34.4px;
+  height: 48px;
+  overflow: visible;
+}
+#scene-map-styles .ms-pin path {
+  fill: var(--ms-pin-fill, var(--ms-bg));
+  stroke: var(--accent);
+  stroke-width: 2.5px;
+  vector-effect: non-scaling-stroke;
+  stroke-linejoin: round;
+}
+#scene-map-styles .ms-fix {
+  display: none;
+  position: absolute;
+  left: calc(50% - 8px);
+  top: calc(50% - 8px);
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: var(--accent);
+  border: 2px solid var(--ink);
+}
+#scene-map-styles .ms-name {
+  display: none;
+}
+
+/* ---------------------------------------------------------------- the five styles */
+#scene-map-styles .ms--streets {
+  --ms-bg: var(--paper);
+  --ms-road: #0b0b0a;
+  --map-art: #0b0b0a;
+  --map-col: #3b3934;
+  --map-min: #a29d92;
+  --map-water: #d2ccbf;
+  --map-park: #dfdacf;
+  --map-park-stroke: #c4beb1;
+  --map-bldg: #d4cec2;
+  --map-bldg-stroke: #9f998d;
+  --map-art-w: 3.2px;
+  --map-col-w: 1.8px;
+  --map-min-w: 0.9px;
+}
+#scene-map-styles .ms--minimal {
+  --ms-bg: var(--paper);
+  --ms-road: #0b0b0a;
+  --map-art: #0b0b0a;
+  --map-art-w: 2px;
+  --map-col: transparent;
+  --map-min: transparent;
+  --map-water: #e2ddd3;
+  --map-park: transparent;
+  --map-park-stroke: transparent;
+  --map-bldg: transparent;
+  --map-bldg-stroke: transparent;
+}
+#scene-map-styles .ms--dark {
+  --ms-bg: #0b0b0a;
+  --ms-road: var(--fg);
+  --map-art: #5a564d;
+  --map-col: #3b3934;
+  --map-min: #282723;
+  --map-water: #161615;
+  --map-park: #121211;
+  --map-park-stroke: #22211e;
+  --map-bldg: #171715;
+  --map-bldg-stroke: #2e2d29;
+  --map-art-w: 2.6px;
+  --map-col-w: 1.4px;
+  --map-min-w: 0.8px;
+}
+#scene-map-styles .ms--satellite {
+  --ms-bg: #131311;
+  --ms-road: var(--fg);
+  --map-art: rgb(238 234 226 / 0.62);
+  --map-art-w: 1.4px;
+  --map-col: rgb(238 234 226 / 0.36);
+  --map-col-w: 1px;
+  --map-min: rgb(238 234 226 / 0.2);
+  --map-min-w: 0.7px;
+  --map-water: #060606;
+  --map-park: url(#ms-ht-l);
+  --map-park-stroke: transparent;
+  --map-bldg: rgb(238 234 226 / 0.28);
+  --map-bldg-stroke: transparent;
+}
+#scene-map-styles .ms-sat-bg {
+  fill: url(#ms-ht-s);
+}
+#scene-map-styles .ms-sat-blob {
+  fill: url(#ms-ht-m);
+}
+#scene-map-styles .ms-sat-blob--dense {
+  fill: url(#ms-ht-l);
+}
+#scene-map-styles .ms-sat-blob--soft {
+  fill: url(#ms-ht-m);
+  opacity: 0.6;
+}
+#scene-map-styles .ms--3d {
+  --ms-bg: #0b0b0a;
+  --ms-road: var(--fg);
+  --map-art: #4d4a42;
+  --map-col: #34322d;
+  --map-min: #222120;
+  --map-water: #141413;
+  --map-park: #10100f;
+  --map-park-stroke: #1e1d1b;
+  --map-bldg: transparent;
+  --map-bldg-stroke: transparent;
+  --map-art-w: 2px;
+  --map-col-w: 1.2px;
+  --map-min-w: 0.7px;
+}
+
+/* 3D: a large plane tilted back in perspective, prisms rising from it */
+#scene-map-styles .ms-view {
+  position: absolute;
+  inset: 0;
+  perspective: calc(var(--ms-s) * 2.15);
+  perspective-origin: 50% 50%;
+}
+#scene-map-styles .ms-plane {
+  --tilt: 55deg;
+  position: absolute;
+  left: -40%;
+  top: -90%;
+  width: 180%;
+  height: 280%;
+  transform-origin: 50% 50%;
+  transform: rotateX(var(--tilt));
+  transform-style: preserve-3d;
+}
+#scene-map-styles .ms-b {
+  --hz: calc(var(--h) * var(--ms-k) * 1.35);
+  position: absolute;
+  left: calc(var(--x) * 1%);
+  top: calc(var(--y) * 1%);
+  width: calc(var(--w) * 1%);
+  height: calc(var(--d) * 1%);
+  transform-style: preserve-3d;
+  transform: scale3d(1, 1, var(--rise, 1));
+}
+#scene-map-styles .ms-b i {
+  position: absolute;
+  display: block;
+  box-sizing: border-box;
+}
+#scene-map-styles .ms-b .t {
+  inset: 0;
+  transform: translateZ(var(--hz));
+  background: #2f2e2a;
+  border: 1px solid rgb(238 234 226 / 0.42);
+}
+#scene-map-styles .ms-b .f {
+  left: 0;
+  top: 100%;
+  width: 100%;
+  height: var(--hz);
+  transform-origin: 50% 0;
+  transform: rotateX(90deg);
+  background: #1b1a18;
+  border: 1px solid rgb(238 234 226 / 0.2);
+}
+#scene-map-styles .ms-b .l,
+#scene-map-styles .ms-b .r {
+  top: 0;
+  width: var(--hz);
+  height: 100%;
+  background: #141412;
+  border: 1px solid rgb(238 234 226 / 0.14);
+}
+#scene-map-styles .ms-b .l {
+  right: 100%;
+  transform-origin: 100% 50%;
+  transform: rotateY(90deg);
+}
+#scene-map-styles .ms-b .r {
+  left: 100%;
+  transform-origin: 0 50%;
+  transform: rotateY(-90deg);
+}
+
+/* ---------------------------------------------------------------- frame furniture */
+#scene-map-styles .ms-edge {
+  position: absolute;
+  top: -12px;
+  bottom: -12px;
+  left: 0;
+  width: 2px;
+  margin-left: -1px;
+  background: var(--fg);
+  box-shadow: 0 0 0 1px var(--ink);
+  opacity: 0;
+}
+#scene-map-styles .ms-crop {
+  position: absolute;
+  width: 14px;
+  height: 14px;
+  border: 0 solid var(--fg-40);
+}
+#scene-map-styles .ms-crop--tl { left: -10px; top: -10px; border-left-width: 1px; border-top-width: 1px; }
+#scene-map-styles .ms-crop--tr { right: -10px; top: -10px; border-right-width: 1px; border-top-width: 1px; }
+#scene-map-styles .ms-crop--bl { left: -10px; bottom: -10px; border-left-width: 1px; border-bottom-width: 1px; }
+#scene-map-styles .ms-crop--br { right: -10px; bottom: -10px; border-right-width: 1px; border-bottom-width: 1px; }
+
+#scene-map-styles .ms-strip {
+  position: absolute;
+  left: var(--ms-left);
+  top: calc(var(--ms-top) + var(--ms-s) + 18px);
+  width: var(--ms-s);
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  color: var(--fg);
+  white-space: nowrap;
+}
+#scene-map-styles .ms-strip__k {
+  color: var(--muted);
+}
+#scene-map-styles .ms-flap {
+  display: inline-block;
+  min-width: 13ch;
+  perspective: 240px;
+}
+#scene-map-styles .ms-flap .ms-fc {
+  display: inline-block;
+  transform-origin: 50% 55%;
+  backface-visibility: hidden;
+}
+#scene-map-styles .ms-count {
+  margin-left: auto;
+  color: var(--muted);
+}
+
+@media (min-width: 768px) {
+  #scene-map-styles .ms-sub {
+    max-width: 46ch;
+  }
+}
+
+/* ---------------------------------------------------------------- ledger: favorites + history */
+#scene-map-styles .ms-ledger {
+  width: min(100%, 400px, calc(100vw - 2 * var(--margin) - 3vw - var(--ms-s) - 32px));
+  margin-top: var(--space-6);
+  display: grid;
+  gap: 10px;
+}
+#scene-map-styles .ms-led-h {
+  color: var(--muted);
+  font-size: var(--fs-mono-s);
+}
+#scene-map-styles .ms-led-h + * {
+  margin-bottom: 10px;
+}
+#scene-map-styles .ms-favs,
+#scene-map-styles .ms-hist {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+#scene-map-styles .ms-favs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 18px;
+  color: var(--fg);
+}
+#scene-map-styles .ms-favs .ms-row {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+#scene-map-styles .ms-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--accent);
+}
+#scene-map-styles .ms-hist {
+  border-top: 1px solid var(--hair);
+}
+#scene-map-styles .ms-hist .ms-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 9px 0;
+  border-bottom: 1px solid var(--hair);
+  color: var(--fg);
+}
+#scene-map-styles .ms-time {
+  color: var(--muted);
+}
+
+/* ---------------------------------------------------------------- mobile (motion): frame centred under the copy,
+   the ledger takes the copy's place in the last beat */
+@media (max-width: 767px) {
+  #scene-map-styles {
+    --ms-s: min(84vw, 560px, 46svh);
+    --ms-left: calc(50% - var(--ms-s) / 2);
+    --ms-top: max(calc(100% - var(--ms-s) - 112px), 300px);
+  }
+  html.motion #scene-map-styles .ms-ledger {
+    position: absolute;
+    left: var(--margin);
+    right: var(--margin);
+    top: calc(var(--topbar-h) + clamp(24px, 6svh, 72px) + 38px);
+    width: auto;
+    margin: 0;
+  }
+  #scene-map-styles .ms-strip {
+    font-size: 11px;
+  }
+  #scene-map-styles .ms-flap {
+    min-width: 12ch;
+  }
+}
+
+/* ---------------------------------------------------------------- no motion (no JS, reduced): 5-up small multiples */
+html:not(.motion) #scene-map-styles {
+  --ms-s: calc((100vw - 2 * var(--margin) - 4 * var(--gutter)) / 5);
+  --ms-k: calc(var(--ms-s) / 600);
+}
+html:not(.motion) #scene-map-styles .ms-stage {
+  height: auto;
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  padding-bottom: var(--space-8);
+}
+html:not(.motion) #scene-map-styles .ms-stage > .copy {
+  position: relative;
+  inset: auto;
+  order: 0;
+}
+html:not(.motion) #scene-map-styles .ms-stage > .hud {
+  position: relative;
+  inset: auto;
+  order: 1;
+  padding: var(--space-5) var(--margin) 0;
+}
+html:not(.motion) #scene-map-styles .ms-frame {
+  position: relative;
+  left: auto;
+  top: auto;
+  width: auto;
+  height: auto;
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: var(--gutter);
+}
+html:not(.motion) #scene-map-styles .ms-layer {
+  position: relative;
+  inset: auto;
+  aspect-ratio: 1 / 1;
+}
+html:not(.motion) #scene-map-styles .ms-fix {
+  display: block;
+}
+html:not(.motion) #scene-map-styles .ms-name {
+  display: block;
+  position: absolute;
+  left: 8px;
+  bottom: 8px;
+  padding: 3px 6px;
+  background: var(--ms-bg);
+  color: var(--ms-road);
+  font-size: var(--fs-mono-s);
+}
+html:not(.motion) #scene-map-styles .ms-strip,
+html:not(.motion) #scene-map-styles .ms-edge,
+html:not(.motion) #scene-map-styles .ms-crop {
+  display: none;
+}
+@media (max-width: 767px) {
+  html:not(.motion) #scene-map-styles {
+    --ms-s: calc((100vw - 2 * var(--margin) - var(--gutter)) / 2);
+  }
+  html:not(.motion) #scene-map-styles .ms-frame {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  html:not(.motion) #scene-map-styles .ms--3d {
+    grid-column: 1 / -1;
+    justify-self: center;
+    width: calc(50% - var(--gutter) / 2);
+  }
+}

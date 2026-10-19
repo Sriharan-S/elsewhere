@@ -1,0 +1,250 @@
+/* CLOSING: the thread draws into the mark, the fix settles in the pin, then two settings and go. */
+
+.closing__world {
+  --map-art: #1f1e1b;
+  --map-col: #191816;
+  --map-min: #141413;
+  --map-water: #0f0f0e;
+  --map-bldg: #10100f;
+  --map-bldg-stroke: #1b1a18;
+}
+
+.closing__lockup {
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: clamp(36px, 8svh, 84px);
+  padding-top: calc(var(--topbar-h) + 2svh);
+}
+
+.closing__mark {
+  flex: none;
+  width: auto;
+  height: min(40svh, 34vw);
+}
+
+.closing__word {
+  display: grid;
+  justify-items: center;
+  gap: clamp(10px, 2svh, 20px);
+  min-width: 0;
+}
+
+.closing__name {
+  --wdth: 100;
+  font-family: var(--font-display);
+  /* capped by the name length so any name fits the width (about 0.73em per uppercase char at wdth 100) */
+  font-size: min(clamp(3rem, min(9vw, 13svh), 9rem), calc((100vw - 2 * var(--margin)) / (var(--name-len, 6) * 0.78)));
+  font-weight: 900;
+  font-variation-settings: 'wdth' var(--wdth);
+  line-height: 0.8;
+  letter-spacing: -0.035em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.closing__name {
+  position: relative;
+}
+.closing__name-text {
+  position: relative;
+  display: inline-block;
+}
+/* the wordmark's outline arrives with the pin as it redraws; the solid letters land with the fix */
+.closing__ghost {
+  position: absolute;
+  /* centred on the word (the solid letters start narrow, at wdth 62, and widen into it) */
+  left: 50%;
+  top: 0;
+  transform: translateX(-50%);
+  color: transparent;
+  -webkit-text-stroke: max(1px, 0.012em) var(--fg-30);
+  pointer-events: none;
+}
+
+.closing__tagline {
+  font-size: clamp(1.05rem, 1.5vw, 1.4rem);
+  font-weight: 500;
+  font-variation-settings: 'wdth' 100;
+  color: var(--muted);
+}
+
+/* ---- setup + actions */
+.closing__setup {
+  position: relative;
+  isolation: isolate;
+  overflow: clip;
+  padding: clamp(64px, 12svh, 140px) var(--margin) clamp(48px, 10svh, 120px);
+}
+
+.closing__setup-world {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -2;
+  opacity: 0.55;
+  --map-art: #1f1e1b;
+  --map-col: #191816;
+  --map-min: #141413;
+  --map-water: #0f0f0e;
+  --map-bldg: #10100f;
+  --map-bldg-stroke: #1b1a18;
+}
+
+.closing__pulse {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  pointer-events: none;
+}
+.closing__pulse circle {
+  fill: none;
+  stroke: var(--accent);
+  stroke-width: 1px;
+  opacity: 0;
+}
+
+.closing__inner {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  column-gap: var(--gutter);
+  row-gap: clamp(32px, 6svh, 64px);
+  max-width: 1600px;
+  margin-inline: auto;
+}
+
+.closing__title {
+  grid-column: 1 / span 6;
+  align-self: start;
+  /* two lines: "Two settings. / Then go." (the column is half the page, so the display size steps down) */
+  font-size: clamp(2.5rem, 6vw, 6rem);
+  max-width: none;
+}
+@media (max-width: 767px) {
+  .closing__title {
+    font-size: var(--fs-display);
+  }
+}
+
+.setup {
+  grid-column: 7 / -1;
+  display: grid;
+  border-top: 1px solid var(--hair);
+}
+
+.setup__row {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: clamp(16px, 2vw, 32px);
+  padding: clamp(14px, 2.4svh, 24px) 0;
+  border-bottom: 1px solid var(--hair);
+}
+
+.setup__n {
+  font-size: clamp(3.25rem, 6vw, 5.5rem);
+  line-height: 0.8;
+  width: 2.1ch;
+  -webkit-text-stroke-color: var(--fg-60);
+}
+
+.setup__body {
+  display: grid;
+  gap: 6px;
+  min-width: 0;
+}
+
+.setup__label {
+  font-size: clamp(1.1rem, 1.6vw, 1.45rem);
+  font-weight: 600;
+  font-variation-settings: 'wdth' 100;
+  line-height: 1.15;
+}
+
+.setup__hint {
+  color: var(--muted);
+}
+
+.setup__app {
+  color: var(--fg);
+}
+
+.setup__check {
+  width: 28px;
+  height: 28px;
+  fill: none;
+  stroke: var(--fg);
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.closing__actions {
+  grid-column: 7 / -1;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  scroll-margin-top: calc(var(--topbar-h) + 24px);
+}
+
+.closing__apk {
+  flex: 1 1 100%;
+}
+
+@media (min-width: 1100px) {
+  .closing__apk {
+    flex: 0 0 auto;
+  }
+}
+
+@media (max-width: 1023px) {
+  .closing__title,
+  .setup,
+  .closing__actions {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (max-width: 767px) {
+  /* phones: the lockup sits on the stage's bottom edge, so when the pin lets go the two settings follow
+     straight under the tagline (no empty screen between the icon and the setup) */
+  .closing__lockup {
+    justify-content: flex-end;
+    gap: clamp(28px, 6svh, 56px);
+    padding-bottom: 32px;
+  }
+  .closing__setup {
+    padding-top: 48px;
+  }
+  .closing__mark {
+    height: min(40svh, 72vw);
+  }
+  .closing__name {
+    font-size: min(17vw, 6rem, calc((100vw - 2 * var(--margin)) / (var(--name-len, 6) * 0.78)));
+  }
+  .closing__actions {
+    flex-direction: column;
+    flex-wrap: nowrap;
+  }
+  .closing__actions .btn,
+  .closing__apk {
+    flex: none;
+    width: 100%;
+  }
+}
+
+/* Motion-only: the traveler becomes the fix. */
+.motion .scene--closing .logo__fix {
+  opacity: 0;
+}
+
+/* whole wdth units (see type.css) */
+@supports (font-variation-settings: 'wdth' round(1.5, 1)) {
+  .closing__name {
+    font-variation-settings: 'wdth' round(var(--wdth), 1);
+  }
+}

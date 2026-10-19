@@ -1,0 +1,12 @@
+{
+  "name": "Elsewhere",
+  "slug": "elsewhere",
+  "domain": "elsewhere.sriharan.me",
+  "formerly": "GPS Mock",
+  "tagline": "Your phone, anywhere but here.",
+  "description": "Set your Android phone's location anywhere, or drive it along a real route. For testing location apps. Free and open source.",
+  "author": "Sriharan",
+  "repo": "https://github.com/Sriharan-S/gps-mock",
+  "releases": "https://github.com/Sriharan-S/gps-mock/releases/latest",
+  "apk": "/download"
+}

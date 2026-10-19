@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>Off the map · {{name}}</title>
+    <meta name="robots" content="noindex" />
+    <meta name="theme-color" content="#0B0B0A" />
+    <meta name="color-scheme" content="dark" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png" />
+    <link rel="preload" href="{{font_display}}" as="font" type="font/woff2" crossorigin />
+    <style>
+      @font-face {
+        font-family: 'Archivo';
+        font-weight: 100 900;
+        font-stretch: 62% 125%;
+        font-display: swap;
+        src: url('{{font_display}}') format('woff2-variations');
+      }
+      @font-face {
+        font-family: 'JetBrains Mono';
+        font-weight: 100 800;
+        font-display: swap;
+        src: url('{{font_mono}}') format('woff2-variations');
+      }
+      :root {
+        color-scheme: dark;
+        --bg: #0b0b0a;
+        --fg: #eeeae2;
+        --accent: #ff6b1a;
+        --muted: #8a857c;
+        --margin: clamp(16px, 5vw, 80px);
+      }
+      * { box-sizing: border-box; margin: 0; }
+      html, body { background: var(--bg); color: var(--fg); }
+      body {
+        min-height: 100svh;
+        display: grid;
+        grid-template-rows: auto 1fr auto;
+        gap: 32px;
+        padding: 24px var(--margin) 32px;
+        font-family: 'Archivo', 'Arial Narrow', system-ui, sans-serif;
+        -webkit-font-smoothing: antialiased;
+        overflow-x: clip;
+      }
+      .mono {
+        font-family: 'JetBrains Mono', ui-monospace, monospace;
+        font-size: 12px;
+        font-weight: 500;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        font-variant-numeric: tabular-nums;
+        color: var(--muted);
+      }
+      .top { display: flex; justify-content: space-between; align-items: center; gap: 16px; }
+      .brand { display: inline-flex; align-items: center; gap: 10px; color: var(--fg); text-decoration: none; min-height: 48px; }
+      .brand svg { height: 30px; width: auto; }
+      .brand span { font-weight: 800; font-size: 15px; letter-spacing: 0.06em; text-transform: uppercase; font-variation-settings: 'wdth' 112; }
+      main { align-self: center; display: grid; gap: 20px; }
+      .code {
+        font-family: 'JetBrains Mono', ui-monospace, monospace;
+        font-weight: 300;
+        font-size: clamp(7rem, 30vw, 22rem);
+        line-height: 0.82;
+        letter-spacing: -0.04em;
+        color: transparent;
+        -webkit-text-stroke: 1px var(--fg);
+      }
+      h1 {
+        font-size: clamp(2.5rem, 8.5vw, 7rem);
+        font-weight: 850;
+        font-variation-settings: 'wdth' 85;
+        line-height: 0.88;
+        letter-spacing: -0.03em;
+      }
+      p.sub { color: var(--muted); font-size: clamp(1rem, 1.3vw, 1.2rem); max-width: 34ch; }
+      .btn {
+        display: inline-flex; align-items: center; justify-content: center; gap: 10px; justify-self: start;
+        min-height: 52px; padding: 0 26px; border: 1px solid var(--accent); border-radius: 2px;
+        background: var(--accent); color: var(--bg); font-weight: 650; font-size: 16px; text-decoration: none;
+      }
+      .btn:focus-visible, .brand:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+      .dot { color: var(--accent); }
+    </style>
+  </head>
+  <body>
+    <div class="top">
+      <a class="brand" href="/" aria-label="{{name}} home">
+        <!-- component:logo id="nf" variant="tight" stroke="20" fg="#EEEAE2" -->
+        <span>{{name}}</span>
+      </a>
+      <p class="mono" aria-hidden="true">LAT 0.0000 · LNG 0.0000 · NULL ISLAND · MOCK OFF</p>
+    </div>
+    <main>
+      <p class="code" aria-hidden="true">404</p>
+      <h1>Off the map.</h1>
+      <p class="sub">Nothing parked here.</p>
+      <a class="btn" href="/">Back to {{name}}</a>
+    </main>
+    <p class="mono">{{domain}}</p>
+  </body>
+</html>

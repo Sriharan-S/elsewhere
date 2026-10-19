@@ -1,0 +1,222 @@
+/* Scene 07: offline. Scope every rule under #scene-offline. */
+
+/* The props svg lives in stage px once JS lays it out (viewBox 0 0 W H). Without JS it is a
+   static final frame, fitted into the right half (desktop) or the lower half (portrait). */
+#scene-offline .of-props {
+  overflow: visible;
+  z-index: 0;
+}
+/* the props are not the map: no seam fade on them */
+#scene-offline .stage > .of-props {
+  -webkit-mask-image: none;
+  mask-image: none;
+}
+html:not(.motion):not(.reduced) #scene-offline .of-props {
+  inset: 16% 4% 4% 46%;
+  width: auto;
+  height: auto;
+}
+@media (max-aspect-ratio: 21/20) {
+  html:not(.motion):not(.reduced) #scene-offline .of-props {
+    inset: 44% 6% 3% 6%;
+  }
+}
+#scene-offline .of-map {
+  transform-origin: 70% 60%;
+}
+
+/* ---- geo group: everything inside scales with --s, so strokes and type divide by it */
+#scene-offline .of-geo {
+  --s: 3;
+}
+#scene-offline .of-poly {
+  fill: none;
+  stroke-linejoin: round;
+  stroke-width: calc(1px / var(--s));
+}
+#scene-offline .of-poly--country {
+  stroke: var(--fg-30);
+}
+#scene-offline .of-poly--state {
+  stroke: var(--fg-40);
+}
+#scene-offline .of-poly--district {
+  stroke: var(--fg-60);
+}
+#scene-offline .of-poly--city {
+  stroke: var(--fg);
+  stroke-width: calc(1.5px / var(--s));
+}
+
+/* tiles: hairline cells in graphite; a printed cell shows the real streets inside it (.of-tilemap,
+   clipped to the printed cells), and flashes once as it prints */
+#scene-offline .of-tiles rect,
+#scene-offline .of-route-tiles rect {
+  fill: var(--fg);
+  fill-opacity: 0;
+  stroke: #2a2925;
+  stroke-width: calc(1px / var(--s));
+}
+#scene-offline .of-tilemap {
+  --map-art: #a29d92;
+  --map-col: #6a665d;
+  --map-min: #4a4740;
+  --map-art-w: 1.6px;
+  --map-col-w: 1.1px;
+  --map-min-w: 0.8px;
+  --map-water: #242320;
+  --map-park: #1b1b19;
+  --map-park-stroke: #34322d;
+  --map-bldg: #262521;
+  --map-bldg-stroke: #4a4740;
+}
+#scene-offline .of-tilemap__base {
+  fill: #141413;
+}
+
+#scene-offline .of-corridor {
+  fill: none;
+  stroke: var(--fg);
+  stroke-opacity: 0.07;
+  stroke-width: calc(28px / var(--s));
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+#scene-offline .of-route-static {
+  fill: none;
+  stroke: var(--fg);
+  stroke-width: calc(2px / var(--s));
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: calc(5.4px / var(--s)) calc(4.4px / var(--s));
+}
+#scene-offline .of-fix-static {
+  fill: var(--accent);
+  stroke: var(--ink);
+  stroke-width: calc(2px / var(--s));
+}
+html:is(.motion, .reduced) #scene-offline .of-route-static,
+html:is(.motion, .reduced) #scene-offline .of-fix-static {
+  display: none;
+}
+
+#scene-offline .of-label {
+  font-family: var(--font-mono);
+  font-size: calc(11px / var(--s));
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  fill: var(--muted);
+}
+#scene-offline .of-label--city {
+  fill: var(--fg);
+}
+html:not(.motion):not(.reduced) #scene-offline .of-label:not(.of-label--city) {
+  display: none;
+}
+
+/* ---- HUD: signal glyph (top right) and the download meter */
+#scene-offline .of-signal {
+  position: absolute;
+  top: calc(var(--topbar-h) + clamp(24px, 6svh, 72px));
+  right: var(--margin);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 10px;
+}
+#scene-offline .of-signal__glyph {
+  width: clamp(34px, 3.2vw, 46px);
+  height: auto;
+  overflow: visible;
+}
+#scene-offline .of-bar {
+  fill: var(--fg);
+  opacity: 0.16;
+}
+#scene-offline .of-signal__slash {
+  fill: none;
+  stroke: var(--fg);
+  stroke-width: 2.2;
+  stroke-linecap: round;
+}
+#scene-offline .of-signal__label {
+  position: relative;
+  display: grid;
+  justify-items: end;
+  color: var(--muted);
+}
+#scene-offline .of-signal__label > span {
+  grid-area: 1 / 1;
+}
+#scene-offline .of-signal__on {
+  visibility: hidden;
+}
+#scene-offline .of-signal__off {
+  color: var(--fg);
+}
+
+#scene-offline .of-meter {
+  position: absolute;
+  left: 46%;
+  bottom: 5%;
+  display: grid;
+  gap: 8px;
+  width: max-content;
+  width: 13.5em;
+  color: var(--muted);
+}
+html.motion #scene-offline .of-meter,
+html.reduced #scene-offline .of-meter {
+  left: 0;
+  top: 0;
+  bottom: auto;
+}
+#scene-offline .of-meter__row {
+  display: flex;
+  gap: 0.9em;
+  white-space: nowrap;
+}
+#scene-offline .of-meter__k {
+  color: var(--fg);
+}
+#scene-offline .of-meter__v {
+  margin-left: auto;
+  color: var(--fg);
+  min-width: 4ch;
+  text-align: right;
+}
+#scene-offline .of-meter__bar {
+  position: relative;
+  display: block;
+  height: 1px;
+  background: var(--fg-15);
+}
+#scene-offline .of-meter__bar i {
+  position: absolute;
+  inset: 0;
+  background: var(--fg);
+  transform-origin: 0 50%;
+}
+
+@media (max-aspect-ratio: 21/20) {
+  #scene-offline .of-meter {
+    left: 6%;
+    bottom: 3%;
+  }
+}
+
+@media (max-width: 767px) {
+  #scene-offline .of-signal {
+    top: calc(var(--topbar-h) + 22px);
+    gap: 6px;
+  }
+  #scene-offline .of-signal__glyph {
+    width: 28px;
+  }
+  #scene-offline .of-meter {
+    width: 12em;
+  }
+}
+#scene-offline .of-meter__what {
+  color: var(--muted);
+}

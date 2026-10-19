@@ -1,0 +1,322 @@
+/* Scene 06: share-links. Scope every rule under #scene-share-links.
+   Default (no-JS, reduced, mobile): a flowing list with each link's result, the pin on top, the error card last.
+   html.motion on desktop: a pinned conveyor; JS positions chips, chars, pad and card. */
+
+#scene-share-links .stage {
+  height: auto;
+  min-height: 100svh;
+}
+
+#scene-share-links .stage > .copy {
+  position: relative;
+  inset: auto;
+}
+
+#scene-share-links .links__belt {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: var(--z-thread);
+  overflow: visible;
+  pointer-events: none;
+  display: none;
+}
+#scene-share-links .links__belt-path {
+  fill: none;
+  stroke: var(--fg);
+  stroke-linecap: round;
+}
+
+/* ---------------------------------------------------------------- body: list + pad + error */
+#scene-share-links .links__body {
+  position: relative;
+  z-index: var(--z-hud);
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(260px, 340px);
+  grid-template-areas:
+    'list pad'
+    'list err';
+  align-content: start;
+  align-items: start;
+  column-gap: var(--gutter);
+  row-gap: var(--space-6);
+  padding: var(--space-7) var(--margin) var(--space-9) calc(var(--margin) + 12px);
+}
+
+#scene-share-links .links__list {
+  grid-area: list;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 14px;
+}
+
+#scene-share-links .link {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 16px;
+}
+
+#scene-share-links .link__chip {
+  position: relative;
+  isolation: isolate;
+  min-height: 34px;
+  padding: 0 14px;
+  border: 0;
+  font-size: 13px;
+  letter-spacing: 0.02em;
+}
+#scene-share-links .link__pill {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border: 1px solid var(--hair);
+  border-radius: var(--radius-pill);
+  background: var(--bg);
+}
+#scene-share-links .link__text {
+  position: relative;
+  white-space: pre;
+}
+#scene-share-links .link__text .c {
+  color: var(--fg);
+}
+#scene-share-links .link__text {
+  color: var(--fg-60);
+}
+#scene-share-links .link__out {
+  color: var(--fg);
+  white-space: nowrap;
+}
+#scene-share-links .link--bad .link__pill {
+  border-style: dashed;
+}
+
+/* the landing pad */
+#scene-share-links .links__pad {
+  grid-area: pad;
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  gap: 18px;
+}
+#scene-share-links .links__pin-wrap {
+  flex: none;
+}
+#scene-share-links .links__pin {
+  display: block;
+  width: 70px;
+  height: 96px;
+  overflow: visible;
+  transform-origin: 50% 93.1%;
+}
+#scene-share-links .links__pin-path {
+  fill: none;
+  stroke: var(--fg);
+  stroke-width: 14;
+  stroke-linejoin: round;
+}
+#scene-share-links .links__pin-fix {
+  fill: var(--accent);
+}
+#scene-share-links .links__count {
+  display: grid;
+  gap: 6px;
+  padding-bottom: 4px;
+}
+#scene-share-links .links__ll {
+  display: grid;
+  font-size: clamp(18px, 1.7vw, 26px);
+  font-weight: 400;
+  letter-spacing: 0.02em;
+  line-height: 1.1;
+  color: var(--fg);
+}
+#scene-share-links .links__src {
+  white-space: nowrap;
+}
+#scene-share-links .links__resolve {
+  display: none;
+}
+#scene-share-links .links__pin,
+#scene-share-links .links__resolve,
+#scene-share-links .links__belt {
+  max-width: none;
+}
+#scene-share-links .links__resolve-ring {
+  fill: none;
+  stroke: var(--fg);
+  stroke-width: 1.5;
+  stroke-linecap: round;
+}
+#scene-share-links .links__resolve-dot {
+  fill: var(--fg);
+}
+
+/* the one boxed error on the site */
+#scene-share-links .links__error {
+  grid-area: err;
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  max-width: 340px;
+  padding: 14px 16px;
+  border: 1px solid var(--fg);
+  border-radius: 2px;
+  background: var(--bg);
+}
+#scene-share-links .links__error p {
+  margin: 0;
+  color: var(--fg);
+  line-height: 1.45;
+}
+#scene-share-links .links__error-ico {
+  flex: none;
+  width: 18px;
+  height: 18px;
+  margin-top: 1px;
+}
+#scene-share-links .links__error-ico circle,
+#scene-share-links .links__error-ico path {
+  fill: none;
+  stroke: var(--fg);
+  stroke-width: 1.5;
+  stroke-linecap: round;
+}
+
+/* ---------------------------------------------------------------- mobile flow */
+@media (max-width: 767px) {
+  #scene-share-links .links__body {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-areas: 'pad' 'list' 'err';
+    padding-left: calc(var(--margin) + 18px);
+    padding-top: calc(var(--topbar-h) + 20px);
+    row-gap: var(--space-5);
+  }
+  #scene-share-links .links__pad {
+    position: sticky;
+    top: calc(var(--topbar-h) + 8px);
+    z-index: 2;
+    padding: 10px 0 12px;
+    background: var(--bg);
+    border-bottom: 1px solid var(--hair);
+  }
+  /* rows that scroll past the stuck pin vanish under ink, not under the top-bar HUD */
+  #scene-share-links .links__pad::before {
+    content: '';
+    position: absolute;
+    left: calc(-1 * var(--margin) - 20px);
+    right: calc(-1 * var(--margin));
+    bottom: 100%;
+    height: calc(var(--topbar-h) + 8px);
+    background: var(--bg);
+    pointer-events: none;
+  }
+  #scene-share-links .links__pin {
+    width: 47px;
+    height: 64px;
+  }
+  #scene-share-links .links__list {
+    gap: 0;
+  }
+  #scene-share-links .link {
+    min-height: 92px;
+    align-content: center;
+    gap: 6px 12px;
+  }
+  #scene-share-links .link__chip {
+    font-size: 11.5px;
+    padding: 0 12px;
+    max-width: 100%;
+  }
+  #scene-share-links .link__out {
+    font-size: 11px;
+  }
+  #scene-share-links .links__error {
+    max-width: none;
+  }
+}
+
+/* ---------------------------------------------------------------- desktop conveyor (JS + motion only) */
+@media (min-width: 768px) {
+  .motion #scene-share-links .stage {
+    height: 100svh;
+    min-height: 520px;
+  }
+  .motion #scene-share-links .stage > .copy {
+    position: absolute;
+    inset: 0;
+  }
+  .motion #scene-share-links .links__belt {
+    display: block;
+  }
+  .motion #scene-share-links .links__body {
+    position: absolute;
+    inset: 0;
+    display: block;
+    padding: 0;
+  }
+  .motion #scene-share-links .links__list {
+    position: absolute;
+    left: 0;
+    top: 0;
+    display: block;
+  }
+  .motion #scene-share-links .link {
+    position: absolute;
+    left: 0;
+    top: 0;
+    display: block;
+    will-change: transform;
+  }
+  .motion #scene-share-links .link__chip {
+    display: inline-flex;
+    min-height: 44px;
+    padding: 0 20px;
+    font-size: clamp(14px, 1.15vw, 18px);
+  }
+  .motion #scene-share-links .link__out {
+    display: none;
+  }
+  .motion #scene-share-links .links__pad {
+    position: absolute;
+    left: 0;
+    top: 0;
+    display: block;
+  }
+  .motion #scene-share-links .links__pin-wrap {
+    position: absolute;
+    left: 0;
+    top: 0;
+  }
+  .motion #scene-share-links .links__count {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: max-content;
+  }
+  .motion #scene-share-links .links__resolve {
+    display: block;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 40px;
+    height: 40px;
+    margin: -20px 0 0 -20px;
+    overflow: visible;
+  }
+  .motion #scene-share-links .links__error {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 340px;
+  }
+}
+
+/* chars mid-flight (motion only) */
+.motion #scene-share-links .splitchar.is-hot {
+  color: var(--accent);
+}

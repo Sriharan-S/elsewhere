@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>{{name}} · Mock location for Android testing</title>
+    <meta name="description" content="{{description|attr}}" />
+    <link rel="canonical" href="{{url}}/" />
+    <meta name="theme-color" content="#0B0B0A" />
+    <meta name="color-scheme" content="dark" />
+    <meta name="author" content="{{author|attr}}" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="{{name|attr}}" />
+    <meta property="og:title" content="{{name|attr}}: {{tagline|attr}}" />
+    <meta property="og:description" content="{{description|attr}}" />
+    <meta property="og:url" content="{{url}}/" />
+    <meta property="og:image" content="{{url}}/og.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="{{name|attr}} logo: a map pin above a dashed route" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="{{name|attr}}: {{tagline|attr}}" />
+    <meta name="twitter:description" content="{{description|attr}}" />
+    <meta name="twitter:image" content="{{url}}/og.png" />
+
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+
+    <!-- Runs before first paint. Its sha256 is added to the CSP by the build. -->
+    <script>
+      (function (d, w) {
+        var r = d.documentElement;
+        r.classList.remove('no-js');
+        r.classList.add('js');
+        var rm = w.matchMedia('(prefers-reduced-motion: reduce)').matches || /[?&]reduced\b/.test(w.location.search);
+        r.classList.add(rm ? 'reduced' : 'motion');
+        if (/[?&]shots\b/.test(w.location.search)) r.classList.add('shots');
+        // No-JS fallback: if the module fails to load, or has not booted within 4s, show the static frames.
+        // A module that arrives later takes the reduced path (env.js), so the two never stack.
+        var off = function () {
+          if (!w.__booted) r.classList.remove('js', 'motion');
+        };
+        w.addEventListener('error', function (e) {
+          if (e.target && e.target.tagName === 'SCRIPT') off();
+        }, true);
+        w.setTimeout(off, 4000);
+      })(document, window);
+    </script>
+    <script type="module" src="/src/main.js"></script>
+  </head>
+  <body id="top">
+    <a class="skip-link" href="#download">Skip to download</a>
+    <!-- include:sprites -->
+    <!-- include:phone -->
+    <!-- include:topbar -->
+
+    <main id="main">
+      <section class="scene scene--hero" id="scene-hero" data-thread-out="0.62" aria-labelledby="hero-title"><!-- scene:hero --></section>
+      <section class="scene" id="scene-fixed-spot" data-folio="01" data-thread-in="0.62" data-thread-out="0.38"><!-- scene:fixed-spot --></section>
+      <section class="scene" id="scene-the-drive" data-folio="02" data-thread-in="0.38" data-thread-out="0.38"><!-- scene:the-drive --></section>
+      <section class="scene" id="scene-still-driving" data-folio="03" data-thread-in="0.38" data-thread-out="0.38"><!-- scene:still-driving --></section>
+      <section class="scene" id="scene-no-flicker" data-folio="04" data-thread-in="0.38" data-thread-out="0.62"><!-- scene:no-flicker --></section>
+      <section class="scene" id="scene-tiles-widgets" data-folio="05" data-thread-in="0.62" data-thread-out="0.38"><!-- scene:tiles-widgets --></section>
+      <section class="scene" id="scene-share-links" data-folio="06" data-thread-in="0.38" data-thread-out="0.62"><!-- scene:share-links --></section>
+      <section class="scene" id="scene-offline" data-folio="07" data-thread-in="0.62" data-thread-out="0.38"><!-- scene:offline --></section>
+      <section class="scene" id="scene-map-styles" data-folio="08" data-thread-in="0.38" data-thread-out="0.62"><!-- scene:map-styles --></section>
+      <section class="scene" id="scene-credits" data-folio="09" data-thread-in="0.62" data-thread-out="0.5"><!-- scene:credits --></section>
+      <section class="scene scene--closing" id="scene-closing" data-thread-in="0.5" aria-labelledby="closing-title"><!-- scene:closing --></section>
+    </main>
+
+    <!-- include:footer -->
+  </body>
+</html>

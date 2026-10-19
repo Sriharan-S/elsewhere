@@ -1,0 +1,425 @@
+/* Scene 02: the-drive. Scope every rule under #scene-the-drive. */
+
+#scene-the-drive .drive__world {
+  background: var(--bg);
+}
+/* its own road network has no upward continuation (seams.js clones #world maps only): it fades in
+   over the top edge as well as out over the bottom */
+#scene-the-drive .stage > .drive__world {
+  -webkit-mask-image: linear-gradient(to bottom, transparent, #000 var(--seam), #000 calc(100% - var(--seam)), transparent);
+  mask-image: linear-gradient(to bottom, transparent, #000 var(--seam), #000 calc(100% - var(--seam)), transparent);
+}
+
+#scene-the-drive .drive__lean,
+#scene-the-drive .drive__cam {
+  position: absolute;
+  inset: 0;
+}
+#scene-the-drive .stage.is-pinned .drive__cam,
+#scene-the-drive .stage.is-pinned .drive__lean {
+  will-change: transform;
+}
+
+#scene-the-drive .drive__roads,
+#scene-the-drive .drive__live {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+/* ---- the real road network (OSM), by hierarchy */
+#scene-the-drive .drive__r {
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  vector-effect: non-scaling-stroke;
+}
+#scene-the-drive .drive__r--art {
+  stroke: #3a3833;
+  stroke-width: 1.5px;
+}
+#scene-the-drive .drive__r--col {
+  stroke: #2a2925;
+  stroke-width: 1px;
+}
+#scene-the-drive .drive__r--min {
+  stroke: #1e1d1b;
+  stroke-width: 0.8px;
+}
+#scene-the-drive .drive__water {
+  fill: none;
+  stroke: #141413;
+  stroke-width: 16;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+#scene-the-drive .drive__runway {
+  fill: none;
+  stroke: #1c1b19;
+  stroke-width: 7;
+  stroke-linecap: butt;
+}
+
+/* ---- the route: dashed planned road (the thread), solid driven line on top.
+   Static widths suit the no-JS overview (~0.36 px per unit); JS sets them per layout. */
+#scene-the-drive .drive__planned {
+  fill: none;
+  stroke: var(--fg);
+  stroke-width: 5.5;
+  stroke-dasharray: 15 12;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+#scene-the-drive .drive__planned-reveal {
+  fill: none;
+  stroke: #fff;
+  stroke-width: 28;
+  stroke-linecap: butt;
+  stroke-linejoin: round;
+}
+#scene-the-drive .drive__driven {
+  fill: none;
+  stroke: var(--fg);
+  stroke-width: 7;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* ---- marks (upright, local px) */
+#scene-the-drive .drive__start-ring,
+#scene-the-drive .drive__stop-ring {
+  fill: var(--bg);
+  stroke: var(--fg);
+  stroke-width: 2px;
+  vector-effect: non-scaling-stroke;
+}
+#scene-the-drive .drive__stop-core {
+  fill: var(--fg);
+  transition: fill 0.2s linear;
+}
+.motion #scene-the-drive .drive__stop:not(.is-passed) .drive__stop-core {
+  fill: transparent;
+}
+#scene-the-drive .drive__stop-n {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  fill: var(--muted);
+}
+#scene-the-drive .drive__ripple {
+  fill: none;
+  stroke: var(--accent);
+  stroke-width: 1px;
+  stroke-opacity: 0;
+  vector-effect: non-scaling-stroke;
+}
+#scene-the-drive .drive__stop .drive__ripple {
+  stroke: var(--fg);
+}
+#scene-the-drive .drive__pin-line {
+  fill: none;
+  stroke: var(--fg);
+  stroke-width: 2px;
+  stroke-linejoin: round;
+  vector-effect: non-scaling-stroke;
+}
+#scene-the-drive .drive__pin-fill {
+  fill: var(--accent);
+  stroke: none;
+}
+#scene-the-drive .drive__pin-fix {
+  fill: var(--accent);
+  stroke: var(--ink);
+  stroke-width: 2px;
+  vector-effect: non-scaling-stroke;
+}
+
+/* ---- the headline riding the road (desktop, motion only) */
+#scene-the-drive .drive__road-h {
+  --wdth: 85;
+  font-family: var(--font-display);
+  font-weight: 850;
+  font-variation-settings: 'wdth' var(--wdth), 'wght' 850;
+  letter-spacing: 0.005em;
+  fill: var(--fg);
+  /* an ink outline under each glyph knocks the road and the map out behind the letters */
+  paint-order: stroke;
+  stroke: var(--bg);
+  stroke-width: 0.18em;
+  stroke-linejoin: round;
+  display: none;
+}
+/* ---- its sub line, hanging under the road at the headline's start (same tilt) */
+#scene-the-drive .drive__road-sub {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-variation-settings: 'wdth' 100;
+  fill: var(--muted);
+  paint-order: stroke;
+  stroke: var(--bg);
+  stroke-width: 0.3em;
+  stroke-linejoin: round;
+  display: none;
+}
+@media (min-width: 768px) {
+  .motion #scene-the-drive .drive__road-h,
+  .motion #scene-the-drive .drive__road-sub {
+    display: inline;
+  }
+  /* the real h2 and sub stay for assistive tech; the road carries them visually */
+  .motion #scene-the-drive .drive__sub,
+  .motion #scene-the-drive .drive__h {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+}
+
+/* ---- giant outline km/h numeral: a fixed HUD backdrop, bottom-right (it never rides the chase cam).
+   KM/H sits on the numeral's baseline at its right edge, so the two can never separate. */
+#scene-the-drive .drive__num {
+  position: absolute;
+  right: var(--margin);
+  bottom: var(--margin);
+  max-width: calc(100% - 2 * var(--margin));
+  margin: 0;
+  display: flex;
+  align-items: baseline;
+  justify-content: flex-end;
+  gap: 12px;
+  pointer-events: none;
+}
+#scene-the-drive .drive__num-v {
+  display: block;
+  font-size: min(var(--fs-giant), 38svh);
+  line-height: 0.8;
+  text-align: right;
+  -webkit-text-stroke: 1px rgb(238 234 226 / 0.35);
+}
+#scene-the-drive .drive__num-u {
+  color: var(--muted);
+}
+
+/* ---- HUD: route overview (top-right), mode strip + readouts (bottom-left) */
+#scene-the-drive .drive__overview {
+  position: absolute;
+  top: calc(var(--topbar-h) + clamp(24px, 6svh, 72px));
+  right: var(--margin);
+  width: clamp(200px, 17vw, 280px);
+  display: grid;
+  gap: 10px;
+  justify-items: end;
+}
+#scene-the-drive .drive__overview svg {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 3840 / 540;
+  overflow: visible;
+}
+/* <use> clones: vector-effect does not inherit, so widths are in route units (~0.07 px each) */
+#scene-the-drive .drive__ov-route,
+#scene-the-drive .drive__ov-driven {
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+#scene-the-drive .drive__ov-route {
+  stroke: var(--fg-30);
+  stroke-width: 14;
+}
+#scene-the-drive .drive__ov-driven {
+  stroke: var(--fg);
+  stroke-width: 22;
+}
+#scene-the-drive .drive__ov-stop {
+  fill: var(--bg);
+  stroke: var(--fg-60);
+  stroke-width: 1px;
+  vector-effect: non-scaling-stroke;
+}
+#scene-the-drive .drive__ov-end {
+  fill: none;
+  stroke: var(--fg);
+  stroke-width: 1px;
+  vector-effect: non-scaling-stroke;
+}
+#scene-the-drive .drive__ov-dot {
+  fill: var(--accent);
+}
+
+#scene-the-drive .drive__panel {
+  position: absolute;
+  left: var(--margin);
+  bottom: var(--margin);
+  display: grid;
+  gap: 14px;
+  justify-items: start;
+}
+
+#scene-the-drive .drive__modes {
+  display: inline-flex;
+  border: 1px solid var(--hair);
+  border-radius: 2px;
+  padding: 3px;
+  gap: 3px;
+}
+#scene-the-drive .drive__mode {
+  position: relative;
+  isolation: isolate;
+  display: inline-flex;
+  gap: 0.6em;
+  align-items: baseline;
+  padding: 7px 12px;
+  white-space: nowrap;
+  color: var(--fg);
+  transition: color 0.3s var(--ease-out);
+}
+#scene-the-drive .drive__mode-k {
+  color: var(--muted);
+  transition: color 0.3s var(--ease-out);
+}
+#scene-the-drive .drive__mode.is-active,
+#scene-the-drive .drive__mode.is-active .drive__mode-k {
+  color: var(--ink);
+}
+#scene-the-drive .drive__pill {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: 1px;
+  background: var(--fg);
+}
+#scene-the-drive .drive__pill.is-off {
+  visibility: hidden;
+}
+
+#scene-the-drive .drive__reads {
+  display: flex;
+  align-items: center;
+  gap: clamp(16px, 2vw, 28px);
+  font-size: 13px;
+  white-space: nowrap;
+}
+#scene-the-drive .drive__read {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6em;
+}
+#scene-the-drive .drive__v {
+  color: var(--fg);
+  min-width: 4ch;
+}
+#scene-the-drive .drive__dial {
+  width: 28px;
+  height: 28px;
+  overflow: visible;
+}
+#scene-the-drive .drive__dial circle {
+  fill: none;
+  stroke: var(--hair);
+  stroke-width: 1px;
+}
+#scene-the-drive .drive__dial-tick {
+  stroke: var(--muted);
+  stroke-width: 1px;
+}
+#scene-the-drive .drive__needle {
+  fill: var(--fg);
+}
+
+#scene-the-drive .drive__copy-in {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-4);
+}
+
+@media (max-width: 1023px) {
+  #scene-the-drive .drive__overview {
+    width: 180px;
+  }
+}
+
+/* ---------------------------------------------------------------- mobile */
+@media (max-width: 767px) {
+  #scene-the-drive .drive__overview {
+    display: none;
+  }
+  #scene-the-drive .drive__num {
+    bottom: calc(var(--margin) + 132px);
+    gap: 6px;
+  }
+  #scene-the-drive .drive__num-v {
+    font-size: min(40vw, 22svh);
+  }
+  #scene-the-drive .drive__panel {
+    right: var(--margin);
+    justify-items: stretch;
+    gap: 12px;
+  }
+  /* a solid ink band reserves the bottom for the readouts: the road runs under it, never through it */
+  #scene-the-drive .drive__panel::before {
+    content: '';
+    position: absolute;
+    z-index: -1;
+    left: calc(-1 * var(--margin));
+    right: calc(-1 * var(--margin));
+    top: -14px;
+    bottom: calc(-1 * var(--margin));
+    background: var(--bg);
+    border-top: 1px solid var(--hair);
+  }
+  #scene-the-drive .drive__modes {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+  #scene-the-drive .drive__mode {
+    display: grid;
+    gap: 3px;
+    padding: 7px 8px;
+    font-size: 10px;
+  }
+  #scene-the-drive .drive__reads {
+    justify-content: space-between;
+    gap: 8px;
+    font-size: 11px;
+  }
+  #scene-the-drive .drive__dial {
+    width: 22px;
+    height: 22px;
+  }
+  #scene-the-drive .drive__read {
+    gap: 0.45em;
+  }
+}
+
+/* ---------------------------------------------------------------- no-JS / reduced: the whole route, parked.
+   On phones the landscape overview turns portrait (start at the top), marks stay upright. */
+@media (max-width: 767px) {
+  html:not(.motion) #scene-the-drive .drive__roads,
+  html:not(.motion) #scene-the-drive .drive__live {
+    inset: auto;
+    left: 50%;
+    top: 54%;
+    width: max(100svh, 520px);
+    height: 100vw;
+    transform: translate(-50%, -50%) rotate(90deg);
+  }
+  html:not(.motion) #scene-the-drive .drive__upright {
+    transform: rotate(-90deg);
+  }
+}
+
+/* whole wdth units (see type.css) */
+@supports (font-variation-settings: 'wdth' round(1.5, 1)) {
+  #scene-the-drive .drive__road-h {
+    font-variation-settings: 'wdth' round(var(--wdth), 1), 'wght' 850;
+  }
+}

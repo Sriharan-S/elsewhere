@@ -1,0 +1,36 @@
+/* The one continuous dashed route that runs from the hero to the footer.
+   Geometry is built in JS (src/lib/thread.js) at the stage's real pixel size. */
+
+.thread-layer {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  pointer-events: none;
+}
+
+.thread {
+  fill: none;
+  stroke: var(--fg);
+  stroke-width: var(--stroke-thread);
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* The solid twin inside the mask that DrawSVG/progress reveals. */
+.thread-reveal {
+  fill: none;
+  stroke: #fff;
+  stroke-linecap: butt;
+  stroke-linejoin: round;
+}
+
+/* Solid "driven" variant for routes drawn over a dashed "planned" road. */
+.thread--solid {
+  stroke-dasharray: none;
+}
+
+.thread--accent {
+  stroke: var(--accent);
+}

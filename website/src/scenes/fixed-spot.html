@@ -1,0 +1,70 @@
+<!-- Scene 01: fixed-spot. Drop a pin: drag, tap / long-press, search, paste. -->
+<div class="stage fs">
+  <svg class="world fs__world map--bright" viewBox="980 250 1120 700" preserveAspectRatio="xMidYMid slice" aria-hidden="true" focusable="false">
+    <g class="world__pan fs__pan"><g class="fs__tele"><use href="#world" width="2400" height="1600" /></g></g>
+  </svg>
+
+  <!-- poster layer: the current fix in giant outline digits -->
+  <div class="fs__giant" aria-hidden="true">
+    <span class="numeral-outline fs__lat">48.8584,</span>
+    <span class="numeral-outline fs__lng">2.2945</span>
+  </div>
+
+  <!-- the pin and its touch effects (stage px, placed by JS; CSS places the final frame) -->
+  <div class="fs__props" aria-hidden="true">
+    <span class="fs__fx fs__touch fs__touch--tap"></span>
+    <span class="fs__fx ring fs__ripple"></span>
+    <span class="fs__fx fs__touch fs__touch--hold"></span>
+    <svg class="fs__fx fs__hold" viewBox="-40 -40 80 80" focusable="false"><circle class="fs__hold-track" r="30" /><circle class="fs__hold-ring" r="30" transform="rotate(-90)" /></svg>
+
+    <div class="fs__pin">
+      <span class="fs__acc"></span>
+      <span class="fs__ground"></span>
+      <span class="fs__fx fs__ground fs__ground-pulse"></span>
+      <div class="fs__body">
+        <div class="fs__squash">
+          <svg class="fs__pin-svg" viewBox="168 96 176 242" focusable="false">
+            <path class="fs__pin-path" d="M256 330 C238 304 180 254 178 182 A78 78 0 1 1 334 182 C332 254 274 304 256 330 Z" />
+          </svg>
+          <span class="fs__fix"></span>
+          <span class="fs__fx fs__touch fs__touch--drag"></span>
+        </div>
+      </div>
+      <span class="fs__tip"></span>
+    </div>
+  </div>
+
+  <!-- the input slot: search bar, one result, the pasted coordinates -->
+  <div class="hud fs__slot" aria-hidden="true">
+    <div class="fs__search">
+      <div class="fs__bar">
+        <svg class="fs__bar-outline" focusable="false"><path /></svg>
+        <svg class="fs__glass" viewBox="0 0 24 24" focusable="false"><circle cx="10.5" cy="10.5" r="6" /><path d="m15 15 5 5" /></svg>
+        <span class="fs__placeholder">Search places</span>
+        <span class="fs__query"><span class="fs__typed">Chennai</span><span class="fs__caret"></span></span>
+      </div>
+      <div class="fs__result">
+        <svg class="fs__result-pin" viewBox="168 96 176 242" focusable="false"><path d="M256 330 C238 304 180 254 178 182 A78 78 0 1 1 334 182 C332 254 274 304 256 330 Z" /></svg>
+        <span class="fs__result-text"><b>Chennai</b><span>Tamil Nadu, India</span></span>
+        <span class="fs__result-ll mono mono--s">13.0827, 80.2707</span>
+      </div>
+    </div>
+    <div class="fs__paste">
+      <span class="fs__paste-k mono mono--s">Paste</span>
+      <span class="fs__paste-v mono">48.8584, 2.2945</span>
+      <svg class="fs__paste-ok" viewBox="0 0 24 24" focusable="false"><path d="m5 12.5 4.5 4.5L19 7.5" /></svg>
+    </div>
+  </div>
+
+  <div class="copy fs__copy">
+    <p class="folio" aria-hidden="true"><span class="folio__n">01 / 09</span> · <span data-scramble>48.8584 N 2.2945 E</span></p>
+    <h2 class="h-scene">Drop a pin. Be there.</h2>
+    <p class="sub">Drag, tap, long-press, search, or paste coordinates.</p>
+    <ol class="fs__index mono" aria-hidden="true">
+      <li><span class="fs__index-n">01</span><span class="fs__index-k">Drag</span><span class="fs__index-bar"></span></li>
+      <li><span class="fs__index-n">02</span><span class="fs__index-k">Tap</span><span class="fs__index-bar"></span></li>
+      <li><span class="fs__index-n">03</span><span class="fs__index-k">Search</span><span class="fs__index-bar"></span></li>
+      <li class="is-on"><span class="fs__index-n">04</span><span class="fs__index-k">Paste</span><span class="fs__index-bar"></span></li>
+    </ol>
+  </div>
+</div>

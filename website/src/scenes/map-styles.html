@@ -1,0 +1,112 @@
+<!-- Scene 08: map-styles. One square frame, the same streets, five looks wiped in hard Swiss cuts while the
+     orange pin never moves. Then the frame steps back for favorites and history.
+     HTML/CSS default (no JS, reduced motion) = the final frame as a 5-up small-multiples grid. -->
+<svg class="ms-defs" width="0" height="0" aria-hidden="true" focusable="false">
+  <defs>
+    <pattern id="ms-ht-s" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(30)"><circle cx="3.5" cy="3.5" r="1" /></pattern>
+    <pattern id="ms-ht-m" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(30)"><circle cx="3.5" cy="3.5" r="1.8" /></pattern>
+    <pattern id="ms-ht-l" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(30)"><circle cx="3.5" cy="3.5" r="2.7" /></pattern>
+  </defs>
+</svg>
+
+<div class="stage ms-stage">
+  <svg class="world ms-world" viewBox="760 560 1600 1000" preserveAspectRatio="xMidYMid slice" aria-hidden="true" focusable="false">
+    <g class="world__pan"><use href="#world" width="2400" height="1600" /></g>
+  </svg>
+
+  <div class="hud ms-hud" aria-hidden="true">
+    <div class="ms-frame">
+      <div class="ms-layer ms--streets" data-style="Streets">
+        <svg class="ms-map" viewBox="850 260 600 600" preserveAspectRatio="xMidYMid slice" focusable="false"><use href="#world" width="2400" height="1600" /></svg>
+        <span class="ms-road"></span>
+        <svg class="ms-pin" viewBox="170 96 172 240" focusable="false"><path d="M256 330 C238 304 180 254 178 182 A78 78 0 1 1 334 182 C332 254 274 304 256 330 Z" /></svg>
+        <span class="ms-fix"></span>
+        <span class="ms-name mono">01 · Streets</span>
+      </div>
+      <div class="ms-layer ms--minimal" data-style="Minimal">
+        <svg class="ms-map" viewBox="850 260 600 600" preserveAspectRatio="xMidYMid slice" focusable="false"><use href="#world" width="2400" height="1600" /></svg>
+        <span class="ms-road"></span>
+        <svg class="ms-pin" viewBox="170 96 172 240" focusable="false"><path d="M256 330 C238 304 180 254 178 182 A78 78 0 1 1 334 182 C332 254 274 304 256 330 Z" /></svg>
+        <span class="ms-fix"></span>
+        <span class="ms-name mono">02 · Minimal</span>
+      </div>
+      <div class="ms-layer ms--dark" data-style="Dark">
+        <svg class="ms-map" viewBox="850 260 600 600" preserveAspectRatio="xMidYMid slice" focusable="false"><use href="#world" width="2400" height="1600" /></svg>
+        <span class="ms-road"></span>
+        <svg class="ms-pin" viewBox="170 96 172 240" focusable="false"><path d="M256 330 C238 304 180 254 178 182 A78 78 0 1 1 334 182 C332 254 274 304 256 330 Z" /></svg>
+        <span class="ms-fix"></span>
+        <span class="ms-name mono">03 · Dark</span>
+      </div>
+      <div class="ms-layer ms--satellite" data-style="Satellite">
+        <svg class="ms-map" viewBox="850 260 600 600" preserveAspectRatio="xMidYMid slice" focusable="false">
+          <rect class="ms-sat-bg" x="800" y="200" width="700" height="720" />
+          <path class="ms-sat-blob" d="M870 640C900 600 980 610 1000 660C1020 720 960 800 900 790C860 780 850 690 870 640Z" />
+          <path class="ms-sat-blob" d="M1300 300C1360 280 1440 320 1440 380C1440 450 1360 470 1320 440C1280 410 1270 330 1300 300Z" />
+          <path class="ms-sat-blob ms-sat-blob--soft" d="M1180 450L1290 470L1300 560L1230 590L1170 540Z" />
+          <path class="ms-sat-blob ms-sat-blob--soft" d="M880 300L990 285L1010 380L900 400Z" />
+          <path class="ms-sat-blob ms-sat-blob--soft" d="M1300 700L1420 690L1440 800L1330 830Z" />
+          <path class="ms-sat-blob ms-sat-blob--dense" d="M1120 720C1180 700 1260 730 1270 790C1280 850 1200 870 1150 850C1100 830 1080 750 1120 720Z" />
+          <path class="ms-sat-blob ms-sat-blob--dense" d="M960 420C1010 400 1060 440 1050 490C1040 530 980 540 950 515C925 495 925 435 960 420Z" />
+          <use href="#world" width="2400" height="1600" />
+        </svg>
+        <span class="ms-road"></span>
+        <svg class="ms-pin" viewBox="170 96 172 240" focusable="false"><path d="M256 330 C238 304 180 254 178 182 A78 78 0 1 1 334 182 C332 254 274 304 256 330 Z" /></svg>
+        <span class="ms-fix"></span>
+        <span class="ms-name mono">04 · Satellite</span>
+      </div>
+      <div class="ms-layer ms--3d" data-style="3D buildings">
+        <div class="ms-view">
+          <div class="ms-plane">
+            <svg class="ms-map" viewBox="610 -280 1080 1680" preserveAspectRatio="none" focusable="false"><use href="#world" width="2400" height="1600" /></svg>
+            <span class="ms-road ms-road--plane"></span>
+            <span class="ms-b" style="--x:51.852;--y:52.143;--w:3.148;--d:1.845;--h:58;--i:0"><i class="t"></i><i class="f"></i><i class="l"></i><i class="r"></i></span>
+            <span class="ms-b" style="--x:56.111;--y:52.381;--w:3.519;--d:1.964;--h:72;--i:1"><i class="t"></i><i class="f"></i><i class="l"></i><i class="r"></i></span>
+            <span class="ms-b" style="--x:60.093;--y:52.738;--w:3.611;--d:2.083;--h:91;--i:2"><i class="t"></i><i class="f"></i><i class="l"></i><i class="r"></i></span>
+            <span class="ms-b" style="--x:50.926;--y:54.881;--w:3.426;--d:1.607;--h:30;--i:3"><i class="t"></i><i class="f"></i><i class="l"></i><i class="r"></i></span>
+            <span class="ms-b" style="--x:55.37;--y:55.119;--w:3.704;--d:2.024;--h:93;--i:4"><i class="t"></i><i class="f"></i><i class="l"></i><i class="r"></i></span>
+            <span class="ms-b" style="--x:59.907;--y:55.476;--w:3.796;--d:1.964;--h:80;--i:5"><i class="t"></i><i class="f"></i><i class="l"></i><i class="r"></i></span>
+            <span class="ms-b" style="--x:56.481;--y:49.524;--w:2.778;--d:1.548;--h:44;--i:6"><i class="t"></i><i class="f"></i><i class="l"></i><i class="r"></i></span>
+            <span class="ms-b" style="--x:43.704;--y:54.524;--w:2.778;--d:1.548;--h:66;--i:7"><i class="t"></i><i class="f"></i><i class="l"></i><i class="r"></i></span>
+            <span class="ms-b" style="--x:37.593;--y:53.81;--w:2.778;--d:1.548;--h:38;--i:8"><i class="t"></i><i class="f"></i><i class="l"></i><i class="r"></i></span>
+            <span class="ms-b" style="--x:33.704;--y:53.81;--w:2.778;--d:1.548;--h:52;--i:9"><i class="t"></i><i class="f"></i><i class="l"></i><i class="r"></i></span>
+            <span class="ms-b" style="--x:65.37;--y:53.81;--w:2.778;--d:1.548;--h:60;--i:10"><i class="t"></i><i class="f"></i><i class="l"></i><i class="r"></i></span>
+            <span class="ms-b" style="--x:69.259;--y:52.024;--w:2.778;--d:1.548;--h:34;--i:11"><i class="t"></i><i class="f"></i><i class="l"></i><i class="r"></i></span>
+            <span class="ms-b" style="--x:43.704;--y:61.31;--w:2.778;--d:1.548;--h:48;--i:12"><i class="t"></i><i class="f"></i><i class="l"></i><i class="r"></i></span>
+            <span class="ms-b" style="--x:32.593;--y:58.81;--w:2.778;--d:1.548;--h:28;--i:13"><i class="t"></i><i class="f"></i><i class="l"></i><i class="r"></i></span>
+            <span class="ms-b" style="--x:57.593;--y:63.095;--w:2.778;--d:1.548;--h:70;--i:14"><i class="t"></i><i class="f"></i><i class="l"></i><i class="r"></i></span>
+            <span class="ms-b" style="--x:54.259;--y:39.524;--w:2.778;--d:1.548;--h:40;--i:15"><i class="t"></i><i class="f"></i><i class="l"></i><i class="r"></i></span>
+            <span class="ms-b" style="--x:42.037;--y:38.095;--w:2.778;--d:1.548;--h:56;--i:16"><i class="t"></i><i class="f"></i><i class="l"></i><i class="r"></i></span>
+            <span class="ms-b" style="--x:45.926;--y:38.452;--w:2.778;--d:1.548;--h:30;--i:17"><i class="t"></i><i class="f"></i><i class="l"></i><i class="r"></i></span>
+          </div>
+        </div>
+        <svg class="ms-pin" viewBox="170 96 172 240" focusable="false"><path d="M256 330 C238 304 180 254 178 182 A78 78 0 1 1 334 182 C332 254 274 304 256 330 Z" /></svg>
+        <span class="ms-fix"></span>
+        <span class="ms-name mono">05 · 3D buildings</span>
+      </div>
+      <span class="ms-edge"></span>
+      <span class="ms-crop ms-crop--tl"></span><span class="ms-crop ms-crop--tr"></span><span class="ms-crop ms-crop--bl"></span><span class="ms-crop ms-crop--br"></span>
+    </div>
+    <p class="ms-strip mono"><span class="ms-strip__k">Style</span> <span class="ms-flap">3D buildings</span><span class="ms-count">05 / 05</span></p>
+  </div>
+
+  <div class="copy ms-copy">
+    <p class="folio" aria-hidden="true"><span class="folio__n">08 / 09</span> · <span data-scramble>35.6762 N 139.6503 E</span></p>
+    <h2 class="h-scene ms-title">Five looks.<br /> Same pin.</h2>
+    <p class="sub ms-sub">Streets, minimal, dark, satellite, 3D buildings.</p>
+    <div class="ms-ledger">
+      <p class="ms-led-h mono">Favorites</p>
+      <ul class="ms-favs mono">
+        <li class="ms-row"><i class="ms-dot"></i><span class="ms-t">Home</span></li>
+        <li class="ms-row"><i class="ms-dot"></i><span class="ms-t">Office</span></li>
+        <li class="ms-row"><i class="ms-dot"></i><span class="ms-t">Airport</span></li>
+        <li class="ms-row"><i class="ms-dot"></i><span class="ms-t">Test track</span></li>
+      </ul>
+      <p class="ms-led-h mono">History</p>
+      <ol class="ms-hist mono">
+        <li class="ms-row"><span class="ms-type">Home → Airport</span><span class="ms-time">42 min</span></li>
+        <li class="ms-row"><span class="ms-type">Fixed · Office</span><span class="ms-time">1 h 05</span></li>
+        <li class="ms-row"><span class="ms-type">Fixed · Test track</span><span class="ms-time">20 min</span></li>
+      </ol>
+    </div>
+  </div>
+</div>

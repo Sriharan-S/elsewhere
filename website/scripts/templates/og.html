@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <style>
+      @font-face {
+        font-family: 'Archivo';
+        font-weight: 100 900;
+        font-stretch: 62% 125%;
+        src: url({{font_display_data}}) format('woff2');
+      }
+      @font-face {
+        font-family: 'JetBrains Mono';
+        font-weight: 100 800;
+        src: url({{font_mono_data}}) format('woff2');
+      }
+      :root {
+        --bg: #0b0b0a;
+        --fg: #eeeae2;
+        --accent: #ff6b1a;
+        --muted: #8a857c;
+        --map-art: #34322d;
+        --map-col: #272622;
+        --map-min: #1e1d1b;
+        --map-water: #121211;
+        --map-park: #10100f;
+        --map-park-stroke: #1e1d1b;
+        --map-bldg: #151513;
+        --map-bldg-stroke: #2a2925;
+      }
+      * { margin: 0; box-sizing: border-box; }
+      html, body { width: 1200px; height: 630px; background: var(--bg); color: var(--fg); overflow: hidden; }
+      body { position: relative; font-family: 'Archivo', sans-serif; }
+      .sprites { position: absolute; width: 0; height: 0; }
+      .world { position: absolute; inset: 0; width: 1200px; height: 630px; }
+      .water { fill: none; stroke: var(--map-water); stroke-width: 44; stroke-linecap: round; }
+      .park { fill: var(--map-park); stroke: var(--map-park-stroke); stroke-width: 1px; vector-effect: non-scaling-stroke; }
+      .r-art, .r-col, .r-min { fill: none; stroke-linecap: round; vector-effect: non-scaling-stroke; }
+      .r-art { stroke: var(--map-art); stroke-width: 1.5px; }
+      .r-col { stroke: var(--map-col); stroke-width: 1px; }
+      .r-min { stroke: var(--map-min); stroke-width: 0.75px; }
+      .bldg { fill: var(--map-bldg); stroke: var(--map-bldg-stroke); stroke-width: 1px; vector-effect: non-scaling-stroke; }
+      .mark { position: absolute; left: 70px; top: 92px; height: 400px; width: auto; }
+      .thread { position: absolute; inset: 0; }
+      .word { position: absolute; left: 420px; right: 60px; top: 150px; }
+      .name {
+        font-size: 168px; font-weight: 900; font-variation-settings: 'wdth' 100; line-height: 0.8;
+        letter-spacing: -0.035em; text-transform: uppercase; white-space: nowrap; display: inline-block;
+      }
+      .tag { margin-top: 34px; font-size: 38px; font-weight: 500; letter-spacing: -0.01em; }
+      .meta {
+        position: absolute; left: 420px; bottom: 74px; font-family: 'JetBrains Mono', monospace; font-size: 19px;
+        font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted);
+      }
+      .meta b { color: var(--accent); font-weight: 500; }
+    </style>
+  </head>
+  <body>
+    <!-- include:sprites -->
+    <svg class="world" viewBox="380 320 1600 840" preserveAspectRatio="xMidYMid slice"><use href="#world" width="2400" height="1600" /></svg>
+    <svg class="thread" viewBox="0 0 1200 630">
+      <path d="M384 475 L436 505 L1200 505" fill="none" stroke="#EEEAE2" stroke-width="2" stroke-dasharray="5.4 4.4" stroke-linecap="round" stroke-linejoin="round" />
+    </svg>
+    <!-- component:logo id="og" class="mark" variant="tight" fix -->
+    <div class="word">
+      <p class="name" id="name">{{name}}</p>
+      <p class="tag">{{tagline}}</p>
+    </div>
+    <p class="meta">{{domain}} · Android · <b>Mock on</b></p>
+    <script>
+      // shrink the name if it is too long for the column
+      (function () {
+        var n = document.getElementById('name');
+        var max = 720;
+        var w = n.getBoundingClientRect().width;
+        if (w > max) n.style.fontSize = (168 * max) / w + 'px';
+      })();
+    </script>
+  </body>
+</html>

@@ -1,0 +1,51 @@
+<div class="stage closing__stage">
+  <svg class="world closing__world" viewBox="300 220 1600 1000" preserveAspectRatio="xMidYMid slice" aria-hidden="true" focusable="false">
+    <use href="#world" width="2400" height="1600" />
+  </svg>
+  <div class="copy closing__lockup">
+    <!-- component:logo id="closing-logo" class="closing__mark" variant="tight" fix -->
+    <div class="closing__word">
+      <p class="closing__name" aria-hidden="true" style="--name-len: {{name_len}}"><span class="closing__ghost">{{name}}</span><span class="closing__name-text">{{name}}</span></p>
+      <p class="closing__tagline">{{tagline}}</p>
+    </div>
+  </div>
+</div>
+
+<div class="closing__setup">
+  <svg class="closing__setup-world" viewBox="500 400 1600 1000" preserveAspectRatio="xMidYMid slice" aria-hidden="true" focusable="false">
+    <use href="#world" width="2400" height="1600" />
+  </svg>
+  <svg class="closing__pulse" aria-hidden="true" focusable="false"><circle cx="0" cy="0" r="0" /></svg>
+
+  <div class="closing__inner">
+    <h2 class="h-scene closing__title" id="closing-title">Two settings. Then go.</h2>
+
+    <ol class="setup">
+      <li class="setup__row" data-step="dev">
+        <span class="setup__n numeral-outline" aria-hidden="true">01</span>
+        <span class="setup__body">
+          <span class="setup__label">Developer options</span>
+        </span>
+        <span class="toggle is-on" aria-hidden="true"></span>
+      </li>
+      <li class="setup__row" data-step="mock">
+        <span class="setup__n numeral-outline" aria-hidden="true">02</span>
+        <span class="setup__body">
+          <span class="setup__label">Select mock location app</span>
+          <span class="setup__hint mono">→ <span class="setup__app">{{name}}</span></span>
+        </span>
+        <span class="radio is-on" aria-hidden="true">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path class="radio__tick" d="m5 12.5 4.5 4.5L19 7.5" /></svg>
+        </span>
+      </li>
+    </ol>
+
+    <div class="closing__actions" id="download">
+      <a class="btn btn--primary btn--l closing__apk" href="{{apk}}" data-download>
+        <!-- component:icon name="download" -->Download APK
+      </a>
+      <a class="btn btn--ghost btn--l" href="{{releases}}" rel="noopener">All releases<!-- component:icon name="arrow-up-right" --></a>
+      <a class="btn btn--ghost btn--l" href="{{repo}}" rel="noopener">Source on GitHub<!-- component:icon name="arrow-up-right" --></a>
+    </div>
+  </div>
+</div>

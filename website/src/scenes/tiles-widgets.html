@@ -1,0 +1,100 @@
+<!-- Scene 05: tiles-widgets. Four quick-settings tiles, then the two home-screen widgets. -->
+<div class="stage tw">
+  <svg class="world tw__world" viewBox="200 420 1600 1000" preserveAspectRatio="xMidYMid slice" aria-hidden="true" focusable="false">
+    <g class="world__pan tw__pan"><g class="tw__tele"><use href="#world" width="2400" height="1600" /></g></g>
+  </svg>
+
+  <!-- desktop poster: one giant numeral per tile, laid out like the tile grid -->
+  <div class="tw__poster" aria-hidden="true">
+    <span class="numeral-outline tw__num">1</span>
+    <span class="numeral-outline tw__num">2</span>
+    <span class="numeral-outline tw__num">3</span>
+    <span class="numeral-outline tw__num is-on">4</span>
+  </div>
+
+  <div class="copy tw__copy">
+    <p class="folio" aria-hidden="true"><span class="folio__n">05 / 09</span> · <span data-scramble>12.8186 N 80.0407 E</span></p>
+    <h2 class="h-scene tw__title">Four tiles.<br /> Four places.</h2>
+    <p class="sub">Plus widgets for a favorite and your live route.</p>
+  </div>
+
+  <div class="device tw__device" aria-hidden="true">
+    <div class="phone tw__phone">
+      <div class="phone__screen">
+        <span class="phone__cam"></span>
+        <div class="phone__bar">
+          <span class="tw-bar-time">18:31</span>
+          <span class="phone__signal"><i></i><i></i><i></i><i></i></span>
+        </div>
+        <div class="phone__screens">
+          <!-- home screen: wallpaper map, widgets, a grid of muted app squares -->
+          <div class="phone__layer phone__layer--home tw-home">
+            <svg class="tw-home__wall" viewBox="900 560 420 900" preserveAspectRatio="xMidYMid slice" focusable="false"><use href="#world" width="2400" height="1600" /></svg>
+            <div class="tw-widgets">
+              <div class="tw-w tw-route">
+                <svg class="tw-snap" viewBox="760 520 420 420" preserveAspectRatio="xMidYMid slice" focusable="false">
+                  <use href="#world" width="2400" height="1600" />
+                  <path class="tw-snap__route" d="M792 896 C842 860 868 812 930 790 S1010 760 1030 700 S1090 610 1150 560" />
+                  <path class="tw-snap__driven" pathLength="1" d="M792 896 C842 860 868 812 930 790 S1010 760 1030 700 S1090 610 1150 560" />
+                  <circle class="tw-snap__end" cx="1150" cy="560" r="13" />
+                  <circle class="tw-snap__dot" cx="1030" cy="700" r="21" />
+                </svg>
+                <span class="tw-snap__flash"></span>
+                <div class="tw-route__text">
+                  <b>Home → Airport</b>
+                  <span class="tw-route__rem"><span class="tw-route__min">11</span> min remaining</span>
+                  <span class="tw-route__bar"><i></i></span>
+                </div>
+              </div>
+              <div class="tw-w tw-fav">
+                <svg class="tw-fav__pin" viewBox="168 96 176 242" focusable="false"><path d="M256 330 C238 304 180 254 178 182 A78 78 0 1 1 334 182 C332 254 274 304 256 330 Z" /></svg>
+                <span class="tw-fav__text">
+                  <b>Test track</b>
+                  <span class="tw-fav__state"><span class="tw-fav__off">Off — tap to mock</span><span class="tw-fav__on">Mocking — tap to stop</span></span>
+                </span>
+                <span class="tw-switch"><i></i></span>
+              </div>
+            </div>
+            <div class="tw-apps">
+              <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
+            </div>
+            <div class="tw-dock"><i></i><i></i><i></i><i></i></div>
+          </div>
+
+          <!-- the pulled-down shade -->
+          <div class="phone__layer tw-scrim"></div>
+          <div class="phone__layer phone__layer--shade tw-shade">
+            <div class="tw-shade__head">
+              <span class="tw-shade__clock">18:31</span>
+            </div>
+            <span class="tw-shade__bright"><i></i></span>
+            <div class="tw-tiles">
+              <div class="tw-tile" data-tile="0">
+                <span class="tw-tile__body"><span class="tw-tile__icon"></span><span class="tw-tile__t"><b>Home</b><span>Off</span></span></span>
+                <span class="tw-tile__fill"><span class="tw-tile__body"><span class="tw-tile__icon"></span><span class="tw-tile__t"><b>Home</b><span>Mocking</span></span></span></span>
+                <span class="tw-tile__touch"></span>
+              </div>
+              <div class="tw-tile" data-tile="1">
+                <span class="tw-tile__body"><span class="tw-tile__icon"></span><span class="tw-tile__t"><b>Office</b><span>Off</span></span></span>
+                <span class="tw-tile__fill"><span class="tw-tile__body"><span class="tw-tile__icon"></span><span class="tw-tile__t"><b>Office</b><span>Mocking</span></span></span></span>
+                <span class="tw-tile__touch"></span>
+              </div>
+              <div class="tw-tile" data-tile="2">
+                <span class="tw-tile__body"><span class="tw-tile__icon"></span><span class="tw-tile__t"><b>Airport</b><span>Off</span></span></span>
+                <span class="tw-tile__fill"><span class="tw-tile__body"><span class="tw-tile__icon"></span><span class="tw-tile__t"><b>Airport</b><span>Mocking</span></span></span></span>
+                <span class="tw-tile__touch"></span>
+              </div>
+              <div class="tw-tile is-on" data-tile="3">
+                <span class="tw-tile__body"><span class="tw-tile__icon"></span><span class="tw-tile__t"><b>Test track</b><span>Off</span></span></span>
+                <span class="tw-tile__fill"><span class="tw-tile__body"><span class="tw-tile__icon"></span><span class="tw-tile__t"><b>Test track</b><span>Mocking</span></span></span></span>
+                <span class="tw-tile__touch"></span>
+              </div>
+            </div>
+            <div class="tw-shade__more"><i></i><i></i><i></i><i></i></div>
+            <span class="tw-shade__handle"></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

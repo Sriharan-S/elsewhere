@@ -1,0 +1,136 @@
+/* Scene 09: credits. Every rule is scoped under #scene-credits. */
+
+/* A taller, unpinned stage: the breather before the close. */
+#scene-credits .cr {
+  height: 146svh;
+  min-height: 860px;
+}
+@media (max-width: 767px) {
+  #scene-credits .cr {
+    height: 124svh;
+    min-height: 780px;
+  }
+}
+
+#scene-credits .cr__world {
+  opacity: 0.5;
+}
+
+/* ------------------------------------------------------------ the roll */
+#scene-credits .cr__roll {
+  position: absolute;
+  z-index: var(--z-copy);
+  left: 0;
+  right: 0;
+  top: 42%;
+  pointer-events: none;
+}
+@media (max-width: 767px) {
+  #scene-credits .cr__roll {
+    top: 37%;
+  }
+}
+
+#scene-credits .cr__list {
+  display: grid;
+  gap: clamp(26px, 5.2svh, 52px);
+  padding-inline: var(--margin);
+}
+
+/* two columns that meet on the spine (the thread at x = 50%) */
+#scene-credits .cr__row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  column-gap: clamp(40px, 6vw, 96px);
+  align-items: baseline;
+}
+#scene-credits .cr__row dt {
+  justify-self: end;
+  text-align: right;
+  color: var(--muted);
+}
+#scene-credits .cr__row dd {
+  position: relative;
+  justify-self: start;
+  color: var(--fg);
+  font-family: var(--font-display);
+  font-size: clamp(1.3rem, 2.7vw, 2.6rem);
+  font-weight: 650;
+  font-variation-settings: 'wdth' 100;
+  line-height: 1.05;
+  letter-spacing: -0.012em;
+  margin: 0;
+}
+
+/* "None" sits over a struck-through placeholder */
+#scene-credits .cr__row--none dd {
+  display: grid;
+  align-items: center;
+}
+#scene-credits .cr__row--none dd > span {
+  grid-area: 1 / 1;
+}
+#scene-credits .cr__ghost {
+  position: relative;
+  justify-self: start;
+  font-size: max(11px, 0.46em);
+  letter-spacing: 0.06em;
+  text-transform: none;
+  color: var(--muted);
+  opacity: 0.1;
+  white-space: nowrap;
+}
+#scene-credits .cr__none {
+  justify-self: start;
+  transform-origin: 0 60%;
+}
+#scene-credits .cr__strike {
+  position: absolute;
+  left: -4%;
+  top: 50%;
+  width: 108%;
+  height: 4px;
+  margin-top: -2px;
+  max-width: none;
+  overflow: visible;
+}
+#scene-credits .cr__strike line {
+  stroke: var(--fg);
+  stroke-width: 1.5px;
+  stroke-linecap: round;
+  vector-effect: non-scaling-stroke;
+}
+
+/* LICENSE: a split-flap */
+#scene-credits .cr__flap {
+  display: inline-flex;
+  gap: 0.08em;
+  perspective: 600px;
+}
+/* bare letters in the same Archivo as the other values; only a hairline hinge under each cell */
+#scene-credits .cr__cell {
+  position: relative;
+  display: inline-block;
+  min-width: 0.62em;
+  text-align: center;
+  transform-origin: 50% 55%;
+  backface-visibility: hidden;
+}
+#scene-credits .cr__cell::after {
+  content: '';
+  position: absolute;
+  left: 8%;
+  right: 8%;
+  bottom: -0.12em;
+  height: 1px;
+  background: var(--hair);
+}
+
+@media (max-width: 599px) {
+  #scene-credits .cr__row {
+    column-gap: 36px;
+  }
+  #scene-credits .cr__row dd {
+    font-size: 1.2rem;
+  }
+}

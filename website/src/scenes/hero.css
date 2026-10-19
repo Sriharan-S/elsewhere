@@ -1,0 +1,178 @@
+/* Hero: a 100svh Swiss poster on ink. */
+
+.scene--hero .stage {
+  min-height: 560px;
+}
+
+/* pure linework: rivers sink almost into the ink and parks are outlines only, so no soft grey shapes
+   sit behind the HUD */
+.hero__world {
+  --map-art: #3a3833;
+  --map-col: #2b2a26;
+  --map-min: #211f1c;
+  --map-water: #0e0e0d;
+  --map-park: transparent;
+  --map-park-stroke: #1c1b18;
+  --map-bldg: #121211;
+}
+
+.hero__copy {
+  /* 100cqi = the copy's inner width: the wordmark's CSS size matches what JS fits it to */
+  container-type: inline-size;
+  justify-content: space-between;
+  align-items: stretch;
+  gap: var(--space-5);
+  padding-bottom: clamp(20px, 5svh, 56px);
+}
+
+.hero__mark {
+  flex: none;
+  align-self: flex-start;
+  width: auto;
+  height: clamp(132px, min(28vw, 26svh), 320px);
+  margin-left: -0.6%;
+}
+
+.hero__bottom {
+  display: grid;
+  gap: clamp(14px, 2.6svh, 30px);
+  min-width: 0;
+}
+
+/* The one mention of the old name: a quiet eyebrow over the wordmark. */
+.hero__formerly {
+  color: var(--muted);
+  margin-bottom: calc(clamp(14px, 2.6svh, 30px) * -0.4);
+}
+
+.hero__name {
+  --wdth: 100;
+  display: block;
+  font-family: var(--font-display);
+  /* JS refines this (--fit-size); the fallback is the same fit from the name's summed advances (name_em):
+     the inner width plus half the right margin, capped at 40% of the stage height */
+  font-size: var(--fit-size, min(calc((100cqi + 0.5 * var(--margin)) / var(--name-em, 6.6)), max(80px, 0.4 * max(100svh, 560px))));
+  font-weight: 900;
+  font-variation-settings: 'wdth' var(--wdth);
+  line-height: 0.8;
+  letter-spacing: -0.035em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  margin: 0 calc(var(--margin) * -0.5) 0 -0.04em;
+  will-change: transform;
+}
+
+.hero__name-text {
+  position: relative;
+  display: inline-block;
+}
+
+/* The wordmark's outline is there from the first paint, before any JS: the poster reads at once (and
+   the page's largest paint is never gated on the boot). The solid letters rise into it. */
+.hero__ghost {
+  position: absolute;
+  left: 0;
+  top: 0;
+  color: transparent;
+  -webkit-text-stroke: max(1px, 0.012em) var(--fg-30);
+  text-shadow: none;
+  pointer-events: none;
+}
+
+/* The exit thread passes behind the name: an ink halo around the letters fills their counters and gaps,
+   so the dashes stop short of the letterforms instead of showing through them. */
+.motion .hero__name {
+  text-shadow: 0 0 0.03em var(--bg), 0 0 0.06em var(--bg), 0 0 0.06em var(--bg), 0 0 0.1em var(--bg);
+}
+
+.hero__measure {
+  position: absolute;
+  left: 0;
+  top: 0;
+  visibility: hidden;
+  pointer-events: none;
+  width: max-content;
+  margin: 0;
+}
+
+.hero__row {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: var(--space-5) var(--gutter);
+}
+
+.hero__tagline {
+  font-size: clamp(1.125rem, 1.7vw, 1.6rem);
+  font-weight: 500;
+  font-variation-settings: 'wdth' 100;
+  letter-spacing: -0.01em;
+  line-height: 1.2;
+}
+
+.hero__meta {
+  margin-top: 10px;
+  color: var(--muted);
+}
+
+.hero__actions {
+  display: flex;
+  gap: 12px;
+  flex: none;
+}
+
+@media (max-width: 767px) {
+  .hero__mark {
+    height: clamp(120px, 22svh, 190px);
+  }
+  .hero__row {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .hero__actions {
+    flex-direction: column;
+  }
+  .hero__actions .btn {
+    width: 100%;
+  }
+  .hero__name {
+    margin-right: 0;
+    font-size: var(--fit-size, min(calc(100cqi / var(--name-em, 6.6)), max(80px, 0.2 * max(100svh, 560px))));
+  }
+}
+
+@media (max-height: 640px) and (min-width: 768px) {
+  .hero__mark {
+    height: 120px;
+  }
+}
+
+/* Motion-only start states (no-JS and reduced motion see the composed frame). */
+.motion .hero__mark,
+.motion .hero__formerly,
+.motion .hero__name-text,
+.motion .hero__lines,
+.motion .hero__actions {
+  opacity: 0;
+}
+.motion .scene--hero .logo__fix {
+  opacity: 0; /* the traveler is the fix */
+}
+
+/* The bottom block never grows to the name's max-content (the action row stays inside the margin). */
+.hero__bottom {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+/* No JS (no auto-fit): size the name from its length so it fits inside the margins, no overhang. */
+html.no-js .hero__name {
+  font-size: min(calc(100cqi / var(--name-em, 6.6)), 30svh);
+  margin-right: 0;
+}
+
+/* whole wdth units (see type.css) */
+@supports (font-variation-settings: 'wdth' round(1.5, 1)) {
+  .hero__name {
+    font-variation-settings: 'wdth' round(var(--wdth), 1);
+  }
+}

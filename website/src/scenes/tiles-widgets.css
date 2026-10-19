@@ -1,0 +1,459 @@
+/* Scene 05: tiles-widgets. Every rule is scoped under #scene-tiles-widgets. */
+
+#scene-tiles-widgets .tw {
+  /* phone left edge: centred, but never on top of the headline */
+  --ph-left: max(50vw - 150px, calc(var(--margin) + 36vw + 32px));
+  --poster-left: calc(var(--ph-left) + 300px + 84px);
+  --tile-bg: #22211e;
+  --ink-15: rgb(11 11 10 / 0.16);
+}
+
+/* ------------------------------------------------------------ copy */
+#scene-tiles-widgets .tw__title {
+  font-size: clamp(2.5rem, 6vw, 6rem);
+  max-width: none;
+}
+@media (max-width: 767px) {
+  #scene-tiles-widgets .tw__title {
+    font-size: var(--fs-display);
+  }
+}
+
+/* ------------------------------------------------------------ poster numerals (wide desktop only) */
+#scene-tiles-widgets .tw__poster {
+  position: absolute;
+  z-index: 0;
+  left: var(--poster-left);
+  right: var(--margin);
+  top: var(--topbar-h);
+  bottom: 0;
+  display: none;
+  grid-template-columns: repeat(2, max-content);
+  align-content: center;
+  column-gap: 0.06em;
+  row-gap: 0.04em;
+  font-size: min(calc((100vw - var(--poster-left) - var(--margin)) / 1.3), 36svh);
+  pointer-events: none;
+}
+@media (min-width: 1100px) {
+  #scene-tiles-widgets .tw__poster {
+    display: grid;
+  }
+}
+#scene-tiles-widgets .tw__num {
+  font-size: 1em;
+  line-height: 0.84;
+  -webkit-text-stroke: 1px var(--fg-30);
+}
+#scene-tiles-widgets .tw__num.is-on {
+  color: var(--fg);
+  -webkit-text-stroke-color: var(--fg);
+}
+
+/* ------------------------------------------------------------ the phone */
+#scene-tiles-widgets .tw__phone {
+  --phone-w: min(300px, calc((100svh - 150px) * 9 / 19.5));
+  --phone-h: calc(var(--phone-w) * 19.5 / 9);
+  position: absolute;
+  left: var(--ph-left);
+  top: 50%;
+  margin-top: calc(var(--phone-h) / -2 + var(--topbar-h) / 2);
+  font-size: calc(var(--phone-w) / 30); /* 1em = 10px on a 300px phone */
+}
+@media (max-width: 767px) {
+  /* the whole phone fits above the stage's bottom edge, so no hard cut shows when the stage scrolls on */
+  #scene-tiles-widgets .tw__phone {
+    --ph-top: max(41svh, calc(var(--topbar-h) + 236px));
+    --phone-w: min(62vw, 280px, calc((100svh - var(--ph-top) - var(--margin)) * 9 / 19.5));
+    left: 50%;
+    margin-left: calc(var(--phone-w) / -2);
+    top: var(--ph-top);
+    margin-top: 0;
+  }
+}
+
+/* ---------------- home screen */
+#scene-tiles-widgets .tw-home {
+  overflow: hidden;
+}
+#scene-tiles-widgets .tw-home__wall {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  opacity: 0.9;
+  --map-art: #34322d;
+  --map-col: #292824;
+  --map-min: #1f1e1b;
+}
+
+#scene-tiles-widgets .tw-widgets {
+  position: absolute;
+  left: 1.3em;
+  right: 1.3em;
+  top: 4.6em;
+  display: grid;
+  gap: 1em;
+}
+#scene-tiles-widgets .tw-w {
+  position: relative;
+  border-radius: 2.2em;
+  background: rgb(22 22 21 / 0.94);
+  border: 1px solid var(--hair);
+}
+
+#scene-tiles-widgets .tw-route {
+  display: grid;
+  grid-template-columns: 9.4em 1fr;
+  align-items: center;
+  gap: 1.2em;
+  padding: 1em;
+}
+#scene-tiles-widgets .tw-snap {
+  width: 9.4em;
+  height: 9.4em;
+  max-width: none;
+  border-radius: 1.4em;
+  clip-path: inset(0 round 1.4em);
+  overflow: hidden;
+  background: #121211;
+  --map-art: #6a665d;
+  --map-col: #4d4a43;
+  --map-min: #35332e;
+  --map-water: #1b1b19;
+  --map-bldg: #1e1d1b;
+  --map-bldg-stroke: #3a3833;
+  --map-art-w: 1.4px;
+  --map-col-w: 1px;
+  --map-min-w: 0.7px;
+}
+#scene-tiles-widgets .tw-snap__route {
+  fill: none;
+  stroke: var(--fg-60);
+  stroke-width: 6;
+  stroke-dasharray: 16 14;
+  stroke-linecap: round;
+}
+#scene-tiles-widgets .tw-snap__driven {
+  fill: none;
+  stroke: var(--fg);
+  stroke-width: 9;
+  stroke-linecap: round;
+  stroke-dasharray: var(--driven, 0.62) 2;
+}
+#scene-tiles-widgets .tw-snap__end {
+  fill: var(--bg);
+  stroke: var(--fg);
+  stroke-width: 7;
+}
+#scene-tiles-widgets .tw-snap__dot {
+  fill: var(--accent);
+  stroke: var(--ink);
+  stroke-width: 8;
+}
+#scene-tiles-widgets .tw-snap__flash {
+  position: absolute;
+  left: 1em;
+  top: 1em;
+  width: 9.4em;
+  height: 9.4em;
+  border-radius: 1.4em;
+  background: var(--fg);
+  visibility: hidden;
+  pointer-events: none;
+}
+
+#scene-tiles-widgets .tw-route__text {
+  display: grid;
+  gap: 0.6em;
+  min-width: 0;
+  font-variation-settings: 'wdth' 100;
+  line-height: 1.15;
+}
+#scene-tiles-widgets .tw-route__text b {
+  font-size: 1.3em;
+  font-weight: 650;
+  white-space: nowrap;
+}
+#scene-tiles-widgets .tw-route__rem {
+  font-size: 1.1em;
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+#scene-tiles-widgets .tw-route__bar {
+  display: block;
+  height: 0.45em;
+  margin-top: 0.4em;
+  border-radius: 1em;
+  background: var(--fg-15);
+  overflow: hidden;
+}
+#scene-tiles-widgets .tw-route__bar i {
+  display: block;
+  height: 100%;
+  border-radius: inherit;
+  background: var(--fg);
+  transform-origin: 0 50%;
+  transform: scaleX(0.64);
+}
+
+#scene-tiles-widgets .tw-fav {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 1.1em;
+  padding: 1.15em 1.3em 1.15em 1.5em;
+}
+#scene-tiles-widgets .tw-fav__pin {
+  width: 1.4em;
+  height: 1.9em;
+  max-width: none;
+  overflow: visible;
+}
+#scene-tiles-widgets .tw-fav__pin path {
+  fill: none;
+  stroke: var(--fg);
+  stroke-width: 20;
+  stroke-linejoin: round;
+}
+#scene-tiles-widgets .tw-fav__text {
+  display: grid;
+  gap: 0.35em;
+  min-width: 0;
+  line-height: 1.15;
+  font-variation-settings: 'wdth' 100;
+}
+#scene-tiles-widgets .tw-fav__text b {
+  font-size: 1.3em;
+  font-weight: 650;
+}
+#scene-tiles-widgets .tw-fav__state {
+  display: grid;
+  font-size: 1.05em;
+  color: var(--muted);
+  white-space: nowrap;
+}
+#scene-tiles-widgets .tw-fav__state > span {
+  grid-area: 1 / 1;
+}
+/* the app mocks one place at a time: with the route live, the favorite reads Off */
+#scene-tiles-widgets .tw-fav__on {
+  visibility: hidden;
+}
+
+/* the widget's switch: the thumb slides right and turns orange (the mocked place) */
+#scene-tiles-widgets .tw-switch {
+  position: relative;
+  width: 3.8em;
+  height: 2.2em;
+  border-radius: 1.1em;
+  border: 1.5px solid var(--fg-60);
+}
+#scene-tiles-widgets .tw-switch i {
+  position: absolute;
+  left: 0.3em;
+  top: 50%;
+  width: 1.35em;
+  height: 1.35em;
+  margin-top: -0.675em;
+  border-radius: 50%;
+  background: var(--fg-60);
+}
+#scene-tiles-widgets .tw-switch.is-on {
+  border-color: var(--fg);
+}
+#scene-tiles-widgets .tw-switch.is-on i {
+  background: var(--accent);
+  transform: translateX(1.6em);
+}
+
+#scene-tiles-widgets .tw-apps,
+#scene-tiles-widgets .tw-dock {
+  position: absolute;
+  left: 2em;
+  right: 2em;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.8em;
+}
+#scene-tiles-widgets .tw-apps {
+  bottom: 10.5em;
+  row-gap: 2.2em;
+}
+#scene-tiles-widgets .tw-dock {
+  bottom: 2.6em;
+}
+#scene-tiles-widgets .tw-apps i,
+#scene-tiles-widgets .tw-dock i {
+  display: block;
+  aspect-ratio: 1;
+  border-radius: 1.3em;
+  background: rgb(238 234 226 / 0.07);
+  border: 1px solid var(--fg-08);
+}
+#scene-tiles-widgets .tw-dock i {
+  background: var(--fg-15);
+}
+
+/* ---------------- the shade */
+#scene-tiles-widgets .tw-scrim {
+  background: rgb(11 11 10 / 0.6);
+  visibility: hidden;
+}
+#scene-tiles-widgets .tw-shade {
+  bottom: auto;
+  display: grid;
+  gap: 1.4em;
+  padding: 4.3em 1.5em 1.6em;
+  border-radius: 0 0 2.8em 2.8em;
+  background: #151514;
+  border-bottom: 1px solid var(--hair);
+  transform: translateY(-101%);
+}
+#scene-tiles-widgets .tw-shade__head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+}
+#scene-tiles-widgets .tw-shade__clock {
+  font-size: 4.4em;
+  font-weight: 600;
+  font-variation-settings: 'wdth' 62;
+  line-height: 0.9;
+  letter-spacing: -0.02em;
+}
+#scene-tiles-widgets .tw-shade__date {
+  font-size: 1em;
+  color: var(--muted);
+}
+#scene-tiles-widgets .tw-shade__bright {
+  display: block;
+  height: 3em;
+  border-radius: 1.5em;
+  background: var(--fg-08);
+  overflow: hidden;
+}
+#scene-tiles-widgets .tw-shade__bright i {
+  display: block;
+  width: 62%;
+  height: 100%;
+  border-radius: inherit;
+  background: var(--fg-15);
+}
+
+#scene-tiles-widgets .tw-tiles {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.8em;
+}
+#scene-tiles-widgets .tw-tile {
+  position: relative;
+  height: 6.4em;
+  border-radius: 2em;
+  background: var(--tile-bg);
+  overflow: hidden;
+}
+#scene-tiles-widgets .tw-tile__body {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  gap: 0.85em;
+  padding: 0 0.9em 0 1em;
+  min-width: 0;
+}
+#scene-tiles-widgets .tw-tile__icon {
+  position: relative;
+  flex: none;
+  width: 2.8em;
+  height: 2.8em;
+  border-radius: 50%;
+  background: var(--fg-15);
+}
+#scene-tiles-widgets .tw-tile__icon::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 0.9em;
+  height: 0.9em;
+  margin: -0.45em 0 0 -0.45em;
+  border-radius: 50%;
+  border: 0.22em solid var(--fg);
+}
+#scene-tiles-widgets .tw-tile__t {
+  display: grid;
+  gap: 0.3em;
+  min-width: 0;
+  line-height: 1.1;
+  font-variation-settings: 'wdth' 100;
+}
+#scene-tiles-widgets .tw-tile__t b {
+  font-size: 1.2em;
+  font-weight: 650;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+#scene-tiles-widgets .tw-tile__t span {
+  font-size: max(11px, 1.1em);
+  color: #948f86;
+}
+#scene-tiles-widgets .tw-tile__fill {
+  position: absolute;
+  inset: 0;
+  background: var(--accent);
+  color: var(--ink);
+  clip-path: circle(0% at 30% 50%);
+}
+#scene-tiles-widgets .tw-tile.is-on .tw-tile__fill {
+  clip-path: circle(150% at 30% 50%);
+}
+#scene-tiles-widgets .tw-tile__fill .tw-tile__icon {
+  background: var(--ink-15);
+}
+#scene-tiles-widgets .tw-tile__fill .tw-tile__icon::after {
+  border-color: var(--ink);
+}
+#scene-tiles-widgets .tw-tile__fill .tw-tile__t span {
+  color: rgb(11 11 10 / 0.72);
+}
+#scene-tiles-widgets .tw-tile__touch {
+  position: absolute;
+  left: 30%;
+  top: 50%;
+  width: 3.6em;
+  height: 3.6em;
+  margin: -1.8em 0 0 -1.8em;
+  border-radius: 50%;
+  border: 1px solid var(--fg-60);
+  background: var(--fg-15);
+  visibility: hidden;
+}
+#scene-tiles-widgets .tw-shade__more {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0.8em;
+}
+#scene-tiles-widgets .tw-shade__more i {
+  display: block;
+  height: 4.2em;
+  border-radius: 2.1em;
+  background: var(--tile-bg);
+}
+#scene-tiles-widgets .tw-shade__handle {
+  justify-self: center;
+  width: 3.6em;
+  height: 0.4em;
+  border-radius: 1em;
+  background: var(--fg-30);
+}
+
+/* the sub line never runs under the phone (tablet widths put the phone close to the copy) */
+@media (min-width: 768px) {
+  #scene-tiles-widgets .tw__copy .sub {
+    max-width: min(40ch, calc(var(--ph-left) - var(--margin) - 24px));
+  }
+}

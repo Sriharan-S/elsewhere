@@ -1,0 +1,74 @@
+<!-- Scene 06: share-links. Desktop: a pinned conveyor (the thread) carries map links into the pin.
+     Mobile: an unpinned list with the pin sticky on top. Static markup is the final frame: every link with
+     what it parses to, the pin on the last place, and the one error card. -->
+<div class="stage links">
+  <svg class="world map--dim" viewBox="620 300 1600 1000" preserveAspectRatio="xMidYMid slice" aria-hidden="true" focusable="false">
+    <g class="world__pan"><use href="#world" width="2400" height="1600" /></g>
+  </svg>
+  <svg class="links__belt" aria-hidden="true" focusable="false"><path class="links__belt-path" d="" /></svg>
+
+  <div class="copy links__copy">
+    <p class="folio" aria-hidden="true"><span class="folio__n">06 / 09</span> · <span data-scramble>51.5007 N 0.1246 W</span></p>
+    <h2 class="h-scene">Share a place. Land there.</h2>
+    <p class="sub">Bad links explain themselves.</p>
+  </div>
+
+  <div class="links__body">
+    <div class="links__pad" aria-hidden="true">
+      <div class="links__pin-wrap">
+        <svg class="links__pin" viewBox="160 86 192 262" focusable="false">
+          <path class="links__pin-path" d="M256 330 C238 304 180 254 178 182 A78 78 0 1 1 334 182 C332 254 274 304 256 330 Z" />
+          <circle class="links__pin-fix" cx="256" cy="182" r="20" />
+        </svg>
+      </div>
+      <div class="links__count mono">
+        <span class="links__src label" data-links-src>Coordinates</span>
+        <span class="links__ll"><span data-links-lat>51.5007 N</span><span data-links-lng>0.1246 W</span></span>
+      </div>
+      <svg class="links__resolve" viewBox="-20 -20 40 40" focusable="false">
+        <circle class="links__resolve-ring" r="15" />
+        <circle class="links__resolve-dot" r="5" />
+      </svg>
+    </div>
+
+    <ol class="links__list" aria-label="Links it can read">
+      <li class="link" data-short data-lat="13.0418" data-lng="80.2337" data-src="Google Maps · short link">
+        <span class="link__chip chip"><span class="link__pill"></span><span class="link__text">maps.app.goo.gl/…</span></span>
+        <span class="link__out mono"><span aria-hidden="true">→</span> 13.0418, 80.2337 <span class="label">· followed</span></span>
+      </li>
+      <li class="link" data-lat="13.0827" data-lng="80.2707" data-src="geo: URI">
+        <span class="link__chip chip"><span class="link__pill"></span><span class="link__text">geo:<span class="c">13.0827</span>,<span class="c">80.2707</span></span></span>
+        <span class="link__out mono"><span aria-hidden="true">→</span> 13.0827, 80.2707 <span class="label">· geo</span></span>
+      </li>
+      <li class="link" data-lat="48.8584" data-lng="2.2945" data-src="OpenStreetMap">
+        <span class="link__chip chip"><span class="link__pill"></span><span class="link__text">openstreetmap.org/#map=15/<span class="c">48.8584</span>/<span class="c">2.2945</span></span></span>
+        <span class="link__out mono"><span aria-hidden="true">→</span> 48.8584, 2.2945 <span class="label">· osm</span></span>
+      </li>
+      <li class="link" data-lat="35.6586" data-lng="139.7454" data-src="Apple Maps">
+        <span class="link__chip chip"><span class="link__pill"></span><span class="link__text">maps.apple.com/?ll=<span class="c">35.6586</span>,<span class="c">139.7454</span></span></span>
+        <span class="link__out mono"><span aria-hidden="true">→</span> 35.6586, 139.7454 <span class="label">· apple</span></span>
+      </li>
+      <li class="link" data-lat="12.9716" data-lng="77.5946" data-src="Waze">
+        <span class="link__chip chip"><span class="link__pill"></span><span class="link__text">waze.com/ul?ll=<span class="c">12.9716</span>,<span class="c">77.5946</span></span></span>
+        <span class="link__out mono"><span aria-hidden="true">→</span> 12.9716, 77.5946 <span class="label">· waze</span></span>
+      </li>
+      <li class="link" data-lat="40.6892" data-lng="-74.0445" data-src="Bing Maps">
+        <span class="link__chip chip"><span class="link__pill"></span><span class="link__text">bing.com/maps?cp=<span class="c">40.6892</span>~<span class="c">-74.0445</span></span></span>
+        <span class="link__out mono"><span aria-hidden="true">→</span> 40.6892, -74.0445 <span class="label">· bing</span></span>
+      </li>
+      <li class="link" data-lat="51.5007" data-lng="-0.1246" data-src="Coordinates">
+        <span class="link__chip chip"><span class="link__pill"></span><span class="link__text"><span class="c">51.5007</span>, <span class="c">-0.1246</span></span></span>
+        <span class="link__out mono"><span aria-hidden="true">→</span> 51.5007, -0.1246 <span class="label">· plain</span></span>
+      </li>
+      <li class="link link--bad" data-bad>
+        <span class="link__chip chip"><span class="link__pill"></span><span class="link__text">example.com/party</span></span>
+        <span class="link__out mono"><span aria-hidden="true">→</span> <span class="label">not a map link</span></span>
+      </li>
+    </ol>
+
+    <div class="links__error">
+      <svg class="links__error-ico" viewBox="-12 -12 24 24" aria-hidden="true" focusable="false"><circle r="9" /><path d="M0 -4.5V1M0 4.2V4.6" /></svg>
+      <p class="mono" data-links-msg>Links from example.com aren’t supported.</p>
+    </div>
+  </div>
+</div>

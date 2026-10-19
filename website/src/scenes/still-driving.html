@@ -1,0 +1,94 @@
+<!-- Scene 03: still-driving. The app closes, the drive keeps going (foreground service), then it parks.
+     Static markup is the final frame (no JS / reduced motion): lock screen + notification, pin filled, PARKED.
+     With motion on and the-drive publishing its stage, the .sd-copy / .sd-device / .sd-parked nodes move into it. -->
+<div class="stage sd-stage">
+  <svg class="world sd-world" viewBox="100 560 1600 1000" preserveAspectRatio="xMidYMid slice" aria-hidden="true" focusable="false">
+    <g class="world__pan"><use href="#world" width="2400" height="1600" /></g>
+  </svg>
+
+  <div class="hud sd-hud" aria-hidden="true">
+    <p class="sd-speed"><span class="numeral-outline numeral-outline--muted sd-speed__n">0</span></p>
+    <svg class="sd-props" viewBox="0 0 1600 1000" preserveAspectRatio="xMidYMid slice" focusable="false">
+      <path class="sd-route-static" d="M992 0V560H800V680H480V580H352" />
+      <g class="sd-dest" transform="translate(352 580)">
+        <circle class="sd-ripple" cx="0" cy="-35.5" r="19" />
+        <circle class="sd-ripple" cx="0" cy="-35.5" r="19" />
+        <path class="sd-dest__pin" d="M0 0C-4.32 -6.24 -18.24 -18.24 -18.72 -35.52A18.72 18.72 0 1 1 18.72 -35.52C18.24 -18.24 4.32 -6.24 0 0Z" />
+        <circle class="sd-dest__hole" cx="0" cy="-35.5" r="6.5" />
+      </g>
+      <g class="sd-car">
+        <path class="sd-car__chev" d="M0 -11 8 9 0 4.6 -8 9Z" />
+        <circle class="sd-car__dot" r="7" />
+      </g>
+    </svg>
+    <p class="sd-readout mono"><span class="sd-kmh">0 KM/H</span><span class="sd-sep">·</span><span class="sd-brg">BRG 242°</span><span class="sd-sep">·</span><span class="sd-eta">ETA 00:00:00</span><span class="sd-sep">·</span><span class="sd-state">PARKED</span></p>
+  </div>
+
+  <div class="copy sd-copy">
+    <p class="folio" aria-hidden="true"><span class="folio__n">03 / 09</span> · <span data-scramble>12.9267 N 80.1082 E</span></p>
+    <h2 class="h-scene sd-title">Close the app. Still driving.</h2>
+    <p class="sub sd-sub">Runs as a foreground service. Parks on arrival.</p>
+  </div>
+
+  <div class="device sd-device">
+    <div class="phone sd-phone" aria-hidden="true">
+      <div class="phone__screen">
+        <span class="phone__cam"></span>
+        <div class="phone__bar">
+          <span class="sd-bar-time">18:30</span>
+          <span class="phone__signal"><i></i><i></i><i></i><i></i></span>
+        </div>
+        <div class="phone__screens">
+          <div class="phone__layer phone__layer--recents sd-recents" hidden>
+            <span class="sd-recents__card sd-recents__card--l"></span>
+            <span class="sd-recents__card sd-recents__card--r"></span>
+            <p class="sd-recents__app mono"><!-- component:logo id="sd-recents-logo" class="sd-recents__icon" variant="icon" stroke="22" --><span>{{name}}</span></p>
+            <p class="sd-recents__clear mono">Clear all</p>
+          </div>
+
+          <div class="phone__layer phone__layer--app sd-app" hidden>
+            <svg class="sd-mini map--bright" viewBox="0 0 300 645" preserveAspectRatio="xMidYMid slice" focusable="false">
+              <g class="sd-mini__map">
+                <g class="sd-mini__world"><use href="#world" width="2400" height="1600" /></g>
+                <path class="sd-mini__plan" d="" />
+                <path class="sd-mini__driven" d="" />
+              </g>
+              <g class="sd-mini__car" transform="translate(150 400)">
+                <circle class="sd-mini__halo" r="22" />
+                <path class="sd-mini__chev" d="M0 -12 9 10 0 5 -9 10Z" />
+              </g>
+            </svg>
+            <div class="sd-search">
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" focusable="false"><circle cx="11" cy="11" r="6.5" /><path d="m16 16 4.5 4.5" /></svg>
+              <span>Search places</span>
+            </div>
+            <div class="sd-sheet">
+              <span class="sd-sheet__handle"></span>
+              <div class="sd-sheet__row">
+                <div class="sd-sheet__txt">
+                  <p class="sd-sheet__k mono">Route · 33.6 km</p>
+                  <p class="sd-sheet__eta"><span class="sd-app-left">12</span> min</p>
+                </div>
+                <span class="sd-stop"><i></i></span>
+              </div>
+              <span class="sd-sheet__bar"><i></i></span>
+              <p class="sd-sheet__meta mono"><span class="sd-app-kmh">48</span> km/h · arrive 18:30</p>
+            </div>
+          </div>
+
+          <div class="phone__layer phone__layer--lock sd-lock">
+            <p class="sd-clock"><span class="sd-clock__t">18:30</span></p>
+            <div class="sd-pill">
+              <span class="sd-pill__dot"></span>
+              <span class="sd-pill__txt"><span class="sd-pill__t">Mock location active</span><span class="sd-pill__s">Arrived · holding Tambaram</span></span>
+              <span class="sd-pill__a">Stop</span>
+            </div>
+            <svg class="sd-lockicon" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" focusable="false"><rect x="5" y="10.5" width="14" height="10" rx="2.5" /><path d="M8.5 10.5V7.8a3.5 3.5 0 0 1 7 0v2.7" /></svg>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <p class="sd-parked" aria-hidden="true"><span class="sd-parked__w">PARKED</span></p>
+</div>
