@@ -237,8 +237,11 @@ function merged(ctx, drive) {
   const tl = drive.tl;
   const punch = drive.punch;
   const parts = drive.parts || {};
-  const P = (m) => m;
-  const D = (d) => d;
+  // The drive's story runs over the first `span` of its pinned timeline (the rest holds the parked
+  // frame), so storyboard positions and durations scale by it.
+  const K = drive.span ?? 1;
+  const P = (m) => m * K;
+  const D = (d) => d * K;
   const U_GO = drive.labels?.go ?? 0.08;
   const U_TIP = 0.905;
 
@@ -262,7 +265,7 @@ function merged(ctx, drive) {
   const ghostTick = () => {
     const p = tl.progress();
     let under = false;
-    if (p > 0.53 && p < 1 && typeof drive.dot === 'function' && phoneUp()) {
+    if (p > P(0.53) && p < 1 && typeof drive.dot === 'function' && phoneUp()) {
       const d = drive.dot();
       const r = n.phone.getBoundingClientRect();
       const pad = 10;
@@ -343,7 +346,7 @@ function merged(ctx, drive) {
     },
   };
 
-  const tripAt = (u) => clamp((u - U_GO) / (U_TIP - U_GO));
+  const tripAt = (p) => clamp((p / K - U_GO) / (U_TIP - U_GO));
   const kmhAt = () => drive.state?.kmh ?? 0;
 
   story(ctx, n, {

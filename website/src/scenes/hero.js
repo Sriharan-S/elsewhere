@@ -50,7 +50,6 @@ export function init(ctx) {
   const actions = root.querySelector('.hero__actions');
   const worldSvg = root.querySelector('.hero__world');
   const pan = root.querySelector('.hero__pan');
-  const drift = root.querySelector('.hero__drift');
   const brand = document.querySelector('.topbar__brand');
   const brandMark = document.querySelector('.topbar__mark');
   const topDl = document.querySelector('.topbar__dl');
@@ -223,7 +222,11 @@ export function init(ctx) {
   let inView = true;
   let cityIdx = 0;
   let loop = null; // the teleport's delayed call (below)
-  const driftTw = gsap.to(drift, { x: 40, duration: 20, ease: 'sine.inOut', yoyo: true, repeat: -1 });
+  // The slow sideways drift is a CSS animation on the <svg> itself (hero.css): a compositor-only
+  // transform, so the map never repaints and GSAP's ticker can sleep while the reader sits here.
+  // It runs only while the hero is on screen and the tab is visible.
+  const setDrift = (on) => stage.classList.toggle('is-drifting', on && !env.shots);
+  setDrift(true);
   ScrollTrigger.create({
     trigger: root,
     start: 'top bottom',
@@ -231,16 +234,12 @@ export function init(ctx) {
     onToggle: (self) => {
       inView = self.isActive;
       // the idle loops run only while the hero is on screen, so GSAP's ticker can sleep while the reader is further down
-      if (inView) {
-        driftTw.resume();
-        loop?.resume();
-      } else {
-        driftTw.pause();
-        loop?.pause();
-      }
+      setDrift(inView && !document.hidden);
+      if (inView) loop?.resume();
+      else loop?.pause();
     },
   });
-  document.addEventListener('visibilitychange', () => (document.hidden ? driftTw.pause() : inView && driftTw.resume()));
+  document.addEventListener('visibilitychange', () => setDrift(inView && !document.hidden));
 
   const canTeleport = () =>
     introDone && inView && !document.hidden && !env.shots && (exit.st ? exit.st.progress < 0.01 && window.scrollY < 8 : true);
@@ -261,7 +260,6 @@ export function init(ctx) {
   if (!inView) loop.pause();
   if (env.shots) {
     loop.kill();
-    driftTw.pause(0);
   }
 
   // Leaving the top hands the HUD back to Chennai, so it never names a teleport city over the scenes below.

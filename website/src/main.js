@@ -165,6 +165,10 @@ function keepPlace() {
   });
 }
 
+/** Let the browser paint and handle input, then continue (scheduler.yield keeps our task's priority). */
+const yieldToMain = () =>
+  globalThis.scheduler?.yield ? globalThis.scheduler.yield() : new Promise((r) => setTimeout(r, 0));
+
 async function boot() {
   setupScroll();
   traveler.mount();
@@ -229,6 +233,9 @@ async function boot() {
     // start states now, so the next scene's ScrollTriggers (which refresh this one's) cannot revert them
     flushLazy();
     mark(id, t0);
+    // Hand the main thread back between scenes: the build becomes a series of short tasks, so the
+    // hero intro keeps animating and input stays responsive instead of one long freeze.
+    await yieldToMain();
   }
 
   let t0 = performance.now();

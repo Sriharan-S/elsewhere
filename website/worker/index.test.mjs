@@ -4,7 +4,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import worker, { apiUrl, releasesUrl } from './index.js';
 
-const REPO = 'Sriharan-S/gps-mock';
+const REPO = 'Sriharan-S/elsewhere';
 const env = (extra = {}) => ({
   GITHUB_REPO: REPO,
   USER_AGENT: 'elsewhere-site',

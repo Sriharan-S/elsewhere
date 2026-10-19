@@ -31,6 +31,14 @@ const ROTATION = 136.674;
 const DISTANCE_KM = 33.6;
 
 const LABELS = { roads: 0, go: 0.08, chip1: 0.1, chip2: 0.25, chip3: 0.4, close: 0.55, arrive: 0.82, parked: 0.96 };
+// The story (LABELS, S.u) plays over the first SPAN of the pinned scroll; the rest holds the parked
+// frame (filled pin, PARKED) still before the stage unpins, so the payoff gets a clean beat.
+// T() maps a story position or duration onto the pinned timeline. Pin lengths below are the story
+// lengths divided by SPAN, so the drive itself keeps its pace.
+const SPAN = 0.86;
+const T = (p) => p * SPAN;
+const PIN_VH = Math.round(240 / SPAN);
+const PIN_VH_MOBILE = Math.round(165 / SPAN);
 const U_GO = LABELS.go;
 const U_TIP = 0.905; // the car reaches the pin's tip
 const U_LIFT = 0.93; // the dot has risen into the pin head
@@ -209,7 +217,7 @@ export function init(ctx) {
 
   // ---------------------------------------------------------------- reduced motion: static final frame
   if (env.reduced) {
-    const pt = ctx.pinTimeline({ stage, vh: 240, mobileVh: 165, scrub: 1 });
+    const pt = ctx.pinTimeline({ stage, vh: PIN_VH, mobileVh: PIN_VH_MOBILE, scrub: 1 });
     // the thread drops into the static overview's start ring and leaves from under the parked pin
     const toStage = (x, y) => {
       const m = live.getScreenCTM();
@@ -403,9 +411,10 @@ export function init(ctx) {
   const fallRot = tsp.map(() => rnd(-38, 38));
 
   // ---------------------------------------------------------------- the pinned timeline
-  const pin = ctx.pinTimeline({ stage, vh: 240, mobileVh: 165, scrub: 1.0, snap: false, invalidate: false });
+  const pin = ctx.pinTimeline({ stage, vh: PIN_VH, mobileVh: PIN_VH_MOBILE, scrub: 1.0, snap: false, invalidate: false });
   const { tl, punch } = pin;
-  for (const [k, v] of Object.entries(LABELS)) tl.addLabel(k, v);
+  for (const [k, v] of Object.entries(LABELS)) tl.addLabel(k, T(v));
+  tl.addLabel('hold', T(1));
 
   const S = { u: 0, s: 0, kmh: 0, exit: 0, mode: -1, planned: 0, pre: 0 };
   // the strip starts with no mode chosen (static HTML shows the final one)
@@ -426,20 +435,21 @@ export function init(ctx) {
     roadsIn.fromTo(p, { opacity: 0 }, { opacity: 1, duration: 0.2, ease: 'power1.out' }, Math.max(0, at));
   });
   // the thread keeps drawing: the dashed planned route runs out ahead of the start ring
-  tl.fromTo(S, { planned: 0 }, { planned: 1, duration: 0.07, ease: 'power1.in', onUpdate: renderPlanned, immediateRender: false }, 0.008);
+  tl.fromTo(S, { planned: 0 }, { planned: 1, duration: T(0.07), ease: 'power1.in', onUpdate: renderPlanned, immediateRender: false }, T(0.008));
   // marks pop by attribute (GSAP's svgOrigin on these nested, re-placed groups bakes in a stray offset)
   const pop = (el, at, dur, ease) =>
-    tl.fromTo(el, { attr: { transform: 'scale(0.001 0.001)' } }, { attr: { transform: 'scale(1 1)' }, duration: dur, ease }, at);
+    tl.fromTo(el, { attr: { transform: 'scale(0.001 0.001)' } }, { attr: { transform: 'scale(1 1)' }, duration: T(dur), ease }, T(at));
   pop(startMark.firstElementChild, 0.002, 0.015, 'back.out(2)');
   stopMarks.forEach((m, i) => pop(m.firstElementChild, 0.03 + i * 0.012, 0.012, 'back.out(2)'));
   pop(destUp, 0.064, 0.014, 'back.out(1.6)');
-  tl.fromTo([overview, panel], { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.03, stagger: 0.012, ease: 'power2.out' }, 0.01);
-  tl.fromTo(numWrap, { opacity: 0 }, { opacity: 1, duration: 0.03 }, 0.06);
+  tl.fromTo([overview, panel], { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: T(0.03), stagger: T(0.012), ease: 'power2.out' }, T(0.01));
+  tl.fromTo(numWrap, { opacity: 0 }, { opacity: 1, duration: T(0.03) }, T(0.06));
   // .55: our copy leaves for still-driving's
   // (gone just before close, so the two headlines never sit on top of each other)
-  tl.fromTo(copyIn, { opacity: 1, y: 0 }, { opacity: 0, y: -24, duration: 0.022, ease: 'power2.in', immediateRender: false }, LABELS.close - 0.024);
-  // the drive itself: one linear proxy; everything reads S.u in render()
-  tl.fromTo(S, { u: 0 }, { u: 1, duration: 1, ease: 'none', onUpdate: render, immediateRender: false }, 0);
+  tl.fromTo(copyIn, { opacity: 1, y: 0 }, { opacity: 0, y: -24, duration: T(0.022), ease: 'power2.in', immediateRender: false }, T(LABELS.close - 0.024));
+  // the drive itself: one linear proxy; everything reads S.u in render(). It completes at T(1) and the
+  // rest of the pin is the parked hold.
+  tl.fromTo(S, { u: 0 }, { u: 1, duration: T(1), ease: 'none', onUpdate: render, immediateRender: false }, 0);
 
   // start hidden (motion only)
   gsap.set(destFill, { fillOpacity: 0 });
@@ -468,7 +478,7 @@ export function init(ctx) {
       .timeline({ paused: true })
       .fromTo(rip, { attr: { r: 9 }, strokeOpacity: 0.9 }, { attr: { r: 32 }, strokeOpacity: 0, duration: 0.9, ease: 'power2.out', immediateRender: false }, 0)
       .fromTo(ring, { attr: { r: 13 } }, { attr: { r: 9 }, duration: 0.6, ease: 'elastic.out(1, 0.5)', immediateRender: false }, 0);
-    punch(stopU[i].u, a);
+    punch(T(stopU[i].u), a);
   });
   const arrive = gsap
     .timeline({ paused: true })
@@ -476,7 +486,7 @@ export function init(ctx) {
     .fromTo(destPinG, { attr: { transform: 'scale(0.31 0.235) translate(-256 -330)' } }, { attr: { transform: 'scale(0.28 0.28) translate(-256 -330)' }, duration: 0.8, ease: 'elastic.out(1, 0.5)', immediateRender: false }, 0)
     .fromTo(ripA, { attr: { r: 20 }, strokeOpacity: 1 }, { attr: { r: 76 }, strokeOpacity: 0, duration: 1.1, ease: 'power2.out', immediateRender: false }, 0.05)
     .fromTo(ripB, { attr: { r: 20 }, strokeOpacity: 1 }, { attr: { r: 76 }, strokeOpacity: 0, duration: 1.1, ease: 'power2.out', immediateRender: false }, 0.3);
-  punch(U_LIFT - 0.008, arrive);
+  punch(T(U_LIFT - 0.008), arrive);
 
   // ---------------------------------------------------------------- chase cam
   const camX = gsap.quickTo(cam, 'x', { duration: 0.45, ease: 'power3' });
@@ -754,6 +764,7 @@ export function init(ctx) {
     punch,
     length: pin.length,
     labels: LABELS,
+    span: SPAN,
     state: S,
     focus,
     dot,

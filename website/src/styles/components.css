@@ -181,6 +181,11 @@ html:not(.js) .topbar__folio {
 .motion .topbar__brand {
   opacity: 0;
 }
+/* ...but keyboard focus always shows it, or its focus ring would be invisible too. !important beats
+   the inline opacity the hero's scroll timeline writes. */
+.topbar__brand:focus-visible {
+  opacity: 1 !important;
+}
 .motion .topbar__dl,
 .reduced .topbar__dl:not(.is-in) {
   opacity: 0;
@@ -270,10 +275,11 @@ html:not(.js) .topbar__folio {
 }
 .traveler__chev {
   position: absolute;
-  left: -9px;
-  top: -11px;
-  width: 18px;
-  height: 22px;
+  /* the page's hero mark while it drives: big enough to read against the bone route at 1440 */
+  left: -11px;
+  top: -13.5px;
+  width: 22px;
+  height: 27px;
   opacity: 0;
 }
 .traveler.is-chevron .traveler__dot {
@@ -461,6 +467,9 @@ html:not(.js) .topbar__folio {
 .site-footer__meta {
   display: flex;
   flex-wrap: wrap;
+  /* The OSM credit is a 44px touch target; centre the row on it so the name,
+     separators and credit share one line instead of stepping down. */
+  align-items: center;
   gap: 0.4em 0.75em;
   color: var(--fg);
 }

@@ -15,7 +15,7 @@
     ]
   },
   "vars": {
-    "GITHUB_REPO": "Sriharan-S/gps-mock",
+    "GITHUB_REPO": "Sriharan-S/elsewhere",
     "USER_AGENT": "elsewhere-site"
   },
   "routes": [

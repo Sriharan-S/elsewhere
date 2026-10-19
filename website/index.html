@@ -38,15 +38,16 @@
         var rm = w.matchMedia('(prefers-reduced-motion: reduce)').matches || /[?&]reduced\b/.test(w.location.search);
         r.classList.add(rm ? 'reduced' : 'motion');
         if (/[?&]shots\b/.test(w.location.search)) r.classList.add('shots');
-        // No-JS fallback: if the module fails to load, or has not booted within 4s, show the static frames.
-        // A module that arrives later takes the reduced path (env.js), so the two never stack.
+        // No-JS fallback: if the module fails to load, or has not booted within 8s, show the static frames.
+        // A module that arrives later still builds the motion layer if the reader is at the top, and
+        // otherwise takes the reduced path (env.js), so the two never stack.
         var off = function () {
           if (!w.__booted) r.classList.remove('js', 'motion');
         };
         w.addEventListener('error', function (e) {
           if (e.target && e.target.tagName === 'SCRIPT') off();
         }, true);
-        w.setTimeout(off, 4000);
+        w.setTimeout(off, 8000);
       })(document, window);
     </script>
     <script type="module" src="/src/main.js"></script>

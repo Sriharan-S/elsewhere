@@ -16,6 +16,26 @@
   --map-bldg: #121211;
 }
 
+/* Idle drift: 40px sideways and back, 20s each way. It moves the <svg> element as a compositor
+   layer instead of a group inside it, so the map is never repainted while the reader sits on the
+   hero. The map is 48px wider on each side so the drift never uncovers an edge. hero.js adds
+   .is-drifting only while the hero is on screen and the tab is visible. */
+.motion .hero__stage > .hero__world {
+  left: -48px;
+  width: calc(100% + 96px);
+  will-change: transform;
+  animation: hero-drift 20s ease-in-out infinite alternate;
+  animation-play-state: paused;
+}
+.motion .hero__stage.is-drifting > .hero__world {
+  animation-play-state: running;
+}
+@keyframes hero-drift {
+  to {
+    transform: translate3d(40px, 0, 0);
+  }
+}
+
 .hero__copy {
   /* 100cqi = the copy's inner width: the wordmark's CSS size matches what JS fits it to */
   container-type: inline-size;

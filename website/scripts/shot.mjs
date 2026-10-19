@@ -76,9 +76,13 @@ function invariants() {
   const pin = stage && ST.getAll().find((t) => t.pin === stage);
   if (pin && pin.isActive) {
     const p = pin.animation ? pin.animation.progress() : pin.progress;
-    // 03's copy only after 'close' (.55), PARKED only from 'parked' (.96)
-    if (p < 0.5 && shown(document.querySelector('#scene-the-drive .sd-copy'))) out.push(`03 copy visible at drive progress ${p.toFixed(2)}`);
-    if (p < 0.9 && shown(document.querySelector('#scene-the-drive .sd-parked__w'))) out.push(`PARKED visible at drive progress ${p.toFixed(2)}`);
+    // 03's copy only after the 'close' label, PARKED only from 'parked' (read from the timeline, which
+    // runs 0..1, so the checks follow any retiming of the drive)
+    const labels = pin.animation?.labels || {};
+    const close = labels.close ?? 0.55;
+    const parked = labels.parked ?? 0.96;
+    if (p < close - 0.05 && shown(document.querySelector('#scene-the-drive .sd-copy'))) out.push(`03 copy visible at drive progress ${p.toFixed(2)}`);
+    if (p < parked - 0.06 && shown(document.querySelector('#scene-the-drive .sd-parked__w'))) out.push(`PARKED visible at drive progress ${p.toFixed(2)}`);
   }
   return out;
 }

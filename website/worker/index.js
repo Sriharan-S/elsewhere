@@ -79,7 +79,7 @@ export default {
     // '/download/' (a trailing-slash habit, a link shortener) means the same thing
     if (pathname.replace(/\/+$/, '') !== '/download') return env.ASSETS.fetch(request);
 
-    const repo = env.GITHUB_REPO || 'Sriharan-S/gps-mock';
+    const repo = env.GITHUB_REPO || 'Sriharan-S/elsewhere';
     const fallback = releasesUrl(repo);
     try {
       const release = await latestRelease(repo, env.USER_AGENT || 'site-download-worker', ctx);

@@ -157,9 +157,16 @@ html:is(.motion, .reduced) #scene-still-driving .sd-route-static {
 :is(#scene-still-driving, #scene-the-drive) .sd-pill__txt {
   display: flex;
   flex-direction: column;
+  flex: 1 1 auto;
   gap: 1px;
   min-width: 0;
+  overflow: hidden;
   padding: 6px 0;
+}
+/* a narrow phone shortens the place name rather than running it into Stop */
+:is(#scene-still-driving, #scene-the-drive) .sd-pill__txt > span {
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 :is(#scene-still-driving, #scene-the-drive) .sd-pill__s {
   font-family: var(--font-mono);
@@ -176,7 +183,9 @@ html:is(.motion, .reduced) #scene-still-driving .sd-route-static {
   color: var(--muted);
 }
 :is(#scene-still-driving, #scene-the-drive) .sd-pill__a {
+  flex: none;
   margin-left: auto;
+  padding-left: 6px;
   font-weight: 700;
   letter-spacing: 0.02em;
 }
@@ -493,11 +502,14 @@ html:is(.motion, .reduced) #scene-still-driving .sd-route-static {
   #scene-the-drive .sd-parked--merged {
     top: 45.5svh;
   }
+  /* centred, both bezels on screen (the desktop dock is right-aligned); a cropped bottom is fine */
   #scene-the-drive .sd-device--merged {
     padding-top: 55svh;
+    justify-content: center;
   }
   #scene-the-drive .sd-device--merged .sd-phone {
     --phone-w: min(58vw, 250px);
+    max-width: calc(100vw - 2 * var(--margin));
   }
 }
 

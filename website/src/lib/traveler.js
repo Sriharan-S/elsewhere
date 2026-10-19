@@ -13,7 +13,7 @@ import * as loop from './loop.js';
 import { thread as T } from '../styles/tokens.js';
 
 const CHEVRON =
-  '<svg viewBox="0 0 18 22" width="18" height="22" aria-hidden="true"><path d="M9 1.5 16.5 20 9 15.6 1.5 20Z" ' +
+  '<svg viewBox="0 0 18 22" width="22" height="27" aria-hidden="true"><path d="M9 1.5 16.5 20 9 15.6 1.5 20Z" ' +
   'fill="var(--accent)" stroke="var(--ink)" stroke-width="2" stroke-linejoin="round"/></svg>';
 
 let el;
